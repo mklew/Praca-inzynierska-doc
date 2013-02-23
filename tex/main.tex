@@ -1,26 +1,196 @@
-\documentclass[12pt, a4paper]{article}
+\pdfoutput=1
+\pdfcompresslevel=9
+\pdfinfo
+{
+    /Author (Autor)
+    /Title (Tytul)
+    /Subject (Tematyka)
+    /Keywords (Slowa kluczowe)
+}
+%\documentclass[a4paper,polish,onecolumn,oneside,floatssmall,11pt,titleauthor,wide,openright]{mwrep}
+%\usepackage[scale={0.7,0.8},paper=a4paper,twoside]{geometry}
+\documentclass[a4paper,onecolumn,oneside,11pt,wide,floatssmall]{mwrep}
+% \usepackage{polish}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bookman}
 
-\usepackage[utf8]{inputenc} % Kodowanie UTF8
-\usepackage[MeX]{polski} % Wsparcie dla PL
+\usepackage{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{t1enc}
+% \usepackage[pdftex, bookmarks]{hyperref}
+\usepackage[pdftex, bookmarks=false]{hyperref}
+\def\url#1{{ \tt #1}}
+
+\usepackage{listings}
+
+% marginesy
+\textwidth\paperwidth
+\advance\textwidth -55mm
+\oddsidemargin-0.9in
+\advance\oddsidemargin 33mm
+\evensidemargin-0.9in
+\advance\evensidemargin 33mm
+\topmargin -1in
+\advance\topmargin 25mm
+\setlength\textheight{48\baselineskip}
+\addtolength\textheight{\topskip}
+\marginparwidth15mm
+
+\clubpenalty=10000 % to kara za sierotki
+\widowpenalty=10000 % nie pozostawia wdów
+\brokenpenalty=10000 % nie dzieli wyrazów pomiędzy stronami
+\sloppy
+
+\tolerance4500
+\pretolerance250
+\hfuzz=1.5pt
+\hbadness1450
+
+% ŻYWA PAGINA
+\renewcommand{\chaptermark}[1]{\markboth{\scshape\small\bfseries \
+#1}{\small\bfseries \ #1}}
+\renewcommand{\sectionmark}[1]{\markboth{\scshape\small\bfseries\thesection.\
+#1}{\small\bfseries\thesection.\ #1}}
+\newcommand{\headrulewidth}{0.5pt}
+\newcommand{\footrulewidth}{0.pt}
+\pagestyle{uheadings}
+
+\usepackage[pdftex]{color,graphicx}
+\usepackage[polish]{babel}
+
+% \textheight232mm
+% \setlength{\textwidth}{\textwidth}
+% \setlength{\oddsidemargin}{\evensidemargin}
+% \setlength{\evensidemargin}{0.3cm}
+\usepackage[sort, compress]{cite}
+
+%\usepackage{multibib}
+%\newcites{bk,st,doc,web}{Książki i~artykuły,Standardy i~zalecenia,Dokumentacja produktów,Publikacje i~serwisy internetowe}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definicja}[section]
+\newtheorem{conj}{Teza}[section]
+\newtheorem{conjmain}{Teza}
+\newtheorem{exmp}{Przykład}[section]
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Twierdzenie}[section]
+\newtheorem{lem}[thm]{Lemat}
+\newtheorem{prop}[thm]{Hipoteza}
+\newtheorem*{cor}{Wniosek}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Uwaga}
+\newtheorem*{note}{Uwaga}
+\newtheorem{case}{Przypadek}
+
+\definecolor{ListingBackground}{rgb}{0.95,0.95,0.95}
 
 \begin{document}
 
+% kody źródłowe wplatane w tekst
+\lstdefinestyle{incode}
+{
+basicstyle={\footnotesize},
+keywordstyle={\bf\footnotesize\color{blue}},
+commentstyle={\em\footnotesize\color{magenta}},
+numbers=left,
+stepnumber=5,
+firstnumber=1,
+numberfirstline=true,
+numberblanklines=true,
+numberstyle={\sf\tiny},
+numbersep=10pt,
+tabsize=2,
+xleftmargin=17pt,
+framexleftmargin=3pt,
+framexbottommargin=2pt,
+framextopmargin=2pt,
+framexrightmargin=0pt,
+showstringspaces=true,
+backgroundcolor={\color{ListingBackground}},
+extendedchars=true,
+% title=\lstname,
+captionpos=b,
+% abovecaptionskip=1pt,
+% belowcaptionskip=1pt,
+frame=tb,
+framerule=0pt,
+}
 
-\section{Analiza dziedziny} 
+% kody źródłowe z podpisem
+\lstdefinestyle{outcode}
+{
+basicstyle={\footnotesize},
+keywordstyle={\bf\footnotesize\color{blue}},
+commentstyle={\em\footnotesize\color{magenta}},
+numbers=left,
+stepnumber=5,
+firstnumber=1,
+numberfirstline=true,
+numberblanklines=true,
+numberstyle={\sf\tiny},
+numbersep=10pt,
+tabsize=2,
+xleftmargin=17pt,
+framexleftmargin=3pt,
+framexbottommargin=2pt,
+framextopmargin=2pt,
+framexrightmargin=0pt,
+showstringspaces=true,
+backgroundcolor={\color{ListingBackground}},
+extendedchars=true,
+% title=\lstname,
+captionpos=b,
+% abovecaptionskip=1pt,
+% belowcaptionskip=1pt,
+frame=tb,
+framerule=0.1pt,
+}
+
+\renewcommand*\lstlistingname{Wydruk}
+\renewcommand*\lstlistlistingname{Spis wydruków}
+
+\pagenumbering{roman}
+\renewcommand{\baselinestretch}{1.0}
+\raggedbottom
+\input {title}
+
+\tableofcontents
+% \addcontentsline{toc}{chapter}{{Przedmowa1}{vii}}{vii}
+
+% \chapter*{Spis tablic, rysunków i~wydruków}
+% \listoftables
+% \listoffigures
+% \lstlistoflistings
+
+%\setlength{\baselineskip}{7mm}
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% \input {chap1}
+%%%% ROZDZIAŁ PIERWSZY %%%%%%%
+
+\chapter{Analiza dziedziny} 
 TODO opis tego co znajduje się w tym rozdziale, max 5 zdań
 
 
-\subsection{Źródła informacji}
+\section{Źródła informacji}
 
 Analiza dziedziny powstała na wskutek agregacji i uporządkowania informacji z kilku źródeł. Posłużyłem się literaturą branżową, ustawą i informacjami z internetu jak również uzyskałem informację przeprowadzając rozmowy z pracownikami hotelu na różnym szczeblu. Miałem okazję rozmawiać z recepcjonistką oraz kierownikiem recepcji w dwóch różnych hotelach w Warszawie. Poniżej czytelnik znajdzie przefiltrowane, spójne wiadomości z branży hotelarskiej.
 
 
-\subsection{Historia hotelarstwa} 
+\section{Historia hotelarstwa} 
 
 Ludzie zmieniali swoje miejsce od tysiącleci. Dlaczego? Powody były różne i przez tysiąclecia znacząco się nie zmieniły. Kiedyś wędrówki handlowe, a dziś wyjazdy biznesowe. Religijne wyprawy w miejsca kultu, podróże turystyczne do atrakcyjnych, bądź historycznych miejsc.     Historia hotelarstwa ma bogatą przeszłość i sięga aż II tysiąclecia p.n.e gdzie na terenach Bliskiego Wschodu znaleziono pierwsze ślady budownictwa nastawionego na gościnę podróżnych. Najstarsze domy zajezdne odnotowano wzdłuż szlaków handlowych w miejscach obfitujących w wodę pitną. W starożytnej Grecji i Rzymie budowano zajady w miejscach kultu religijnego, bądź miejsc odbywania się igrzysk. W czasach Średniowiecza gościny udzielano w klasztorach, początkowo nieodpłatnie, z czasem jednak gościna przyjęła formę rynkową. Edykt Karola Wielkiego nałożył na klasztory i kościoły obowiązek utrzymania hospicjów, gdzie podróżnym udzielano wyżywienia, kąpieli i opieki medycznej. Najgęstsza sieć hospicjów znajdowała się na terenie dzisiejszej Szwajcarii. Szwajcaria posiada najdłuższe tradycje hotelarskie i jest uważana za wzór hotelarstwa takiego jak znamy dzisiaj.
 
 
-\subsection{Definicja hotelarstwa i usługi hotelarskiej}
+\section{Definicja hotelarstwa i usługi hotelarskiej}
 
 Hotelarstwo to forma działalności gospodarczej charakteryzująca się:
 \begin{itemize} 
@@ -30,18 +200,26 @@ Hotelarstwo to forma działalności gospodarczej charakteryzująca się:
   \item zakres usług świadczonych przez hotelarzy powiększa się i integruje z innymi działalnościami turystycznymi i rozrywkowymi.
 \end{itemize}
 
-Czym jest usługa hotelarska? Na to pytanie odpowie treść ustawy o usługach turystycznych[TODO tutaj odwołanie do pozycji z literatury]
+Czym jest usługa hotelarska? Na to pytanie odpowie treść ustawy o usługach turystycznych \cite{ust:tur}.
 
-Usługi hotelarskie - krótkotrwałe, ogólnie dostępne wynajmowanie domów, mieszkań, pokoi, miejsc noclegowych, a także miejsc na ustawienie namiotów lub przyczep samochodowych oraz świadczenie, w obrębie obiektu, usług z tym związanych.
+\begin{defn}{Usługa hotelarska}
+
+krótkotrwałe, ogólnie dostępne wynajmowanie domów, mieszkań, pokoi, miejsc noclegowych, a także miejsc na ustawienie namiotów lub przyczep samochodowych oraz świadczenie, w obrębie obiektu, usług z tym związanych.
+
+\end{defn}
+
+\section{Kategoryzacja}
 
 \subsection{Kategoryzacja hoteli}
 
 \subsection{Kategoryzacja usług hotelarskich}   
 
-\subsection{Ważne definicje} 
+\section{Ważne definicje} 
 
 
 
+
+%%% OLD BELOW %%%%
 
 \section{Branża hotelarska}
 
@@ -540,4 +718,30 @@ naukowi oraz studenci.
 
 ustawia z dnia 29 sierpnia 1997r. o usługach turystycznych
 
+
+
+%%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
+
+\appendix
+
+% tutaj załączniki
+
+%\chapter*{Bibliografia}
+\nocite{*}
+\bibliographystyle{plplain}
+%\bibliographystylebk{plplain}
+%\bibliographystylest{plplain}
+%\bibliographystyledoc{plplain}
+% \bibliographystyleweb{plplain}
+%\bibliographybk{BIB/books}
+%\bibliographyst{BIB/books}
+%\bibliographydoc{BIB/books}
+% \bibliographyweb{BIB/books}
+
+% \bibliography{bib/verificard,bib/jml,bib/daikon}
+\bibliography{../bib/daikon,../bib/statistics,../bib/other}
+
 \end{document}
+
+% ex: set tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab fileformat=unix filetype=tex spelllang=pl,en spell:
+
