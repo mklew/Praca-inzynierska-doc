@@ -26,6 +26,7 @@
 \def\url#1{{ \tt #1}}
 
 \usepackage{listings}
+\usepackage{float}
 
 % marginesy
 \textwidth\paperwidth
@@ -187,8 +188,7 @@ z kilku źródeł. Posłużyłem się literaturą branżową, ustawą i informac
 internetu jak również uzyskałem informację przeprowadzając rozmowy z 
 pracownikami hotelu na różnym szczeblu. Miałem okazję rozmawiać z 
 recepcjonistką oraz kierownikiem recepcji w dwóch różnych hotelach w 
-Warszawie. Poniżej czytelnik znajdzie przefiltrowane, spójne wiadomości z 
-branży hotelarskiej.
+Warszawie. Poniżej czytelnik znajdzie przefiltrowane, spójne wiadomości na temat branży hotelarskiej.
 
 
 \section{Historia hotelarstwa} 
@@ -425,13 +425,13 @@ wytworzyć.
 
 \subsection{Wymagania kategoryzacyjne, a usługi}
 Część usług dodatkowych może być wymuszona poprzez wymagania kategoryzacyjne.
- Te usługi są \emph{obowiązkowe}. Reszta usług dodatkowych, które świadczone 
- są przez hotel jest podejmowana dla wygody gości i podniesienia prestiżu 
- hotelu to usługi \emph{dobrowolne}.
+ Te usługi są \emph{obowiązkowe}. Reszta usług dodatkowych, świadczonych 
+ przez hotel dla wygody gości i podniesienia prestiżu 
+ hotelu, to usługi \emph{dobrowolne}.
 
 \section{Istotne definicje}
 Przedstawię definicję noclegu oraz doby hotelowej. Następnie przedstawię 
-definicję klienta i agenta. Przyjrzymy się podziałowi klientów na rodzaje.
+definicję klienta i agenta. Więcej o klientach dowiemy się w \ref{rodzaje-klientow}.
 
 \subsection{Definicja noclegu}
 
@@ -467,7 +467,10 @@ RevPAR \approxeq Freq \cdot ADR
 \begin{description}
   \item[Freq] wskaźnik frekwencji
   \item[ADR]\footnote{ang. {\em Average Daily Rate} } średnia cena pokoi
+
 \end{description}
+
+TODO TODO TODO napisać jak liczone jest Freq i ADR
 
 \subsection{Definicja doby hotelowej}
 Doba hotelowa różni się od zwykłej doby.
@@ -483,7 +486,7 @@ organizację pracy hotelu, m.in. sprzątania pokojów.
 Załóżmy, że godzina zakończenia doby hotelowej to 12.00. Jeśli gość 
 przyjechał o godzinie 10 to będzie mógł korzystać z pokoju do godziny 12 
 następnego dnia, a więc więcej niż 24 godziny. Przyjeżdżając po godzinie 12 
-będzie mógł korzystać z pokoju krócej. W obu przypadkach gość zapłacił tylko 
+będzie mógł korzystać z pokoju krócej. W obu przypadkach gość zapłacił tyle 
 samo za pojedynczą dobę hotelową.
 
 
@@ -508,9 +511,8 @@ prościej:
 
 \end{defn}
 
-Klient oraz gość nie znaczą to dokładnie tego samego, ponieważ jak wiemy, 
-hotel świadczy usługi towarzyszące, których świadczeniobiorca może być 
-klientem, ale nie musi być gościem. Jednak nie wdając się w szczegóły, 
+Klient oraz gość nie znaczą dokładnie tego samego, ponieważ jak wiemy, 
+hotel świadczy usługi towarzyszące, których świadczeniobiorca nie musi być gościem hotelowym. Jednak nie wdając się w szczegóły, 
 będziemy używać tych nazw wymiennie. Więcej o klientach dowiemy się w 
 \ref{rodzaje-klientow}
 
@@ -528,16 +530,41 @@ posiadających siedzibę w kraju.
 \end{defn}
 
 \section{Organizacja w zakładzie hotelarskim}
-Organizacja w zakładzie hotelarskim zależy od typu zakładu hotelarskiego. 
+Przyjrzymy się teraz organizacji w zakładzie hotelarskim. Organizacja w zakładzie hotelarskim zależy od typu zakładu hotelarskiego. 
+
 Inaczej będzie wyglądać organizacja w małym pensjonacie, prowadzonym przez 
-kilka osób (np. rodzinę), które wykonywać będą różne czynności w zależności 
-od aktualnych potrzeb, a inaczej wyglądać będzie organizacja dużego 
-luksusowego hotelu. Duże przedsiębiorstwo potrzebuje struktury 
-organizacyjnej, w której różne zadania są podzielone między poszczególnymi 
-działami, a zakres obowiązków i odpowiedzialności osób na odpowiednich 
-stanowiskach jest jasno określony. Każdy element takiej struktury musi 
-współpracować ze sobą, aby zaspokajać wymagających gości i realizować cel 
-przedsiębiorstwa.
+kilka osób (np. rodzinę), a inaczej wyglądać będzie organizacja dużego 
+luksusowego hotelu nastawionego na klientów biznesowych. 
+
+W pierwszym przypadku członkowie rodziny i kilku pracowników mają szeroki zakres obowiązków i oczekiwane jest wykonywanie działań, które aktualnie są potrzebne. Struktura organizacja będzie dość prosta i płaska.
+
+W przypadku znacznie większego hotelu, który zatrudnia znaczącą liczbę pracowników i obsługuje kilkuset gości wymagana będzie bardziej rozbudowana struktura organizacyjna. Przyjrzymy się podobnemu przypadkowi z bliska i poznamy jak może wyglądać taka struktura. 
+
+Zanim jednak do tego przejdziemy zapoznajmy się z definicją struktury.
+
+\subsection{Definicja struktury}
+Definicja na podstawie \cite{bk:def-struktury}:
+\begin{defn}{Struktura} 
+to instrument zarządzania organizacją. To uporządkowanie pozycji w organizacji według zasad podziału pracy, co wiąże się z określeniem specjalistycznych zadań, które muszą być wykonane, aby organizacja mogła funkcjonować i osiągać założone cele. To zgrupowanie ról organizacyjnych w większe całości, podsystemy: sekcje, wydziały, zakłady, piony - gdzie następuje obarczenie odpowiedzialnością za sprawną realizację zagregowanych zadań poszczególnych komórek organizacyjnych, a zwłaszcza kierowników tych podsystemów. To w końcu podział władzy i informacji w ramach organizacji, a więc uporządkowanie pionowego podziału pracy w ramach szczebli struktury(poziomów jej hierarchii)
+\end{defn}
+
+\subsection{Struktura organizacyjna w średniej wielkości hotelu}
+Pod lupę weźmiemy średniej wielkości hotel. Na tyle duży, że wymaga wprowadzenia struktury organizacyjnej, ale na tyle skomplikowanej, że można będzie ją przedstawić w prosty sposób.
+
+\subsubsection{Przykład struktury organizacyjnej hotelu}
+Przykładową strukturę organizacyjną przedstawia poniższy diagram:
+
+Rysunek \ref{fig:struktura-hotelu} obrazuje przykładową strukturę hotelu. Będziemy omawiać szczegóły działalności hotelu, który mógłby mieć taką właśnie strukturę.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/struktura.png}
+  }
+  \end{center}
+  \caption{Przykładowa struktura hotelu}
+  \label{fig:struktura-hotelu}
+\end{figure}
 
 \subsection{Działy zakładu hotelarskiego}
 Za przykład weźmiemy średniej wielkości hotel klasy biznesowej w większym 
@@ -545,8 +572,8 @@ mieście, który jest sporym przedsiębiorstwem i potrzebuje struktury
 organizacyjnej. W takim hotelu można wyróżnić kilka podstawowych działów:
 
 \begin{itemize}
-  \item węzeł recepcyjny - opisany poniżej,
-  \item służba pięter - odpowiada za utrzymanie czystości w hotelu
+  \item węzeł recepcyjny - scharakteryzowany poniżej,
+  \item służba pięter - odpowiada za utrzymanie czystości w hotelu,
   \item gastronomia - zapewnienie gościom hotelowym wyżywienia w zakresie co najmniej śniadania,
   \item pion pobytowy,
   \item pion wielofunkcyjny,
@@ -561,14 +588,18 @@ organizacyjna może być o wiele bardziej skomplikowana.
 Przyjrzyjmy się bliżej węzłowi recepcyjnemu.
 
 \subsection{Węzeł recepcyjny}
-Recepcja pełni ważną rolę w strukturze organizacyjnej. 
-Recepcja obsługuje klienta od momentu przyjęcia rezerwacji, aż do 
-opuszczenia przez gościa hotelu. Recepcja spełnia także funkcje marketingowe 
-oraz sprzedażowe. Główną jednak funkcją jest zakwaterowanie i obsługa gościa 
-podczas jest pobytu. Recepcja pełni funkcję sprzedażową, ponieważ klient, 
+Recepcja pełni ważną rolę w strukturze organizacyjnej. Od strony gościa, można powiedzieć, że nawet najważniejszą. 
+Recepcja obsługuje klienta od momentu przyjęcia rezerwacji, w ciągu pobytu, aż do zakończenia pobytu i opuszczenia przez gościa hotelu. Recepcja spełnia także funkcje marketingowe 
+oraz sprzedażowe. Posiada także funkcje zakwaterowania i obsługi gościa 
+podczas pobytu. Jako, że sam proces zakwaterowania jest bardzo krótki i trwa kilka, kilkanaście minut można powiedzieć, że najważniejszą i główną funkcją węzła recepcyjnego jest obsługa gościa w trakcie jego pobytu.
+
+Recepcja pełni także funkcję sprzedażową, ponieważ klient, 
 który przyjdzie wprost z ulicy chcąc wynająć pokój skieruje się recepcji. 
 Jest to zatem  bardzo ważna komórka i jedna z pierwszych, z którą spotyka 
-się gość podczas swojego pobytu.
+się gość podczas swojego pobytu. Oprócz tego pracownicy recepcji, mogą oferować płatne usługi, co także tłumaczy funkcję sprzedażową.
+
+Potocznie mówi się, że pierwsze wrażenie jest najważniejsze. Recepcja jest dobrym tego przykładem. To od pracowników recepcji zależy, jakie będzie pierwsze wrażenie na kliencie. Od jakości obsługi podczas pobytu zależeć będzie czy pierwsze wrażenie zostanie utrzymane na dobrym poziomie oraz to czy klient opuści hotel szczęśliwy i będzie chciał wkrótce wrócić czy też nie.
+
 
 \subsubsection{Pracownicy recepcji}
 W recepcji możemy spotkać \cite[47-51]{OrgaDzialHot}:
@@ -583,7 +614,7 @@ W recepcji możemy spotkać \cite[47-51]{OrgaDzialHot}:
   \item recepcjonista ds. rezerwacji,
   \item recepcjonista kasjer - przyjmuje gotówkę, wymienia walutę,
   \item recepcjonista informator (consierge) - zajmuje się sprawami gości 
-  hotelowych, np. zakup biletów na przedstawienie.
+  hotelowych, np. zakup biletów na koncert.
 \end{itemize}
 
 \subsubsection{Obowiązki recepcji} 
@@ -642,12 +673,39 @@ Ciekawostką jest to, że pobyt w hotelu turystycznym będzie droższy w ciągu
 weekendu. Odwrotna sytuacja występuje w klasie biznesowej.
 
 \section{Pomieszczenia hotelowe}
-TODO
+Hotel posiada liczne pomieszczenia. Tylko część z nich jest ogólnodostępna dla gości. Są to np. jednostki mieszkalne. Pomieszczenia można także podzielić na te, które dostępne są w określonych godzinach, a te które są dostępne całodobowo.
+
+Niektóre pomieszczenia:
+\begin{itemize}
+\item hol
+\item recepcja
+\item jednostki mieszkalne
+\item sala restauracyjna
+\item sale konferencyjne
+\item magazyny
+\item zaplecze techniczne
+\item biura
+\item ciągi komunikacyjne
+\item winda
+\item korytarze
+\end{itemize}
+
+Pomieszczeń hotelowych jest o wiele więcej, ale nie ma sensu ich wszystkich wymieniać. Przyjrzyjmy się bliżej jednemu pomieszczeniu.
 
 \section{Pokoje}
-TODO
+Najbardziej znanym pomieszczeniem hotelowym są jednostki mieszkalne, czyli potocznie mówiąc pokoje hotelowe. Kontynuując opis naszego przykładowego hotelu, będziemy mogli przedstawić rodzaje pokojów w hotelu.
+
 \subsection{Rodzaje pokojów}
-TODO rodzaje pokojów z angielskimi nazwami
+Poniżej zostały wymienione rodzaje pokojów wraz z ich angielskimi nazwami.
+
+Rodzaje pokoi hotelowych:
+\begin{itemize}
+  \item pokój jednoosobowy (single room)
+  \item pokój dwuosobowy (double room)
+  \item pokój trzyosobowy (triple room)
+  \item pokój z dostawką (room with additional bed)
+  \item pokój przystosowany do obsługi gości niepełnosprawnych (room for handicapped)
+\end{itemize}
 
 \section{Karta pobytu}
 
