@@ -448,7 +448,7 @@ Nocleg wykorzystywany jest w miernikach usług hotelarskich:
 \begin{itemize}
   \item nominalna liczba noclegów - ilość miejsc, które można wynająć w 
   danym okresie.
-  \item wskaźnik frekwencji - stopień wykorzystania miejsc
+  \item wskaźnik frekwencji - stopień wykorzystania miejsc w procentach
 \end{itemize}
 
 \subsubsection{Wskaźnik RevPAR}
@@ -469,12 +469,12 @@ RevPAR \approxeq Freq \cdot ADR
 \end{equation}
 
 \begin{description}
-  \item[Freq] wskaźnik frekwencji
-  \item[ADR]\footnote{ang. {\em Average Daily Rate} } średnia cena pokoi
+  \item[Freq] wskaźnik frekwencji. Procent okupowanych pokoi.
+  \item[ADR]\footnote{ang. {\em Average Daily Rate} } średnia stawka(netto) 
+  za pokój bez śniadania. ADR liczone jest jako iloraz przychodów netto ze 
+  sprzedaży pokoi i ilości sprzedanych pokoi.
 
 \end{description}
-
-TODO TODO TODO napisać jak liczone jest Freq i ADR
 
 \subsection{Definicja doby hotelowej}
 Doba hotelowa różni się od zwykłej doby.
@@ -741,17 +741,17 @@ dostępne całodobowo.
 
 Niektóre pomieszczenia:
 \begin{itemize}
-\item hol
-\item recepcja
-\item jednostki mieszkalne
-\item sala restauracyjna
-\item sale konferencyjne
-\item magazyny
-\item zaplecze techniczne
-\item biura
-\item ciągi komunikacyjne
-\item winda
-\item korytarze
+\item hol,
+\item recepcja,
+\item jednostki mieszkalne,
+\item sala restauracyjna,
+\item sale konferencyjne,
+\item magazyny,
+\item zaplecze techniczne,
+\item biura,
+\item ciągi komunikacyjne,
+\item winda,
+\item korytarze.
 \end{itemize}
 
 Pomieszczeń hotelowych jest o wiele więcej, ale nie ma sensu ich wszystkich 
@@ -1079,30 +1079,164 @@ tym terminie.
 \subsection{Stan rezerwacji}
 Najważniejsze stany rezerwacji to:
 \begin{itemize}
-  \item nie potwierdzona - (ang. requested) żądanie rezerwacji zostało przyjęte, ale pobyt nie został jeszcze potwierdzony,
+  \item nie potwierdzona - (ang. requested) żądanie rezerwacji zostało 
+  przyjęte, ale pobyt nie został jeszcze potwierdzony,
   \item potwierdzona - (ang. reserved) pobyt został potwierdzony,
   \item odwołana - (ang. cancelled) rezerwacja została odwołana,
-  \item przyjazd - (ang. check-in) dzisiejszy dzień jest dniem przyjazdu gościa,
+  \item przyjazd - (ang. check-in) dzisiejszy dzień jest dniem przyjazdu 
+  gościa,
   \item pobyt - (ang. in-house) gość odbywa pobyt w hotelu,
   \item wyjazd - (ang. check-out) dziejszy dzień jest dniem wyjazdu,
   \item no show - gość nie pojawił się w dniu przyjazdu.
 \end{itemize}
 
 \section{Rodzaje klientów}
+\label{rodzaje-klientow}
+Poznaliśmy już klientów indywidualnych oraz klientów grupowych. Rodzaj 
+klienta ma przede wszystkim wpływ na cenę pokoju oraz innych usług. Oto 
+wszyscy klienci:
+
+\begin{itemize}
+  \item klient indywidualny,
+  \item klient grupowy,
+  \item klient korporacyjny(firmowy),
+  \item klient stały,
+  \item klient związany z agentem biura pośredniczącego.
+\end{itemize}
+
+\subsection{Klient grupowy}
+Co prawda wiemy, już że klient grupowy to taki, który należy do grupy i 
+korzysta z rezerwacji grupowej. Warto jednak powiedzieć w jaki sposób hotel, 
+może dbać o klienta grupowego. Często spotykaną praktyką jest to, że hotel 
+zapewni grupie specjalne dodatkowe stanowisko obsługi w recepcji dostępne 
+tylko dla członków grupy. Może tak być przy okazji konferencji lub innych 
+grupowych wydarzeń.
+
+\subsection{Klient korporacyjny}
+Duże korporacje, lub nawet mniejsze firmy mogą zawiązać z hotelem podobne 
+umowy do umów biur podróżnicznych. Klient korporacyjny to pracownik firmy, 
+która ma z hotelem podpisaną umowę. Taka umowa może opiewać na ilość nocy 
+wykorzystanych w ciągu roku poprzez pracowników firmy. Cena jest zatem 
+odpowiednio niższa. Wszystkie szczegóły reguluje umowa pomiędzy stronami.
+
+\subsection{Klient stały}
+Istnieją tacy klienci, którzy mają swój własny pokój na stale. Takich 
+klientów określa się jako klientów stałych. Przykładem może być Pan Krauze i 
+jego pokój w warszawskim Hotelu Marriott.
+
+Tego typu klienci mogą liczyć na największe udogodnienia ze strony hotelu. 
+Przekładanie płatności, łączenie ich za wiele pobytów, dodatkowe darmowe 
+usługi i wiele innych to wszystko na co mogą liczyć klienci stali.
+
+\subsection{Klient związany z agentem biura pośredniczącego}
+To klient, który skorzystał np. z usług biura turystycznego. Na rezerwacji 
+rezerwującym jest biuro turystyczne, a beneficjentem rezerwacji jest klient.
 
 \section{Cennik}
+Ceny za pobyt i wszystkie inne usługi są określone według cennika. Cennik 
+ustalany jest przez właściciela hotelu, a dokładnie przez osoby do których 
+jest to zadanie delegowane. Cenników jest kilka. Każdy typ klienta będzie 
+miał swój cennik. Ponadto na ten sam pokój będzie wiele cen na raz. 
+Obowiązująca cena zależeć będzie od sposobu rezerwacji, sezonu, obłożenia i 
+wielu innych czynników.
 
-\subsection{Najwyższa stawka}
+\subsection{Czynniki ceny}
+Jeśli dokonujemy rezerwacji to na cenę pobytu będzie składało się kilka
+elementów. Potencjalne składowe to:
+\begin{itemize}
+  \item czy weekend czy dzień roboczy,
+  \item kategoria pokoju,
+  \item dodatkowe usługi wymienione na rezerwacji,
+  \item rabaty,
+  \item cena podstawowa na dany dzień,
+  \item rodzaj klienta.
+\end{itemize}
+
+\subsection{Rack rate}
+W brażny hotelarskiej występuję pojęcie \emph{Rack rate}.
+
+\begin{defn}{Rack rate}
+określa cenę za usługę hotelarską żądaną w tym samym dniu bez wcześniejszej 
+rezerwacji. Cena ta będzie wyższa niż dla klienta, który dokonał 
+wcześniejszej rezerwacji, bądź skorzystał z usług biura pośredniczącego. 
+Cena Rack rate zależeć będzie także od danego dnia. Przykładowo cena rack 
+rate będzie wyższa podczas weekendu, ponieważ jest to czas nasilonego 
+obłożenia.
+\end{defn}
+
+Krótko mówiąc jest to cena dla osoby, która wprost z chodnika przyjdzie do 
+hotelu i zechce pokój.
+
+\subsubsection{Krótkoterminowy pobyt}
+Można zapłacić mniejszą cenę niż tą określoną jako Rack Rate jeśli odpowiada 
+nam krótkoterminowy pobyt. Krótkoterminowy pobyt to pobyt tylko do godziny 
+popołudniowej\footnote{zależnej od hotelu, może to być np. 16 lub 18}, a 
+więc bez nocy. Odbycie takiego pobytu może być przydatne 
+jeśli potrzebujemy miejsca, aby odbyć rozmowę biznesową z klientem. 
 
 \subsection{Stawka okresowa}
+Rok można podzielić na sezony. Niektóre z sezonów charakteryzują się 
+większym obłożeniem niż inne. Niektóre okresy mogą być związane z ważnymi 
+wydarzeniami np. mistrzostwa piłkarskie. W ogólności istnieje tzw. sezon 
+turystyczny, w którym hotel będzie miał wysokie obłożenie. Ceny są zatem 
+uzależnione od aktualnego okresu.
 
 \subsection{Cena wolna}
+Dowiedzieliśmy się wcześniej, że cena jest brana z cennika. Istnieje 
+możliwość targowania się lub innych indywidualnych ustaleń. W ten sposób 
+ustalona cena określana jest mianem ceny wolnej.
 
 \section{Pakiety}
+Pakiet to pełna oferta pobytu, zawierająca w sobie potencjalnie interesujące 
+usługi. Pakiet może definiować długość pobytu wraz z usługami lub dotyczyć 
+samych usług. Przykładowo opisy pakietów mogą zaczynać się następująco:
 
-TODO opis np. weekend + coś tam dla dwójki w walentynki
+\begin{itemize}
+ \item 5 dniowy pobyt z śniadaniem, obiadem, pobytem w SPA oraz butelką 
+ szampana w dniu przyjazdu, dodatkowo (\dots) Tylko 1550zł!
+ \item romantyczny walentynowy weekend możesz spędzić w naszym hotelu. 
+ Bukiet róż dla wybranki w dniu przyjazdu oraz romantyczna kolacja wieczorem 
+ w naszej resturacji, dodatkowo (\dots) Tylko 549zł!
+ \item weekendowy pakiet, pierwsza noc w normalnej cenie, druga tylko 50\%. 
+ Podczas wizyty (\dots)
+\end{itemize}
+
+Pakiety mogą także agregować usługi, np. ,,Obiad i kolacja każdego dnia 
+pobytu wraz z dostępem do internetu i poranną gazetą''. 
+
+Można zatem zakupić pakiet, który określa wszystkie warunki pobytu. Można 
+także dokupić pakiet do zwykłej rezerwacji, podobnie jak inne usługi.
 
 \section{OpenTravel}
+OpenTravel to organizacja non-profil założona w \mbox{1999r.} przez firmy z 
+branży podróżniczej, której głownym celem jest stworzenie struktur dla 
+elektronicznych komunikatów, aby ułatwić komunikację pomiędzy osobnymi 
+systemami w światowej branży podróżniczej.
+
+OpenTravel składa się z firm reprezentujących biznes lotniczy, wypożyczalnie 
+samochodów, hotele, linie żeglugowe, koleje i innych. Dziennie przesyłane są 
+dziesiątki milionów komunikatów pomiędzy zrzeszonymi partnerami handlowymi.
+
+Z komunikatów zgodnych ze specyfikacją OpenTravel korzystają jedne z największych sieci hotelarskich, a niektóre z nich to:
+\begin{itemize}
+  \item Hilton Hotels Corporation
+  \item InterContinental Hotels Group
+  \item Marriott International
+\end{itemize}
+
+\subsection{Forma standardu}
+Forma standardu to schematy XML'owe, które dokładnie określają każdy aspekt 
+przesyłanych wiadomości.
+
+\subsection{Dokumentacja standardu}
+OpenTravel udostępnia pełną dokumentację dla zarejestrowanych użytkowników 
+ze statusem członka stowarzyszenia. Każdy, kto chce uzyskać dostęp do 
+dokumentacji w celach edukacyjnych i ma status studenta lub pracownika 
+naukowego dostęp ten otrzyma. Osobiście udało mi się otrzymać status członka 
+i miałem okazję zapoznać się z dostępną dokumentacją.
+Sama dokumentacja zawiera informacje o tym jak korzystać ze standardu. 
+Osobna dokumentacja zawiera informacje dla programistów, którzy wdrażać będą 
+integrację z OpenTravel.
 
 \section{Systemy CRS}
 \label{system-crs}
@@ -1142,25 +1276,6 @@ TODO dodać źródło tej statystyki lub wywalić ten fakt
 \subsection{Porównanie}
 TODO może jakieś porównanie systemów hotelarskich
 
-% TODO ten rozdział powinien być za rozdziałem o rezerwacji i jej typach %%
-\section{Rodzaje klientów}
-\label{rodzaje-klientow}
-Goście hotelowi podlegają podziałowi ze względu na w jaki sposób odbywają 
-swój pobyt, jak za niego płacą i jakie usługi są im świadczone.
-
-Podział klientów wygląda następująco:
-
-\begin{itemize}
-  \item klient indywidualny,
-  \item klient grupowy,
-  \item klient z biura turystycznego,
-  \item klient korporacyjny,
-  \item klient stały.
-\end{itemize}
-
-\subsubsection{Klient indywidualny}
-
-TODO TODO TODO
 
 %%% OLD BELOW %%%%
 
