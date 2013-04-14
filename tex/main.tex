@@ -967,6 +967,7 @@ do skorzystania z usługi.
 \end{defn}
 
 \subsection{Informacje na rezerwacji}
+\label{chap1:info-na-rezerwacji}
 Przy dokonywaniu rezerwacji możemy być pytani o wiele różnych informacji. 
 Istnieje w miarę standardowa porcja informacji, którą zawsze trzeba podać. 
 To ile szczegółowych informacji będziemy mogli podać zależeć będzie od 
@@ -1076,6 +1077,7 @@ hotelu zaoferuje nam inny tańszy bądź droższy pokój, który będzie dostęp
 tym terminie.
 
 \subsection{Stan rezerwacji}
+\label{chap1:stany-rezerwacji}
 Najważniejsze stany rezerwacji to:
 \begin{itemize}
   \item nie potwierdzona - (ang. requested) żądanie rezerwacji zostało 
@@ -1373,6 +1375,149 @@ usług dla osiągnięcia najwyższego zysku netto. Recepcjonista powinien bez pr
 obsługiwać gościa mając wgląd w jego dane, szybko rozliczać pobyt i być w stanie zorientować się w aktualnym i 
 przyszłym obłożeniu hotelu. Wszystkie cele w pewnym stopniu przyczyniają się do zwiększenia jakości obsługi gościa i 
 optymalizacji pracy hotelu jako przedsiębiorstwa.
+
+\section{Wymagania}
+Mając określony ogólny cel możemy przystąpić do zdefiniowania wymagań funkcjonalnych i niefunkcjonalnych, których realizacja spełni postawiony cel.
+
+\subsection{Wymagania funkcjonalne}
+Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie analizy dziedziny.
+
+\begin{itemize}
+  \item Rezerwacja - wsparcie systemu w zakresie
+    \begin{itemize}
+      \item rezerwacji pojedynczej
+      \item rezerwacji grupowej
+      \item rezerwacji ręcznej dla przychodniego klienta\footnote{Walk-ins}
+      \item rezerwacja powinna mieć statusy zdefiniowane w \ref{chap1:stany-rezerwacji}
+      \item system powinien prezentować pojedynczy interfejs dla każdego typu rezerwacji
+      \item szybkiego dostępu do właściciela / opiekuna grupowej rezerwacji
+      \item rezerwacji online
+      \item potwierdzenia rezerwacji poprzez email
+      \item wparcie dla gwarantowanej, niegwarantowanej i tymczasowej rezerwacji
+      \item możliwość konfiguracji godziny wygaśnięcia tymczasowej rezerwacji
+      \item automatyczne kasowanie rezerwacji jeśli nie została potwierdzona przed określonym terminem
+      \item rozdzielenia rezerwacji na dwie i osobnych modyfikacji na rozdzielonych rezerwacjach
+      \item przesunięcia rezerwacji
+      \item odwołania rezerwacji 
+      \item dołączenia pokoju do rezerwacji
+      \item zmiany pokoju rezerwacji przed pobytem
+      \item zmiany pokoju w rezerwacji w trakcie pobytu
+      \item wyświetlania listy rezerwacji pomiędzy określonymi datami z określonymi statusami
+      \item dodawania zadań dla recepcji, które muszą być wykonane dla danej rezerwacji
+      \item poglądu przeszłych operacji na rezerwacji przez upoważnionych do tego użytkowników systemu
+      \item przy tworzeniu rezerwacji dla byłego klienta system powinien o tym komunikować
+      \item rezerwacja powinna zawierać co najmniej informacje podstawowe zdefiniowane w \ref{chap1:info-na-rezerwacji}
+      \item rezerwacji, której właścicielem jest agent biura turystycznego
+      \item rezerwacji korporacyjnej
+      \item nie pojawienie się gościa w dniu przyjazdu powinno być sygnalizowane pracownikom recepcji dnia następnego
+      \item obliczania kosztów rezerwacji
+      \item dodawania, usuwania, modyfikacji dodatkowych usług do rezerwacji
+      \item każda rezerwacja powinna mieć swój unikalny numer
+      \item wprowadzenia ceny wolnej za rezerwacje
+      \item ustalenia zniżki procentowej dla rezerwacji
+      \item kalkulacji ceny pobytu w zależności od wybranej stawki podczas rezerwacji przez recepcjonistę
+      \item utworzenia rezerwacji na podstawie pakietu z pobytem
+    \end{itemize}
+  \item Zarządzanie stawkami\footnote{ang. Rate management}
+    \begin{itemize}
+      \item możliwość ustalenia różnych stawek na każdy dzień roku
+      \item ustalanie stawek dla każdego pokoju
+      \item ustalanie dopłat za dodatkowe osoby dla każdego pokoju
+      \item ustalanie dopłat za dodatkowe łóżko dla każdego pokoju
+      \item możliwość zdefiniowania stawek sezonowych ważnych pomiędzy określonymi datami
+        \begin{itemize}
+          \item stawka sezonowa może być określona tylko dla niektórych pokoi
+        \end{itemize}
+      \item możliwość ustawienia, które z istniejących stawek są aktualnie dostępne i wyłączenie innych
+      \item ustalanie stawek dostępnych tylko dla klienta indywidualnego
+      \item ustalanie stawek dostępnych tylko dla agentów biura turystycznego
+      \item ustalanie stawek dostępnych tylko dla klientów korporacyjnych
+    \end{itemize}
+  \item Usługi i dodatki\footnote{ang. Inclusions - pojęcie, które agreguje wszystkie usługi dodatkowe i fakultatywne}
+    \begin{itemize}
+      \item możliwość dodania i edycji usługi do oferty
+      \item usługa powinna mieć:
+        \begin{itemize}
+          \item nazwę
+          \item opis
+          \item cenę podstawową
+          \item maksymalną zniżkę jako wartość procentową
+          \item sposób kalkulacji ceny usługi:
+            \begin{itemize}
+              \item na osobę
+              \item na osobę dorosłą
+              \item na dziecko
+              \item na pokój
+            \end{itemize}
+          \item sposób realizacji usługi:
+            \begin{itemize}
+              \item codziennie
+              \item codzienie oprócz dnia przyjazdu
+              \item codziennie oprócz dnia wyjazdu
+              \item w dzień wyjazdu i przyjazdu
+              \item w dzień przyjazdu
+              \item w dzień wyjazdu
+              \item jednorazowo
+              \item codziennie oprócz dnia przyjazdu i wyjazdu
+            \end{itemize}
+          \item kategorie np. jedzenie, picie, usługa inna
+          \item usługa gastronomiczna powinna być powiązana z produktem
+        \end{itemize}
+    \end{itemize}
+    \item wsparcia dla zarządzania produktami
+    \item produkt powinien mieć
+      \begin{itemize}
+        \item nazwę
+        \item opis
+        \item cenę referencyjną
+      \end{itemize}
+  \item Zarządzanie pakietami\footnote{ang. Package management}
+    \begin{itemize}
+      \item możliwość definiowania pakietów 
+      \item wsparcie dla dwóch rodzajów pakietów - z określonym pobytem i usługami lub tylko pakiet usług
+      \item pakiet z pobytem powinien umożliwiać określenie innych stawek na każdy dzień pobytu
+      \item możliwość określenia polityki odwołania rezerwacji dla pakietu z pobytem
+      \item możliwość ustalenia dostępności czasowej pakietów
+      \item możliwość wyłączania pakietów
+      \item możliwość archiwizacji pakietów
+      \item definiowane pakietów i ich edycja powinna być dostępna tylko dla upoważnionych użytkowników
+      \item możliwość ustalenia ceny pakietowej dla wybranych usług
+    \end{itemize}
+  \item Recepcja\footnote{ang. Front office}
+    \begin{itemize}
+      \item system powinien wyświetlać grafik z obłożeniem hotelu
+      \item grafik powinien być dostępny w różnych okresach czasowych: dany dzień, tydzień, dwa tygodnie, miesiąc
+      \item system powinien wyświetlać statystyki:
+        \begin{itemize}
+          \item ilu gościu w hotelu
+          \item ilu przyjeżdża
+          \item ilu wyjeżdza
+          \item ile pokoi wolnych
+          \item ile pokoi zajętych
+          \item ile pokoi do sprzątnięcia
+        \end{itemize}
+      \item recepcjonista powinien mieć wgląd w historie gościa
+      \item system powinien wyświetlać przyjeżdzających gości w danym dniu
+      \item system powinien wyświetlać wyjeżdzających gości w danym dniu
+      \item umożliwienie zakwaterowania gościa\footnote{ang. Check-in}
+      \item umożliwienie wykwaterowania gościa\footnote{ang. Check-out}
+      \item system powinien wyświetlać ostatnio dokonane rezerwacje
+      \item system powinien wyświetlać listę pokoi wraz z ich dostępnością i statusami
+      \item  
+    \end{itemize}
+  \item Służba pięter\footnote{ang. Housekeeping}
+\end{itemize}
+
+
+\subsection{Wymagania niefunkcjonalne}
+
+
+\begin{itemize}
+  \item numer rezerwacji nie może być kolejną liczbą z sekwencji
+  \item system powinien archiwizować rezerwacje, nigdy usuwać
+  \item jedynym limitem dla liczby stawek powinno być dostępne miejsce w bazie danych
+  \item system powinien być dostępny w języku angielskim
+\end{itemize}
 %%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
 
 \appendix
