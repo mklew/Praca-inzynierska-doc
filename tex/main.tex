@@ -1382,154 +1382,222 @@ Mając określony ogólny cel możemy przystąpić do zdefiniowania wymagań fun
 \subsection{Wymagania funkcjonalne}
 Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie analizy dziedziny.
 
-\begin{itemize}
-  \item Rezerwacja - wsparcie systemu w zakresie
+\begin{enumerate}
+  \item Rezerwacja - wsparcie systemu w zakresie:
     \begin{itemize}
-      \item rezerwacji pojedynczej
-      \item rezerwacji grupowej
-      \item rezerwacji ręcznej dla przychodniego klienta\footnote{Walk-ins}
-      \item rezerwacja powinna mieć statusy zdefiniowane w \ref{chap1:stany-rezerwacji}
-      \item system powinien prezentować pojedynczy interfejs dla każdego typu rezerwacji
-      \item szybkiego dostępu do właściciela / opiekuna grupowej rezerwacji
-      \item rezerwacji online
-      \item potwierdzenia rezerwacji poprzez email
-      \item wparcie dla gwarantowanej, niegwarantowanej i tymczasowej rezerwacji
-      \item możliwość konfiguracji godziny wygaśnięcia tymczasowej rezerwacji
-      \item automatyczne kasowanie rezerwacji jeśli nie została potwierdzona przed określonym terminem
-      \item rozdzielenia rezerwacji na dwie i osobnych modyfikacji na rozdzielonych rezerwacjach
-      \item przesunięcia rezerwacji
-      \item odwołania rezerwacji 
-      \item dołączenia pokoju do rezerwacji
-      \item zmiany pokoju rezerwacji przed pobytem
-      \item zmiany pokoju w rezerwacji w trakcie pobytu
-      \item wyświetlania listy rezerwacji pomiędzy określonymi datami z określonymi statusami
-      \item dodawania zadań dla recepcji, które muszą być wykonane dla danej rezerwacji
-      \item poglądu przeszłych operacji na rezerwacji przez upoważnionych do tego użytkowników systemu
-      \item przy tworzeniu rezerwacji dla byłego klienta system powinien o tym komunikować
-      \item rezerwacja powinna zawierać co najmniej informacje podstawowe zdefiniowane w \ref{chap1:info-na-rezerwacji}
-      \item rezerwacji, której właścicielem jest agent biura turystycznego
-      \item rezerwacji korporacyjnej
-      \item nie pojawienie się gościa w dniu przyjazdu powinno być sygnalizowane pracownikom recepcji dnia następnego
-      \item obliczania kosztów rezerwacji
-      \item dodawania, usuwania, modyfikacji dodatkowych usług do rezerwacji
-      \item każda rezerwacja powinna mieć swój unikalny numer
-      \item wprowadzenia ceny wolnej za rezerwacje
-      \item ustalenia zniżki procentowej dla rezerwacji
-      \item kalkulacji ceny pobytu w zależności od wybranej stawki podczas rezerwacji przez recepcjonistę
-      \item utworzenia rezerwacji na podstawie pakietu z pobytem
+      \item rezerwacji pojedynczej,
+      \item rezerwacji grupowej,
+      \item rezerwacji ręcznej dla przychodniego klienta\footnote{tzw. Walk-ins},
+      \item rezerwacja powinna mieć statusy zdefiniowane w \ref{chap1:stany-rezerwacji},
+      \item system powinien prezentować pojedynczy interfejs dla każdego typu rezerwacji,
+      \item szybkiego dostępu do właściciela / opiekuna grupowej rezerwacji,
+      \item rezerwacji online,
+      \item potwierdzenia rezerwacji poprzez email,
+      \item gwarantowanej, niegwarantowanej i tymczasowej rezerwacji,
+      \item konfiguracji godziny wygaśnięcia tymczasowej rezerwacji,
+      \item godzin rozpoczęcia i zakończenia doby hotelowej,
+      \item automatycznego kasowania rezerwacji jeśli nie została potwierdzona przed określonym terminem,
+      \item rozdzielenia rezerwacji na dwie i osobnych modyfikacji na rozdzielonych rezerwacjach\footnote{tzw. operacja ,,split''},
+      \item przesunięcia rezerwacji w czasie,
+      \item zmiany długości pobytu,
+      \item odwołania rezerwacji,
+      \item dołączenia pokoju do rezerwacji,
+      \item zmiany pokoju dla rezerwacji przed pobytem,
+      \item zmiany pokoju dla rezerwacji w trakcie pobytu,
+      \item wyświetlania listy rezerwacji pomiędzy określonymi datami z określonymi statusami,
+      \item dodawania zadań dla recepcji, które muszą być wykonane dla danej rezerwacji,
+      \item poglądu przeszłych operacji na rezerwacji przez upoważnionych do tego użytkowników systemu,
+      \item przy tworzeniu rezerwacji dla byłego klienta system powinien o tym komunikować,
+      \item rezerwacja powinna zawierać co najmniej informacje podstawowe zdefiniowane w \ref{chap1:info-na-rezerwacji},
+      \item rezerwacji, której właścicielem jest agent biura turystycznego,
+      \item rezerwacji korporacyjnej,
+      \item nie pojawienie się gościa w dniu przyjazdu powinno być sygnalizowane pracownikom recepcji dnia następnego,
+      \item obliczania kosztów rezerwacji,
+      \item dodawania, usuwania, modyfikacji dodatkowych usług do rezerwacji,
+      \item unikalnego identyfikowania rezerwacji poprzez numer rezerwacji,
+      \item wprowadzenia ceny wolnej za rezerwacje,
+      \item ustalenia zniżki procentowej dla rezerwacji,
+      \item kalkulacji ceny pobytu w zależności od wybranej stawki podczas rezerwacji przez recepcjonistę,
+      \item utworzenia rezerwacji na podstawie pakietu z pobytem.
     \end{itemize}
   \item Zarządzanie stawkami\footnote{ang. Rate management}
     \begin{itemize}
-      \item możliwość ustalenia różnych stawek na każdy dzień roku
-      \item ustalanie stawek dla każdego pokoju
-      \item ustalanie dopłat za dodatkowe osoby dla każdego pokoju
-      \item ustalanie dopłat za dodatkowe łóżko dla każdego pokoju
-      \item możliwość zdefiniowania stawek sezonowych ważnych pomiędzy określonymi datami
+      \item możliwość ustalenia różnych stawek na każdy dzień roku,
+      \item ustalanie stawek dla każdego pokoju,
+      \item ustalanie dopłat za dodatkowe osoby dla każdego pokoju,
+      \item ustalanie dopłat za dodatkowe łóżko dla każdego pokoju,
+      \item możliwość zdefiniowania stawek sezonowych ważnych pomiędzy określonymi datami,
         \begin{itemize}
           \item stawka sezonowa może być określona tylko dla niektórych pokoi
         \end{itemize}
-      \item możliwość ustawienia, które z istniejących stawek są aktualnie dostępne i wyłączenie innych
-      \item ustalanie stawek dostępnych tylko dla klienta indywidualnego
-      \item ustalanie stawek dostępnych tylko dla agentów biura turystycznego
-      \item ustalanie stawek dostępnych tylko dla klientów korporacyjnych
+      \item możliwość ustawienia, które z istniejących stawek są aktualnie dostępne i wyłączenie innych,
+      \item ustalanie stawek dostępnych tylko dla klienta indywidualnego,
+      \item ustalanie stawek dostępnych tylko dla agentów biura turystycznego,
+      \item ustalanie stawek dostępnych tylko dla klientów korporacyjnych.
     \end{itemize}
   \item Usługi i dodatki\footnote{ang. Inclusions - pojęcie, które agreguje wszystkie usługi dodatkowe i fakultatywne}
     \begin{itemize}
-      \item możliwość dodania i edycji usługi do oferty
+      \item możliwość dodania i edycji usługi do oferty,
       \item usługa powinna mieć:
         \begin{itemize}
-          \item nazwę
-          \item opis
-          \item cenę podstawową
-          \item maksymalną zniżkę jako wartość procentową
+          \item nazwę,
+          \item opis,
+          \item cenę podstawową,
+          \item maksymalną zniżkę jako wartość procentową,
           \item sposób kalkulacji ceny usługi:
             \begin{itemize}
-              \item na osobę
-              \item na osobę dorosłą
-              \item na dziecko
-              \item na pokój
+              \item na osobę,
+              \item na osobę dorosłą,
+              \item na dziecko,
+              \item na pokój.
             \end{itemize}
           \item sposób realizacji usługi:
             \begin{itemize}
-              \item codziennie
-              \item codziennie oprócz dnia przyjazdu
-              \item codziennie oprócz dnia wyjazdu
-              \item w dzień wyjazdu i przyjazdu
-              \item w dzień przyjazdu
-              \item w dzień wyjazdu
-              \item jednorazowo
-              \item codziennie oprócz dnia przyjazdu i wyjazdu
+              \item codziennie,
+              \item codziennie oprócz dnia przyjazdu,
+              \item codziennie oprócz dnia wyjazdu,
+              \item w dzień wyjazdu i przyjazdu,
+              \item w dzień przyjazdu,
+              \item w dzień wyjazdu,
+              \item jednorazowo,
+              \item codziennie oprócz dnia przyjazdu i wyjazdu.
             \end{itemize}
-          \item kategorie np. jedzenie, picie, usługa inna
-          \item usługa gastronomiczna powinna być powiązana z produktem
+          \item kategorie np. jedzenie, picie, usługa inna,
+          \item usługa gastronomiczna powinna być powiązana z produktem.
         \end{itemize}
+        \item system powinien umożliwać zarządzanie produktami,
+        \item produkt powinien mieć:
+          \begin{itemize}
+            \item nazwę,
+            \item opis,
+            \item cenę referencyjną.
+          \end{itemize}
     \end{itemize}
-    \item wsparcia dla zarządzania produktami
-    \item produkt powinien mieć
-      \begin{itemize}
-        \item nazwę
-        \item opis
-        \item cenę referencyjną
-      \end{itemize}
   \item Zarządzanie pakietami\footnote{ang. Package management}
     \begin{itemize}
-      \item możliwość definiowania pakietów 
-      \item wsparcie dla dwóch rodzajów pakietów - z określonym pobytem i usługami lub tylko pakiet usług
-      \item pakiet z pobytem powinien umożliwiać określenie innych stawek na każdy dzień pobytu
-      \item możliwość określenia polityki odwołania rezerwacji dla pakietu z pobytem
-      \item możliwość ustalenia dostępności czasowej pakietów
-      \item możliwość wyłączania pakietów
-      \item możliwość archiwizacji pakietów
-      \item definiowane pakietów i ich edycja powinna być dostępna tylko dla upoważnionych użytkowników
-      \item możliwość ustalenia ceny pakietowej dla wybranych usług
+      \item możliwość definiowania pakietów,
+      \item wsparcie dla dwóch rodzajów pakietów - z określonym pobytem i usługami lub tylko pakiet usług,
+      \item pakiet z pobytem powinien umożliwiać określenie innych stawek na każdy dzień pobytu,
+      \item możliwość określenia polityki odwołania rezerwacji dla pakietu z pobytem,
+      \item możliwość ustalenia dostępności czasowej pakietów,
+      \item możliwość wyłączania pakietów,
+      \item możliwość archiwizacji pakietów,
+      \item definiowane pakietów i ich edycja powinna być dostępna tylko dla upoważnionych użytkowników,
+      \item możliwość ustalenia ceny pakietowej dla wybranych usług.
     \end{itemize}
-  \item Recepcja\footnote{ang. Front office}
+  \item Recepcja\footnote{ang. Front office} - system powinien:
     \begin{itemize}
-      \item system powinien wyświetlać grafik z obłożeniem hotelu
-      \item grafik powinien być dostępny w różnych okresach czasowych: dany dzień, tydzień, dwa tygodnie, miesiąc
-      \item system powinien wyświetlać statystyki:
+      \item wyświetlać grafik z obłożeniem hotelu - grafik powinien być dostępny w różnych okresach czasowych: dany dzień, tydzień, dwa tygodnie, miesiąc,
+      \item wyświetlać statystyki:
         \begin{itemize}
-          \item ilu gości w hotelu
-          \item ilu gości dzisiaj przyjeżdża
-          \item ilu gości dzisiaj wyjeżdża
-          \item ile pokoi jest wolnych
-          \item ile pokoi jest zajętych
-          \item ile pokoi jest do sprzątnięcia
+          \item ilu gości w hotelu,
+          \item ilu gości dzisiaj przyjeżdża,
+          \item ilu gości dzisiaj wyjeżdża,
+          \item ile pokoi jest wolnych,
+          \item ile pokoi jest zajętych,
+          \item ile pokoi jest do sprzątnięcia.
         \end{itemize}
-      \item recepcjonista powinien mieć wgląd w historie gościa:
+      \item umożliwiać recepcjoniście wgląd w historie gościa:
         \begin{itemize}
-          \item poprzednie wizyty
-          \item usługi
-          \item preferencje
-          \item uwagi
+          \item poprzednie wizyty,
+          \item usługi,
+          \item preferencje,
+          \item uwagi.
         \end{itemize}
-      \item system powinien wyświetlać przyjeżdżających gości w danym dniu
-      \item system powinien wyświetlać wyjeżdżających gości w danym dniu
-      \item system powinien wyświetlać gości aktualnie odbywających pobyt
-      \item system powinien umożliwiać wyszukiwanie gościa
-      \item umożliwienie zakwaterowania gościa\footnote{ang. Check-in}
-      \item umożliwienie wykwaterowania gościa\footnote{ang. Check-out}
-      \item system powinien wyświetlać ostatnio dokonane rezerwacje
-      \item system powinien wyświetlać listę pokoi wraz z ich dostępnością i statusami
-      \item możliwość wydruku potwierdzenia rezerwacji
-      \item możliwość wystawienia rachunku za pobyt
-      \item możliwość wydruku rachunku za pobyt
-      \item możliwość rozdzielenia należności za pobyt i usługi na oddzielne rachunki
-      \item 
+      \item wyświetlać przyjeżdżających gości w danym dniu,
+      \item wyświetlać wyjeżdżających gości w danym dniu,
+      \item wyświetlać gości aktualnie odbywających pobyt,
+      \item umożliwiać wyszukiwanie gościa,
+      \item umożliwiać zakwaterowania gościa\footnote{ang. Check-in},
+      \item umożliwiać zakwaterowanie grupy,
+      \item umożliwiać wykwaterowanie gościa\footnote{ang. Check-out},
+      \item umożliwiać wykwaterowanie grupy,
+      \item wyświetlać ostatnio dokonane rezerwacje,
+      \item wyświetlać listę pokoi wraz z ich dostępnością i statusami,
+      \item umożliwiać wydruk potwierdzenia rezerwacji,
+      \item umożliwiać wystawienie rachunku za pobyt,
+      \item umożliwiać wydruk rachunku za pobyt,
+      \item umożliwiać rozdzielenie należności za pobyt i usługi na oddzielne rachunki,
+      \item umożliwiać dodawanie usług do pobytu gościa,
+      \item umożliwiać dodawanie pakietów do pobytu gościa.
     \end{itemize}
-  \item Służba pięter\footnote{ang. Housekeeping}
-\end{itemize}
+  \item Służba pięter\footnote{ang. Housekeeping} - system powinien:
+    \begin{itemize}
+      \item wyświetlać pojedynczy grafik ze statusem wszystkich pokoi,
+      \item umożliwiać zmianę statusu pokoju.
+    \end{itemize}
+  \item Finanse - system powinien:
+    \begin{itemize}
+      \item konwertować różne waluty do obowiązującej w hotelu po aktualnym kursie,
+      \item umożliwiać płatność poprzez wpłatę na rachunek bankowy,
+      \item umożliwiać płatność poprzez kartę kredytową.
+    \end{itemize}
+  \item Część publiczna systemu:
+    \begin{itemize}
+      \item powinna wyświetlać aktualnie promowane pakiety i stawki w podziale na:
+        \begin{itemize}
+          \item najtańszą stawkę,
+          \item najbardziej luksusowy pakiet,
+          \item stawkę weekendową,
+          \item reszta.
+        \end{itemize}
+      \item wyświetlać kalendarz z stawkami na każdy dzień,
+      \item wyświetlać formularz rezerwacji online.
+    \end{itemize}
+  \item Audyt nocny - system powinien
+    \begin{itemize}
+      \item umożliwiać dokonanie audytu nocnego,
+      \item audyt powinien pokazywać statystki na bieżący dzień:
+        \begin{itemize}
+          \item zysk netto,
+          \item przeprowadzone operacje na rezerwacjach,
+          \item listę gości, którzy nie pojawili się w danym dniu.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
 
 
 \subsection{Wymagania niefunkcjonalne}
 
+\begin{enumerate}
+  \item Wymagania ilościowe
+    \begin{itemize}
+      \item restart systemu i powrót do pełnej funkcjonalności nie może przekroczyć 1 godziny,
+      \item system powinien zapewniać dostępność na poziomie 99\%. Dopuszcza się przerwy konserwacyjne w działaniu systemu w godzinach nocnych,
+      \item jedynym limitem dla liczby stawek powinno być dostępne miejsce w bazie danych,
+      \item czas oczekiwania na efekty codziennych operacji wykonywanych przez recepcjonistów nigdy nie powinien przekroczyć 5 sekund - nie dotyczy to przygotowania raportów,
+      \item system powinien przechowywać dane o co najmniej 100 000 usługach, pakietach i gościach bez potrzeby usuwania danych,
+      \item system powinien przechowywać dane o co najmniej 10 000 000 rezerwacjach bez potrzeby usuwania danych.
+    \end{itemize}
+  \item Wymagania jakościowe
+    \begin{itemize}
+      \item Bezpieczeństwo
+        \begin{itemize}
+          \item system musi przechowywać dane osobowe zgodnie z wymaganiami ustawy\footnote{Ustawa z dnia 29 sierpnia 1997 r. o ochronie danych osobowych. (t.j. Dz. U. z 2002 r. Nr 101, poz. 926)},
+          \item autoryzacja użytkownika systemu wewnętrznego wymaga podawania nazwy użytkownika i hasła,
+          \item hasła muszą być przechowywane w bazie danych w sposób bezpieczny, zaleca się wykorzystanie przynajmniej 256 bitowych funkcji skrótu oraz tzw. soli,
+          \item system automatycznie zamyka sesję użytkownika po okresie bezczynności dłuższym niż 30 minut,
+          \item formularz rezerwacji online powinien być szyfrowany przez protokół https.
+        \end{itemize}
+      \item dane dotyczące operacji finansowych powinny być przechowywane przez okres co najmniej 5 lat od daty zakończenia umowy\footnote{umowy na usługę hotelarską},
+      \item system powinien być prosty w obsłudze i zrozumiały dla przeszkolonych użytkowników,
+      \item system powinien być dostępny poprzez przeglądarkę,
+      \item system wewnętrzny musi zapewnić pełną obsługę w poziomu najnowyszych przeglądarek,
+      \item publiczna część systemu musi być w pełni obsługiwana z poziomu przeglądarek:
+        \begin{itemize}
+          \item Internet Explorer w wersji $\geq$ 9.0,
+          \item Google Chrome w wersji $\geq$ 16.0,
+          \item Mozilla Firefox w wersji $\geq$ 8.0,
+          \item Opera w wersji $\geq$ 11.0.
+        \end{itemize}
+      \item system powinien być dostępny w języku angielskim,
+      \item architektura systemu powinna umożliwiać przetłumaczenie całego systemu na inny język jeśli zapadanie taka decyzja w przyszłości,
+      \item system powinien być zintegrowany z systemami płatności kartami płatniczymi,
+      \item numer rezerwacji nie może być kolejną liczbą z sekwencji - dwie kolejne rezerwacje powinny mieć znacznie różne numery,
+      \item system powinien być przygotowany do testów automatycznych.
+    \end{itemize}
+\end{enumerate}
 
-\begin{itemize}
-  \item numer rezerwacji nie może być kolejną liczbą z sekwencji
-  \item system powinien archiwizować rezerwacje, nigdy usuwać
-  \item jedynym limitem dla liczby stawek powinno być dostępne miejsce w bazie danych
-  \item system powinien być dostępny w języku angielskim
-\end{itemize}
 %%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
 
 \appendix
