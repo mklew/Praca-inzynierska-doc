@@ -1598,6 +1598,89 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
     \end{itemize}
 \end{enumerate}
 
+\section{Architektura}
+Spotkałem się z wieloma próbami definicji architektury. Podoba mi się podejście Martina Fowlera, który nie próbuje jej definiować, ale podaje dwa popularne elementy, które każda definicja zawiera: \cite{fowler2003patterns}
+
+\begin{enumerate}
+  \item podział systemu na części na najwyższym poziomie abstrakcji, \footnote{tłumaczenie własne}
+  \item podjęte decyzje, które później trudno\footnote{kosztownie} zmienić.
+\end{enumerate}
+\subsection{Wstęp do architektury trójwarstwowej}
+Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
+
+Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
+
+Większość poniższych informacji opiera się na rewelacyjnej książce Martina Fowlera ,,Patterns of enterprise application architecture''. \cite{fowler2003patterns}
+
+\begin{defn}{Aplikacja biznesowa}
+
+co jest, a co nie jest aplikacją biznesową łatwo zrozumieć na podstawie przykładów:
+\begin{description}
+  \item[Aplikacja biznesowa] obsługa faktur, system zarządzania stanem magazynku, system do ubezpieczeń, śledzenie paczek
+  \item[Inny typ aplikacji] gry komputerowe, kompilatory, procesory tekstu(np. Microsoft Word, OpenOffice), komunikatory internetowe, programy do edycji grafiki, 
+\end{description}
+Najbardziej charakterystyczną cechą aplikacji biznesowej jest to, że operuje ona na podstawie pewnych persystentnych  danych.\footnote{muszą być dostępne pomiędzy uruchomieniami aplikacji} Tych danych jest zazwyczaj bardzo dużo, a same dane mogą żyć dłużej od aplikacji. Bardzo prawdopodobne jest to, że nowa aplikacja będzie musiała korzystać z danych poprzedniej aplikacji.
+
+Następnie aplikacje biznesowe używane są przez wielu użytkowników, który wykonują na nich pewną pracę dokonując tzw. transakcji. Aplikacja biznesowa rzadko funkcjonuje samodzielnie - zazwyczaj musi zintegrować się z innymi aplikacjami biznesowymi.
+
+Aplikacje biznesowe realizują logikę biznesową. Logika biznesowa jest logiczna tylko z nazwy. Są to pewne reguły, które istnieją i w oparciu o nie działa przedsiębiorstwo. Aplikacja musi działać w oparciu o te same reguły.
+\end{defn}
+
+\subsection{Warstwy}
+Podział systemów na warstwy jest bardzo powszechny w dziedzinie informatyki. Najlepszym przykładem jest tutaj model ISO/OSI, w którym są warstwy: fizyczna, łącza, sieciowa i inne. Protokół FTP działa w oparciu o TCP, które znajduje się w niższej warstwie. TCP nawet nie wie o istnieniu FTP. Ta sytuacja bardzo dobrze ilustruje jak działają warstwy.
+
+Cechy architektury warstwowej:
+\begin{enumerate}
+  \item system podzielony jest na osobne warstwy,
+  \item warstwy niższe nie wiedzą o warstwach wyższych,
+  \item warstwa wyższa korzysta z warstwy poniżej, która ukrywa inne niższe warstwy.
+\end{enumerate}
+
+Nie wszystkie architektury warstwowe posiadają wszytkie wyżej wymienione cechy - niektóre nie chowają warstw niższych przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
+
+Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa:
+
+\begin{enumerate}
+  \item Zalety
+    \begin{itemize}
+      \item można zrozumieć działanie jednej warstwy bez wiedzy o tym jak działają inne warstwy,
+      \item warstwa może być wymieniona na alternatywną implementację, która implementuje ten sam kontrakt,
+      \item podział na warstwy umożliwia dużą reużywalność
+    \end{itemize}
+  \item Wady
+    \begin{itemize}
+      \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach niższych
+      \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność - z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w całym systemie
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Historia architektury trójwarstwowej}
+W latach 90' popularne były systemy \emph{klient-serwer}. Klient składał się z aplikacji z interfejsem użytkownika i kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Takie systemy sprawdzały się w przypadku aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach proceduralnych.
+
+Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo. 
+
+W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w warstwie prezentacji.
+
+Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
+
+Rozkwit narzędzi i architektury trójwarstwowej nastąpił dopiero, gdy aplikacje internetowe zyskały na popularności.
+
+\subsection{Omówienie architektury trójwarstwowej}
+
+Architektura trójwarstwowa składa się z następujących trzech warstw:
+
+\begin{description}
+  \item[Prezentacji] - odpowiedzialnością warstwy prezentacji jest obsługa interakcji użytkownika z systemem. Może to 
+  być interfejs bazujący na przeglądarce - wtedy mówimy o cienkim kliencie\footnote{\url{http://en.wikipedia.org/wiki/Thin\_client}}.
+   Może to być również typowa aplikacja okienkowa używająca biblioteki 
+   Swing\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/guides/swing/index.html}} 
+   lub innych jak Qt\footnote{\url{http://qt-project.org/}} lub 
+   WPF\footnote{\url{http://msdn.microsoft.com/pl-pl/library/ms754130.aspx}} - mówimy wtedy o
+    grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. Dzisiaj raczej nie spotkamy się za bardzo z grubym klientem. Prawdziwą rewolucję, przechodzi cienki klient, który wcale nie jest taki cienki. HTML5 i JavaScript pozwalają na zbudowanie takiego interfejsu, który zapewnia doświadczenia podobne do tych z aplikacji okienkowych. Dowiemy się o tym więcej.
+  \item[Źródła danych] - nazywana też warstwą bazodanową ponieważ bardzo często składa się z relacyjnej bazy danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi systemami w celu realizacji zadań aplikacji.
+  \item[Logiki] - nazywana też warstwą aplikacji, realizuje logikę aplikacyjną nazywaną także logiką biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy problem.
+\end{description}
+
 %%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
 
 \appendix
