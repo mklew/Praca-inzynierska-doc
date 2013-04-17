@@ -1676,11 +1676,30 @@ Architektura trójwarstwowa składa się z następujących trzech warstw:
    Swing\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/guides/swing/index.html}} 
    lub innych jak Qt\footnote{\url{http://qt-project.org/}} lub 
    WPF\footnote{\url{http://msdn.microsoft.com/pl-pl/library/ms754130.aspx}} - mówimy wtedy o
-    grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. Dzisiaj raczej nie spotkamy się za bardzo z grubym klientem. Prawdziwą rewolucję, przechodzi cienki klient, który wcale nie jest taki cienki. HTML5 i JavaScript pozwalają na zbudowanie takiego interfejsu, który zapewnia doświadczenia podobne do tych z aplikacji okienkowych. Dowiemy się o tym więcej.
-  \item[Źródła danych] - nazywana też warstwą bazodanową ponieważ bardzo często składa się z relacyjnej bazy danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi systemami w celu realizacji zadań aplikacji.
-  \item[Logiki] - nazywana też warstwą aplikacji, realizuje logikę aplikacyjną nazywaną także logiką biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy problem.
+    grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. 
+
+    Obecnie w nowo pisanych aplikacjach nie spotyka się grubego klienta. Spowodowane jest to tym, że środowisko przeglądarki oferuje prawie takie same możliwości co typowa aplikacja okienkowa. HTML5 i JavaScript pozwalają tworzyć wyrafinowane dynamiczne interfejsy. Aktualnie coraz modniejsze są całkowicie dynamiczne aplikacje po stronie klienta, komunikujące się z warstwą logiki poprzez asynchroniczne żądania. Jest to nurt, który będzie rozkwitał, ponieważ powstają do tego coraz lepsze narzędzia i pisanie aplikacji w taki sposób jest prostsze i atrakcyjniejsze dla końcowego użytkownika. 
+  
+  \item[Aplikacji] - nazywana też warstwą logiki, warstwą domeny, realizuje logikę aplikacyjną nazywaną także logiką biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy problem. Model ten jest powodem dla którego aplikacja została stworzona. 
+  
+  \item[Źródła danych] - nazywana też warstwą bazodanową, ponieważ bardzo często największym elementem, z którego się składa jest relacyjna baza danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi systemami w celu realizacji funkcjonalności aplikacji. 
 \end{description}
 
+Przedstawione warstwy reprezentują podział logiczny systemu, a nie fizyczny. W języku polskim brakuje dobrego tłumaczenia słowa ,,tier'', które oznacza fizyczny podział na warstwy. Oznacza to, że aplikacja uruchomiona lokalnie nadal jest aplikacją trójwarstwową mimo, że całość działa na jednej fizycznej warstwie. 
+
+\subsubsection{Model jest najważniejszy}
+Podział na trzy warstwy powoduje, że cała funkcjonalność aplikacji dotycząca logowania, zabezpieczeń, przyjęcia żądania, transakcyjności, wysłania odpowiedzi na żądanie i inne czysto techniczne działania skupione są w jednej warstwie razem z logiką biznesową. Nie stanowi to problemu dla aplikacji, które mają prosty model dziedziny. Jednak w przypadku bardziej skomplikowanego modelu warto jest dokonać destylacji modelu i wydzielić go do osobnej warstwy. 
+
+Do destylacji modelu dziedziny i nastawienia się na to, że to właśnie model domeny jest najistotniejszym elementem całego systemu zachęca Eric Evans w swojej książce \cite{evans2004domain}. Oprócz tego przedstawia swoje podejście do modelowania domeny i uczy interesujących praktyk przydanych przy tworzeniu aplikacji biznesowych. Pomijając szczegóły chcę przedstawić lepszy podział na warstwy, który pozwala na łatwiejsze zrozumienie działania aplikacji.
+
+\begin{description}
+  \item[warstwa prezentacji] - odpowiedzialność taka jak wcześniej,
+  \item[warstwa aplikacji] - zabezpieczenia, logowanie, obsługa błędów, koordynacja działań i użycie warstwy domeny do obsługi żądania. Jest to bardzo cienka warstwa - otoczka wokół warstwy domeny.
+  \item[warstwa domeny] - serce systemu, tutaj żyje model dziedziny. Warstwa ta jest pozbawiona wszystkich zależności, które nie są powiązane z domeną problemu. Dostęp do danych odbywa się poprzez \emph{repozytoria}. Repozytorium to interfejs, który ma znaczenie dla domeny problemu i abstrahuje od tego, że będzie zależny od bazy danych,
+  \item[warstwa infrastruktury] - wspiera wszystkie wyższe warstwy, implementuje kontrakty nałożone przez warstwę domeny. Jest to analogiczna warstwa do warstwy źródła danych z tą różnicą, że nie jest chowana przed warstwą prezentacji.
+\end{description}
+
+Taki podział pozwala na całkowite wydzielenie domeny. Jeśli stworzymy model reprezentujący świat faktur lub kontraktów pochodnych lub ubezpieczeń i zakładając, że zrobimy to dobrze to będziemy mogli użyć tego samego modelu w innej aplikacji. Sposobem, żeby mieć pewność, że domena nie przecieka do innych warstw jest stworzenie osobnego projektu, dla warstwy domeny, który nie zależy od żadnej z innych warstw. Zainteresowanych odsyłam do książki \cite{evans2004domain}, która zapoczątkowała ,,Domain Driven Design''.\footnote{\url{http://www.domaindrivendesign.org/}}
 %%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
 
 \appendix
