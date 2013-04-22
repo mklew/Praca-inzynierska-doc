@@ -1362,7 +1362,7 @@ Każdy, kto ukończył kurs inżynierii oprogramowania, bądź spotkał się z S
  rozwiązać na bardzo wstępnym etapie projektu jest kluczem do tego, aby skończony projekt spełniał biznesowe potrzeby.
 
 Choć wymagania mogą się zmieniać, cel pozostanie ten sam. Pomijam zatem na ten moment rozważania nad konkretną 
-metodologią projektu, która będzie nastawiona na zmiany wymagań, gdyż określenie celu stoi ponad tym.
+metodyką projektu, która będzie nastawiona na zmiany wymagań, gdyż określenie celu stoi ponad tym.
 
 W poprzednim rozdziale zapoznaliśmy się z branżą hotelarską i wyzwaniami jakie czekają na pracowników hotelu w ich 
 codziennej pracy. Ta wiedza ułatwia odpowiedź na kluczowe pytanie.
@@ -1563,23 +1563,29 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
   \item Wymagania ilościowe
     \begin{itemize}
       \item restart systemu i powrót do pełnej funkcjonalności nie może przekroczyć 1 godziny,
-      \item system powinien zapewniać dostępność na poziomie 99\%. Dopuszcza się przerwy konserwacyjne w działaniu systemu w godzinach nocnych,
+      \item system powinien zapewniać dostępność na poziomie 99\%. Dopuszcza się przerwy konserwacyjne w działaniu 
+      systemu w godzinach nocnych,
       \item jedynym limitem dla liczby stawek powinno być dostępne miejsce w bazie danych,
-      \item czas oczekiwania na efekty codziennych operacji wykonywanych przez recepcjonistów nigdy nie powinien przekroczyć 5 sekund - nie dotyczy to przygotowania raportów,
-      \item system powinien przechowywać dane o co najmniej 100 000 usługach, pakietach i gościach bez potrzeby usuwania danych,
+      \item czas oczekiwania na efekty codziennych operacji wykonywanych przez recepcjonistów nigdy nie powinien 
+      przekroczyć 5 sekund - nie dotyczy to przygotowania raportów,
+      \item system powinien przechowywać dane o co najmniej 100 000 usługach, pakietach i gościach bez potrzeby 
+      usuwania danych,
       \item system powinien przechowywać dane o co najmniej 10 000 000 rezerwacjach bez potrzeby usuwania danych.
     \end{itemize}
   \item Wymagania jakościowe
     \begin{itemize}
       \item Bezpieczeństwo
         \begin{itemize}
-          \item system musi przechowywać dane osobowe zgodnie z wymaganiami ustawy\footnote{Ustawa z dnia 29 sierpnia 1997 r. o ochronie danych osobowych. (t.j. Dz. U. z 2002 r. Nr 101, poz. 926)},
+          \item system musi przechowywać dane osobowe zgodnie z wymaganiami ustawy\footnote{Ustawa z dnia 29 sierpnia 
+          1997 r. o ochronie danych osobowych. (t.j. Dz. U. z 2002 r. Nr 101, poz. 926)},
           \item autoryzacja użytkownika systemu wewnętrznego wymaga podawania nazwy użytkownika i hasła,
-          \item hasła muszą być przechowywane w bazie danych w sposób bezpieczny, zaleca się wykorzystanie przynajmniej 256 bitowych funkcji skrótu oraz tzw. soli,
+          \item hasła muszą być przechowywane w bazie danych w sposób bezpieczny, zaleca się wykorzystanie 
+          przynajmniej 256 bitowych funkcji skrótu oraz tzw. soli,
           \item system automatycznie zamyka sesję użytkownika po okresie bezczynności dłuższym niż 30 minut,
           \item formularz rezerwacji online powinien być szyfrowany przez protokół https.
         \end{itemize}
-      \item dane dotyczące operacji finansowych powinny być przechowywane przez okres co najmniej 5 lat od daty zakończenia umowy\footnote{umowy na usługę hotelarską},
+      \item dane dotyczące operacji finansowych powinny być przechowywane przez okres co najmniej 5 lat od daty 
+      zakończenia umowy\footnote{umowy na usługę hotelarską},
       \item system powinien być prosty w obsłudze i zrozumiały dla przeszkolonych użytkowników,
       \item system powinien być dostępny poprzez przeglądarkę,
       \item system wewnętrzny musi zapewnić pełną obsługę w poziomu najnowyszych przeglądarek,
@@ -1591,43 +1597,67 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
           \item Opera w wersji $\geq$ 11.0.
         \end{itemize}
       \item system powinien być dostępny w języku angielskim,
-      \item architektura systemu powinna umożliwiać przetłumaczenie całego systemu na inny język jeśli zapadanie taka decyzja w przyszłości,
+      \item architektura systemu powinna umożliwiać przetłumaczenie całego systemu na inny język jeśli zapadanie taka 
+      decyzja w przyszłości,
       \item system powinien być zintegrowany z systemami płatności kartami płatniczymi,
-      \item numer rezerwacji nie może być kolejną liczbą z sekwencji - dwie kolejne rezerwacje powinny mieć znacznie różne numery,
+      \item numer rezerwacji nie może być kolejną liczbą z sekwencji - dwie kolejne rezerwacje powinny mieć znacznie 
+      różne numery,
       \item system powinien być przygotowany do testów automatycznych.
     \end{itemize}
 \end{enumerate}
 
+
+\chapter{Technologie}
+
+\section{Wstęp}
+Kolejnym krokiem w procesie wytwórczym aplikacji jest wybór odpowiednich rozwiązań technicznych, które pozwolą spełnić wymagania funkcjonalne, niefunkcjonalne i zrealizować cel aplikacji. Na tym etapie projektanci aplikacji stoją przed wyborem m.in. architektury systemu, języków programowania, szkieletów aplikacyjnych. Wpływ na ten wybór, jest podyktowany doświadczeniem projektantów oraz ograniczeniami aplikacji. Ograniczenia aplikacji poznaliśmy w poprzednim rozdziale.
+
+W poniższym rozdziale zapoznamy się z moimi wyborami jako projektanta tej aplikacji. Każdy wybór odpowiada czytelnikowi na pytanie ,,Dlaczego?''. Pierwszym z wyborów jest architektura aplikacji, której to została poświęcona specjalna uwaga, aby dość dobrze zapoznać czytelnika z architekturą trójwarstwową.
+
 \section{Architektura}
-Spotkałem się z wieloma próbami definicji architektury. Podoba mi się podejście Martina Fowlera, który nie próbuje jej definiować, ale podaje dwa popularne elementy, które każda definicja zawiera: \cite{fowler2003patterns}
+Spotkałem się z wieloma próbami definicji architektury. Podoba mi się podejście Martina Fowlera, który nie próbuje jej 
+definiować, ale podaje dwa popularne elementy, które każda definicja zawiera: \cite{fowler2003patterns}
 
 \begin{enumerate}
   \item podział systemu na części na najwyższym poziomie abstrakcji, \footnote{tłumaczenie własne}
   \item podjęte decyzje, które później trudno\footnote{kosztownie} zmienić.
 \end{enumerate}
 \subsection{Wstęp do architektury trójwarstwowej}
-Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
+Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to 
+architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
 
-Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
+Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i 
+wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
 
-Większość poniższych informacji opiera się na rewelacyjnej książce Martina Fowlera ,,Patterns of enterprise application architecture''. \cite{fowler2003patterns}
+Większość poniższych informacji opiera się na rewelacyjnej książce Martina Fowlera 
+,,Patterns of enterprise application architecture''. \cite{fowler2003patterns}
 
 \begin{defn}{Aplikacja biznesowa}
 
 co jest, a co nie jest aplikacją biznesową łatwo zrozumieć na podstawie przykładów:
 \begin{description}
-  \item[Aplikacja biznesowa] obsługa faktur, system zarządzania stanem magazynku, system do ubezpieczeń, śledzenie paczek
-  \item[Inny typ aplikacji] gry komputerowe, kompilatory, procesory tekstu(np. Microsoft Word, OpenOffice), komunikatory internetowe, programy do edycji grafiki, 
+  \item[Aplikacja biznesowa] obsługa faktur, system zarządzania stanem magazynku, system do ubezpieczeń, śledzenie 
+  paczek
+  \item[Inny typ aplikacji] gry komputerowe, kompilatory, procesory tekstu(np. Microsoft Word, OpenOffice), 
+  komunikatory internetowe, programy do edycji grafiki, 
 \end{description}
-Najbardziej charakterystyczną cechą aplikacji biznesowej jest to, że operuje ona na podstawie pewnych persystentnych  danych.\footnote{muszą być dostępne pomiędzy uruchomieniami aplikacji} Tych danych jest zazwyczaj bardzo dużo, a same dane mogą żyć dłużej od aplikacji. Bardzo prawdopodobne jest to, że nowa aplikacja będzie musiała korzystać z danych poprzedniej aplikacji.
+Najbardziej charakterystyczną cechą aplikacji biznesowej jest to, że operuje ona na podstawie pewnych persystentnych  
+danych.\footnote{muszą być dostępne pomiędzy uruchomieniami aplikacji} Tych danych jest zazwyczaj bardzo dużo, a same 
+dane mogą żyć dłużej od aplikacji. Bardzo prawdopodobne jest to, że nowa aplikacja będzie musiała korzystać z danych 
+poprzedniej aplikacji.
 
-Następnie aplikacje biznesowe używane są przez wielu użytkowników, który wykonują na nich pewną pracę dokonując tzw. transakcji. Aplikacja biznesowa rzadko funkcjonuje samodzielnie - zazwyczaj musi zintegrować się z innymi aplikacjami biznesowymi.
+Następnie aplikacje biznesowe używane są przez wielu użytkowników, który wykonują na nich pewną pracę dokonując tzw. 
+transakcji. Aplikacja biznesowa rzadko funkcjonuje samodzielnie - zazwyczaj musi zintegrować się z innymi aplikacjami 
+biznesowymi.
 
-Aplikacje biznesowe realizują logikę biznesową. Logika biznesowa jest logiczna tylko z nazwy. Są to pewne reguły, które istnieją i w oparciu o nie działa przedsiębiorstwo. Aplikacja musi działać w oparciu o te same reguły.
+Aplikacje biznesowe realizują logikę biznesową. Logika biznesowa jest logiczna tylko z nazwy. Są to pewne reguły, 
+które istnieją i w oparciu o nie działa przedsiębiorstwo. Aplikacja musi działać w oparciu o te same reguły.
 \end{defn}
 
 \subsection{Warstwy}
-Podział systemów na warstwy jest bardzo powszechny w dziedzinie informatyki. Najlepszym przykładem jest tutaj model ISO/OSI, w którym są warstwy: fizyczna, łącza, sieciowa i inne. Protokół FTP działa w oparciu o TCP, które znajduje się w niższej warstwie. TCP nawet nie wie o istnieniu FTP. Ta sytuacja bardzo dobrze ilustruje jak działają warstwy.
+Podział systemów na warstwy jest bardzo powszechny w dziedzinie informatyki. Najlepszym przykładem jest tutaj model 
+ISO/OSI, w którym są warstwy: fizyczna, łącza, sieciowa i inne. Protokół FTP działa w oparciu o TCP, które znajduje 
+się w niższej warstwie. TCP nawet nie wie o istnieniu FTP. Ta sytuacja bardzo dobrze ilustruje jak działają warstwy.
 
 Cechy architektury warstwowej:
 \begin{enumerate}
@@ -1636,7 +1666,8 @@ Cechy architektury warstwowej:
   \item warstwa wyższa korzysta z warstwy poniżej, która ukrywa inne niższe warstwy.
 \end{enumerate}
 
-Nie wszystkie architektury warstwowe posiadają wszytkie wyżej wymienione cechy - niektóre nie chowają warstw niższych przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
+Nie wszystkie architektury warstwowe posiadają wszytkie wyżej wymienione cechy - niektóre nie chowają warstw niższych 
+przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
 
 Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa:
 
@@ -1650,18 +1681,30 @@ Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa
   \item Wady
     \begin{itemize}
       \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach niższych
-      \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność - z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w całym systemie
+      \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność -
+       z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w 
+       całym systemie
     \end{itemize}
 \end{enumerate}
 
 \subsection{Historia architektury trójwarstwowej}
-W latach 90' popularne były systemy \emph{klient-serwer}. Klient składał się z aplikacji z interfejsem użytkownika i kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Takie systemy sprawdzały się w przypadku aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach proceduralnych.
+W latach 90' popularne były systemy \emph{klient-serwer}. Klient składał się z aplikacji z interfejsem użytkownika i 
+kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Takie systemy sprawdzały się w przypadku 
+aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach 
+proceduralnych.
 
-Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo. 
+Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas 
+cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. 
+Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu 
+strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co 
+zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo. 
 
-W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w warstwie prezentacji.
+W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie 
+problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę 
+wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w warstwie prezentacji.
 
-Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
+Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. 
+Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
 
 Rozkwit narzędzi i architektury trójwarstwowej nastąpił dopiero, gdy aplikacje internetowe zyskały na popularności.
 
@@ -1678,29 +1721,144 @@ Architektura trójwarstwowa składa się z następujących trzech warstw:
    WPF\footnote{\url{http://msdn.microsoft.com/pl-pl/library/ms754130.aspx}} - mówimy wtedy o
     grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. 
 
-    Obecnie w nowo pisanych aplikacjach nie spotyka się grubego klienta. Spowodowane jest to tym, że środowisko przeglądarki oferuje prawie takie same możliwości co typowa aplikacja okienkowa. HTML5 i JavaScript pozwalają tworzyć wyrafinowane dynamiczne interfejsy. Aktualnie coraz modniejsze są całkowicie dynamiczne aplikacje po stronie klienta, komunikujące się z warstwą logiki poprzez asynchroniczne żądania. Jest to nurt, który będzie rozkwitał, ponieważ powstają do tego coraz lepsze narzędzia i pisanie aplikacji w taki sposób jest prostsze i atrakcyjniejsze dla końcowego użytkownika. 
+    Obecnie w nowo pisanych aplikacjach nie spotyka się grubego klienta. Spowodowane jest to tym, że środowisko 
+    przeglądarki oferuje prawie takie same możliwości co typowa aplikacja okienkowa. HTML5 i JavaScript pozwalają 
+    tworzyć wyrafinowane dynamiczne interfejsy. Aktualnie coraz modniejsze są całkowicie dynamiczne aplikacje po 
+    stronie klienta, komunikujące się z warstwą logiki poprzez asynchroniczne żądania. Jest to nurt, który będzie 
+    rozkwitał, ponieważ powstają do tego coraz lepsze narzędzia i pisanie aplikacji w taki sposób jest prostsze i 
+    atrakcyjniejsze dla końcowego użytkownika. 
   
-  \item[Aplikacji] - nazywana też warstwą logiki, warstwą domeny, realizuje logikę aplikacyjną nazywaną także logiką biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy problem. Model ten jest powodem dla którego aplikacja została stworzona. 
+  \item[Aplikacji] - nazywana też warstwą logiki, warstwą domeny, realizuje logikę aplikacyjną nazywaną także logiką 
+  biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy 
+  problem. Model ten jest powodem dla którego aplikacja została stworzona. 
   
-  \item[Źródła danych] - nazywana też warstwą bazodanową, ponieważ bardzo często największym elementem, z którego się składa jest relacyjna baza danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi systemami w celu realizacji funkcjonalności aplikacji. 
+  \item[Źródła danych] - nazywana też warstwą bazodanową, ponieważ bardzo często największym elementem, z którego się 
+  składa jest relacyjna baza danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium 
+  składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi 
+  systemami w celu realizacji funkcjonalności aplikacji. 
 \end{description}
 
-Przedstawione warstwy reprezentują podział logiczny systemu, a nie fizyczny. W języku polskim brakuje dobrego tłumaczenia słowa ,,tier'', które oznacza fizyczny podział na warstwy. Oznacza to, że aplikacja uruchomiona lokalnie nadal jest aplikacją trójwarstwową mimo, że całość działa na jednej fizycznej warstwie. 
+Przedstawione warstwy reprezentują podział logiczny systemu, a nie fizyczny. W języku polskim brakuje dobrego 
+tłumaczenia słowa ,,tier'', które oznacza fizyczny podział na warstwy. Oznacza to, że aplikacja uruchomiona lokalnie 
+nadal jest aplikacją trójwarstwową mimo, że całość działa na jednej fizycznej warstwie. 
 
 \subsubsection{Model jest najważniejszy}
-Podział na trzy warstwy powoduje, że cała funkcjonalność aplikacji dotycząca logowania, zabezpieczeń, przyjęcia żądania, transakcyjności, wysłania odpowiedzi na żądanie i inne czysto techniczne działania skupione są w jednej warstwie razem z logiką biznesową. Nie stanowi to problemu dla aplikacji, które mają prosty model dziedziny. Jednak w przypadku bardziej skomplikowanego modelu warto jest dokonać destylacji modelu i wydzielić go do osobnej warstwy. 
+Podział na trzy warstwy powoduje, że cała funkcjonalność aplikacji dotycząca logowania, zabezpieczeń, przyjęcia 
+żądania, transakcyjności, wysłania odpowiedzi na żądanie i inne czysto techniczne działania skupione są w jednej 
+warstwie razem z logiką biznesową. Nie stanowi to problemu dla aplikacji, które mają prosty model dziedziny. Jednak w 
+przypadku bardziej skomplikowanego modelu warto jest dokonać destylacji modelu i wydzielić go do osobnej warstwy. 
 
-Do destylacji modelu dziedziny i nastawienia się na to, że to właśnie model domeny jest najistotniejszym elementem całego systemu zachęca Eric Evans w swojej książce \cite{evans2004domain}. Oprócz tego przedstawia swoje podejście do modelowania domeny i uczy interesujących praktyk przydanych przy tworzeniu aplikacji biznesowych. Pomijając szczegóły chcę przedstawić lepszy podział na warstwy, który pozwala na łatwiejsze zrozumienie działania aplikacji.
+Do destylacji modelu dziedziny i nastawienia się na to, że to właśnie model domeny jest najistotniejszym elementem 
+całego systemu zachęca Eric Evans w swojej książce \cite{evans2004domain}. Oprócz tego przedstawia swoje podejście do 
+modelowania domeny i uczy interesujących praktyk przydanych przy tworzeniu aplikacji biznesowych. Pomijając szczegóły 
+chcę przedstawić lepszy podział na warstwy, który pozwala na łatwiejsze zrozumienie działania aplikacji.
 
 \begin{description}
   \item[warstwa prezentacji] - odpowiedzialność taka jak wcześniej,
-  \item[warstwa aplikacji] - zabezpieczenia, logowanie, obsługa błędów, koordynacja działań i użycie warstwy domeny do obsługi żądania. Jest to bardzo cienka warstwa - otoczka wokół warstwy domeny.
-  \item[warstwa domeny] - serce systemu, tutaj żyje model dziedziny. Warstwa ta jest pozbawiona wszystkich zależności, które nie są powiązane z domeną problemu. Dostęp do danych odbywa się poprzez \emph{repozytoria}. Repozytorium to interfejs, który ma znaczenie dla domeny problemu i abstrahuje od tego, że będzie zależny od bazy danych,
-  \item[warstwa infrastruktury] - wspiera wszystkie wyższe warstwy, implementuje kontrakty nałożone przez warstwę domeny. Jest to analogiczna warstwa do warstwy źródła danych z tą różnicą, że nie jest chowana przed warstwą prezentacji.
+  \item[warstwa aplikacji] - zabezpieczenia, logowanie, obsługa błędów, koordynacja działań i użycie warstwy domeny do 
+  obsługi żądania. Jest to bardzo cienka warstwa - otoczka wokół warstwy domeny.
+  \item[warstwa domeny] - serce systemu, tutaj żyje model dziedziny. Warstwa ta jest pozbawiona wszystkich zależności, 
+  które nie są powiązane z domeną problemu. Dostęp do danych odbywa się poprzez \emph{repozytoria}. Repozytorium to 
+  interfejs, który ma znaczenie dla domeny problemu i abstrahuje od tego, że będzie zależny od bazy danych,
+  \item[warstwa infrastruktury] - wspiera wszystkie wyższe warstwy, implementuje kontrakty nałożone przez warstwę 
+  domeny. Jest to analogiczna warstwa do warstwy źródła danych z tą różnicą, że nie jest chowana przed warstwą 
+  prezentacji.
 \end{description}
 
-Taki podział pozwala na całkowite wydzielenie domeny. Jeśli stworzymy model reprezentujący świat faktur lub kontraktów pochodnych lub ubezpieczeń i zakładając, że zrobimy to dobrze to będziemy mogli użyć tego samego modelu w innej aplikacji. Sposobem, żeby mieć pewność, że domena nie przecieka do innych warstw jest stworzenie osobnego projektu, dla warstwy domeny, który nie zależy od żadnej z innych warstw. Zainteresowanych odsyłam do książki \cite{evans2004domain}, która zapoczątkowała ,,Domain Driven Design''.\footnote{\url{http://www.domaindrivendesign.org/}}
-%%% KONIEC ROZDZIAŁU PIERWSZEGO %%%%%
+Taki podział pozwala na całkowite wydzielenie domeny. Jeśli stworzymy model reprezentujący świat faktur lub kontraktów 
+pochodnych lub ubezpieczeń i zakładając, że zrobimy to dobrze to będziemy mogli użyć tego samego modelu w innej 
+aplikacji. Sposobem, żeby mieć pewność, że domena nie przecieka do innych warstw jest stworzenie osobnego projektu, 
+dla warstwy domeny, który nie zależy od żadnej z innych warstw. Zainteresowanych odsyłam do książki \cite{
+evans2004domain}, która zapoczątkowała ,,Domain Driven Design''.\footnote{\url{http://www.domaindrivendesign.org/}}
+
+\section{Lista wybranych technologii}
+Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplikacji. Następnie pokrótce omówię, każde z narzędzi i podam dostępne alternatywy.
+
+\begin{itemize}
+  \item Git - system kontroli wersji
+  \item JVM - platforma pod aplikację
+  \item Java - użyty język na platformie JVM
+  \item Maven - narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami
+  \item ObjectLedge - framework ułatwiający pisanie aplikacji internetowych w języku Java
+  \item Hibernate - biblioteka do mapowania obiektowo-relacyjnego
+  \item Jersey - biblioteka do RESTowych usług internetowych
+  \item AngularJS - framework dla aplikacji MVC po stronie klienta
+  \item PostgreSQL - relacyjna baza danych
+\end{itemize}
+
+\section{Git}
+Git to zdecentralizowany system kontroli wersji. Użycie systemu kontroli jest przydatne zarówno przy tworzeniu 
+aplikacji jak i przy tworzeniu tej pracy dyplomowej. Głównymi cechami Gita jest szybkość, łatwe i tanie\footnote{nie 
+zajmujące miejsca i szybkie} tworzenie gałęzi, precyzyjne zarządzanie zmianami.
+
+http://git-scm.com/
+
+TODO w jaki sposób pozostawić tego linka? Tutaj czy dać go do źródeł na koniec pracy?
+
+Alternatywy:
+\begin{itemize}
+  \item SVN - centralny system kontroli wersji
+  \item Mercurial - bardzo podobny do Gita zdecentralizowany system kontroli wersji http://mercurial.selenic.com/
+\end{itemize}
+
+Dlaczego Git? SVN to narzędzie poprzedniej epoki w porównaniu do Gita i Mercuriala zatem tak naprawdę wybór odbył się
+pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten framework dla własnych 
+potrzeb  chciałem korzystać z tego samego systemu kontroli wersji. Można też dodać do tego osobiste preferencje. 
+
+\section{JVM i Java}
+Wirtualna maszyna Javy stanowi platformę uruchomieniową nie tylko dla języka Java, ale także dla innych języków, a są 
+to m.in. Ruby, Groovy, Scala, Clojure, Python. Biorąc pod uwagę tylko ten argument platforma JVM jest atrakcyjna. 
+Można dodać do tego wiele dostępnych algorytmów odśmiecania pamięci jak również silną optymalizację kodu w trakcie 
+wykonania poprzez JVM HotSpot.
+
+Alternatywą do platformy JVM jest platforma .NET lub nie używanie jakiejkolwiek maszyny wirtualnej.
+
+Dlaczego JVM i Java? Celem tej pracy jest prototyp napisany w języku Java, a więc korzystanie z wirtualnej maszyny 
+javy jest wymagane. 
+Jeśli by jednak o tym na chwilę zapomnieć to JVM stanowi dorosłą, sprawdzoną w praktyce platformę dla wymagających 
+aplikacji w tym aplikacji biznesowych. Oprócz tego istnieją otwarte implementacje platformy JVM zatem nie trzeba być 
+związanym z zamkniętym rozwiązaniem jak .NET.
+
+Gdyby nie postawione jasno wymaganie co do Javy, to i tak zdecydowałbym się na użycie platformy JVM, ale z innym 
+językiem jak Scala lub Ruby, które oferują większą ekspresywność, a co za tym idzie wymagają mniejszej ilości kodu.
+
+TODO dodać jakiś link do JVM i Javy oraz może Scali 
+
+\section{Maven}
+Maven to narzędzie do zarządzania projektem, w tym kompilacji, uruchamiania testów, pakowania źródeł i wdrażania 
+zbudowanego artefaktu. Pozwala także na automatyczne wygenerowanie dokumentacji projektu zawierającego JavaDoc oraz 
+stronę www z informacjami o projekcie. Największa zaletą jest pobieranie wszystkich zadeklarowanych zależności 
+projektowych np. bibliotek z centralnego repozytorium. Centralne repozytorium zawiera ogromną ilość projektów Java. 
+
+Maven odpowiada za dołączanie do projektu wszystkich bibliotek we właściwych wersjach co znacznie 
+upraszcza pracę nad aplikacją.  
+
+Maven jest de facto standardowym rozwiązaniem w przypadku pisania jakiejkolwiek aplikacji w języku Java. Maven oferuje dużo więcej niż jestem w stanie tutaj przedstawić.
+
+Alternatywą, która daje podobne możliwości jest użycie dwóch narzędzi razem:
+\begin{itemize}
+  \item Apache Ivy - do zarządzania zależnościami
+  \item Apache Ant - do budowania projektu
+\end{itemize}
+
+Dlaczego Maven? Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie.
+
+TODO link http://maven.apache.org/
+TODO link do Apache Ivy i Apache Ant
+
+\section{ObjectLedge}
+
+krótko co to jest MVC i dodać linka
+
+\section{Hibernate}
+
+krótko co to jest ORM
+
+\section{Jersey}
+
+krótko co to jest REST i dodać linka do RFC
+
+%% koniec %%
 
 \appendix
 
