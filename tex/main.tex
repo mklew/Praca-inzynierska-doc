@@ -28,6 +28,7 @@
 \usepackage{listings}
 \usepackage{float}
 
+\linespread{1.3} % interlinia
 % marginesy
 \textwidth\paperwidth
 \advance\textwidth -55mm
@@ -1353,16 +1354,13 @@ funkcjonalność    & Col2     & Col3          & Col4                & col5     
 
 TODO więcej rzeczy do porównania
 
-\chapter{System Hotelarski TODO bardziej odpowiednia nazwa rozdziału}
+\chapter{Model funkcjonalny}
 
 \section{Cel systemu}
 Każdy, kto ukończył kurs inżynierii oprogramowania, bądź spotkał się z Siatką Zachmana\footnote{ang. Zachman Framework}
  \cite{zachman1986framework} albo pisał biznes plan lub realizował jakikolwiek projekt - nie koniecznie techniczny -  
  wie jak ważna jest odpowiedź na pytanie ,,Dlaczego?''. Określenie motywacji, celu, problemu biznesowego, który trzeba 
  rozwiązać na bardzo wstępnym etapie projektu jest kluczem do tego, aby skończony projekt spełniał biznesowe potrzeby.
-
-Choć wymagania mogą się zmieniać, cel pozostanie ten sam. Pomijam zatem na ten moment rozważania nad konkretną 
-metodyką projektu, która będzie nastawiona na zmiany wymagań, gdyż określenie celu stoi ponad tym.
 
 W poprzednim rozdziale zapoznaliśmy się z branżą hotelarską i wyzwaniami jakie czekają na pracowników hotelu w ich 
 codziennej pracy. Ta wiedza ułatwia odpowiedź na kluczowe pytanie.
@@ -1376,8 +1374,11 @@ obsługiwać gościa mając wgląd w jego dane, szybko rozliczać pobyt i być w
 przyszłym obłożeniu hotelu. Wszystkie cele w pewnym stopniu przyczyniają się do zwiększenia jakości obsługi gościa i 
 optymalizacji pracy hotelu jako przedsiębiorstwa.
 
+\subsection{Odbiorca systemu}
+Potencjalnym odbiorcą systemu jest mały lub średni zakład hotelarski, który chce zwiększyć produktywność swoich pracowników oraz podnieść poziom obsługi klienta. Odbiorcy powinno zależeć na łatwym zarządzaniu obłożeniem hotelu i szybkim procesie rezerwacyjnym.
+
 \section{Wymagania}
-Mając określony ogólny cel możemy przystąpić do zdefiniowania wymagań funkcjonalnych i niefunkcjonalnych, których realizacja spełni postawiony cel.
+Mając określony cel oraz potencjalnego odbiorcę możemy przystąpić do zdefiniowania wymagań funkcjonalnych i niefunkcjonalnych, których realizacja spełni postawiony cel.
 
 \subsection{Wymagania funkcjonalne}
 Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie analizy dziedziny.
@@ -1556,7 +1557,6 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
     \end{itemize}
 \end{enumerate}
 
-
 \subsection{Wymagania niefunkcjonalne}
 
 \begin{enumerate}
@@ -1604,6 +1604,91 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
       różne numery,
       \item system powinien być przygotowany do testów automatycznych.
     \end{itemize}
+\end{enumerate}
+
+\section{Aktorzy}
+Przyglądając się wymaganiom oraz myśląc o tym w jaki sposób system będzie użytkowany można zauważyć kilku aktorów. Oto oni:
+
+\begin{description}
+  \item[recepcjonista] - podstawowy użytkownik systemu, recepcjonista będzie korzystał z większości funkcjonalności systemu
+  \item[pracownik służy pięter] - drugi w kolejności użytkownik systemu. Jego działalność w systemie leży tylko w zakresie zarządzania stanem\footnote{czystością} pokoi,
+  \item[kierownik recepcji] - użytkownik, który ma większe prawa niż recepcjonista, może np. mieć wgląd w informacje o kartach kredytowych gości i płatnościach,
+  \item[administrator] - użytkownik z pełnią praw w systemie,
+  \item[klient] - klient dokonuje rezerwacji online w systemie,
+  \item[bramka płatności] - powiadamia system o dokonanej płatności przez klienta,
+  \item[system fakturowania] - wystawia faktury za pobyty.
+\end{description}
+
+\section{Przypadki użycia}
+Przypadki użycia są ważne podczas analizy wymagań, a następnie podczas projektowania systemu. W trakcie analizy używa się przypadków wysokiego poziomu,\footnote{ang. essential use case} które abstrahują od technologii tak, aby nie ograniczać projektantów w wyborze konkretnych rozwiązań.
+
+Przypadki użycia pokazują interakcje aktorów z systemem w celu realizacji ustalonego celu dla danego przypadku użycia systemu. Przypadek użycia składa się z diagramu przypadku użycia oraz opisu przypadku użycia. 
+
+Diagram przypadków użycia pełni rolę tylko i wyłącznie pomocniczą, ilustracyjną. Diagramy pozwalają na łatwiejszą orientację w tym czy przypadki pokrywają wszystkie wymagania oraz przedstawiają w jaki sposób przypadki od siebie zależą.
+
+Choć sam diagram jest przydatny to pełni on jednak rolę drugorzędną. Najważniejszy jest sam opis przypadku użycia, który zawiera aktorów biorących udział w przypadku użycia, scenariusz główny, scenariusze alternatywne, warunki początkowe oraz oczekiwany rezultat. Scenariusze zawierają krokowy opis interakcji między systemem, a aktorami.
+
+Przypadki użycia same w sobie nie stanowią specyfikacji wymagań, ale są doskonałym narzędziem do ich ilustracji i weryfikacji przez analityków i projektantów systemu.
+
+\subsection{Przykładowy przypadek użycia}
+Pora na prezentację jednego przykładowego przypadku użycia, który jest kluczowym przypadkiem użycia w systemie. Opis przypadku użycia jest na wysokim poziomie. Zacznijmy od diagramu \ref{fig:uc-rezerwacja}, który pokazuje zgrupowane przypadki użycia wokół funkcjonalności dotyczących rezerwacji.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/RezerwacjaUseCase.png}
+  }
+  \end{center}
+  \caption{Przypadki użycia związane z rezerwacją}
+  \label{fig:uc-rezerwacja}
+\end{figure}
+
+\subsection{Przypadek użycia - Dokonanie rezerwacji}
+Ten przypadek użycia pokrywa funkcjonalność, w której rezerwacja dokonywana jest albo telefoniczne albo osobiście w hotelu.
+\begin{description}
+  \item [Przypadek użycia] - Dokonanie rezerwacji
+  \item [Aktorzy] - Recepcjonista, Klient
+  \item [Aktor inicjujący] - Recepcjonista
+  \item [Warunki wstępne] - Recepcjonista zalogowany w systemie
+  \item [Rezultat] - nowa niepotwierdzona rezerwacja w systemie
+\end{description}
+
+\begin{enumerate}
+  \item Recepcjonista przechodzi do modułu rezerwacji
+  \item Recepcjonista wybiera opcję utworzenia nowej rezerwacji
+  \item Recepcjonista wybiera typ rezerwacji
+  \item Recepcjonista wybiera datę pobytu
+  \item Recepcjonista wybiera typ pokoju
+  \item Recepcjonista wybiera stawkę
+  \item Recepcjonista szuka klienta w systemie
+  \item System nie znajduje klienta 
+  \item Recepcjonista uzupełnia część formularza z danymi klienta
+  \item Recepcjonista wybiera metodę płatności
+  \item Recepcjonista podaje dodatkowe informacje
+  \item Recepcjonista wybiera akcję ,,Rezerwuj''
+  \item System sprawdza poprawność danych rezerwacji
+  \item System informuje recepcjonistę o pomyślnym dodaniu rezerwacji
+\end{enumerate}
+
+Scenariusz alternatywny 1: Klient istnieje w systemie
+
+\begin{enumerate}
+  \item - 7. tak jak w scenariuszu głównym
+  \setcounter{enumi}{7}
+  \item System znajduje klienta
+  \item Recepcjonista wybiera znalezionego klienta
+  \item System automatycznie uzupełnia część formularza z danymi klienta 
+  \item Tak jak w scenariuszu głównym od 10.
+\end{enumerate}
+
+Scenariusz alternatywny 2: Nie ma wolnych pokoi w wybranym terminie
+
+\begin{enumerate}
+  \item - 4. - tak jak w scenariuszu głównym 
+  \setcounter{enumi}{4}
+  \item Recepcjonista proponuje Klientowi inny typ pokoju dostępny w wybranym terminie pobytu
+  \item Klient zgadza się na propozycję
+  \item Tak jak w scenariuszu głównym od 6.
 \end{enumerate}
 
 
