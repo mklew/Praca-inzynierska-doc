@@ -17,6 +17,7 @@
 \usepackage{amsthm}
 \usepackage{bookman}
 
+
 \usepackage{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -661,7 +662,7 @@ czy klient opuści hotel szczęśliwy i będzie chciał wkrótce wrócić czy te
 
 
 \subsubsection{Pracownicy recepcji}
-W recepcji możemy spotkać \cite[47-51]{OrgaDzialHot}:
+W recepcji możemy spotkać \cite[str. 47-51]{OrgaDzialHot}:
 
 \begin{itemize}
   \item kierownika recepcji (front office manager) - odpowiada za sprawne 
@@ -677,7 +678,7 @@ W recepcji możemy spotkać \cite[47-51]{OrgaDzialHot}:
 \end{itemize}
 
 \subsubsection{Obowiązki recepcji} 
-Recepcja odpowiada za\cite[50]{OrgaDzialHot}:
+Recepcja odpowiada za\cite[str. 50]{OrgaDzialHot}:
 
 \begin{itemize}
   \item przyjmowanie i realizacja zleceń na rezerwację miejsc noclegowych,
@@ -698,7 +699,7 @@ Recepcja odpowiada za\cite[50]{OrgaDzialHot}:
 \end{itemize}
 
 \subsubsection{Zespoły recepcji}
-W recepcji można wyróżnić następujące zespoły\cite[8-10]{hotel2:part1}:
+W recepcji można wyróżnić następujące zespoły\cite[str. 8-10]{hotel2:part1}:
 \begin{enumerate}
   \item hall recepcyjny - część ogólnodostępna,
   \item lada recepcyjna,
@@ -1691,6 +1692,28 @@ Scenariusz alternatywny 2: Nie ma wolnych pokoi w wybranym terminie
   \item Tak jak w scenariuszu głównym od 6.
 \end{enumerate}
 
+\section{Prototypowanie}
+Proces prototypowania nazywany także szybkim makietowaniem jest bardzo przydatny podczas weryfikacji wymagań i 
+projektowania aplikacji. Utworzenie prototypu interfejsu użytkownika pozwala na szybkie wyłapanie błędów i różnych 
+braków. Jest to też pierwszy etap, na którym można pokazać klientowi jak wyglądać będzie aplikacja. Należy jednak 
+wytłumaczyć klientowi, aby nie skupiał się na grafice oraz wrażeniach estetycznych, chociaż dyskusja na ten temat 
+będzie przydatna w późniejszym etapie projektu. Teraz jednak najważniejsza jest weryfikacja wymagań i wyłapanie 
+potencjalnych błędów oraz nieporozumień. Ujrzenie nawet bardzo prostego szkicu daje bardzo wiele informacji zarówno 
+dla projektantów jak i klienta.
+
+Przed dalszym projektowaniem i implementacją systemu utworzyłem makiety\footnote{do utworzenia makiet skorzystałem z narzędzia dostępnego pod adresem \url{http://www.balsamiq.com/ }} najważniejszych części systemu. Jedną z nich przedstawiam poniżej. Makieta formularza nowej rezerwacji jest w wersji językowej określonej przez wymagania.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/book-new-reservation.png}
+  }
+  \end{center}
+  \caption{Formularz nowej rezerwacji w języku angielskim.}
+  \label{fig:mockup-new-resveration-horizontal}
+\end{figure}
+
+Zainteresowanych tematem prototypowania odsyłam do książki o inżynierii oprogramowania autorstwa Krzysztofa Sachy. \cite[str. 71]{sacha2010inzynieria} oraz do artykułu na ten temat \cite{wireframes2012infoq}.
 
 \chapter{Technologie}
 
@@ -1861,10 +1884,10 @@ Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplik
 
 \begin{itemize}
   \item Git - system kontroli wersji
-  \item JVM - platforma pod aplikację
+  \item JVM - platforma uruchomieniowa aplikacji
   \item Java - użyty język na platformie JVM
   \item Maven - narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami
-  \item ObjectLedge - framework ułatwiający pisanie aplikacji internetowych w języku Java
+  \item ObjectLedge - framework ułatwiający tworzenie aplikacji internetowych w języku Java
   \item Hibernate - biblioteka do mapowania obiektowo-relacyjnego
   \item Jersey - biblioteka do RESTowych usług internetowych
   \item AngularJS - framework dla aplikacji MVC po stronie klienta
@@ -1872,42 +1895,35 @@ Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplik
 \end{itemize}
 
 \section{Git}
-Git to zdecentralizowany system kontroli wersji. Użycie systemu kontroli jest przydatne zarówno przy tworzeniu 
+Git \cite{gitHome} to zdecentralizowany system kontroli wersji. Użycie systemu kontroli jest przydatne zarówno przy tworzeniu 
 aplikacji jak i przy tworzeniu tej pracy dyplomowej. Głównymi cechami Gita jest szybkość, łatwe i tanie\footnote{nie 
 zajmujące miejsca i szybkie} tworzenie gałęzi, precyzyjne zarządzanie zmianami.
-
-http://git-scm.com/
-
-TODO w jaki sposób pozostawić tego linka? Tutaj czy dać go do źródeł na koniec pracy?
 
 Alternatywy:
 \begin{itemize}
   \item SVN - centralny system kontroli wersji
-  \item Mercurial - bardzo podobny do Gita zdecentralizowany system kontroli wersji http://mercurial.selenic.com/
+  \item Mercurial - bardzo podobny do Gita zdecentralizowany system kontroli wersji
 \end{itemize}
 
 Dlaczego Git? SVN to narzędzie poprzedniej epoki w porównaniu do Gita i Mercuriala zatem tak naprawdę wybór odbył się
 pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten framework dla własnych 
-potrzeb  chciałem korzystać z tego samego systemu kontroli wersji. Można też dodać do tego osobiste preferencje. 
+potrzeb chciałem korzystać z tego samego systemu kontroli wersji. Wpływ na wybór miało także osobiste doświadczenie.
 
 \section{JVM i Java}
-Wirtualna maszyna Javy stanowi platformę uruchomieniową nie tylko dla języka Java, ale także dla innych języków, a są 
-to m.in. Ruby, Groovy, Scala, Clojure, Python. Biorąc pod uwagę tylko ten argument platforma JVM jest atrakcyjna. 
-Można dodać do tego wiele dostępnych algorytmów odśmiecania pamięci jak również silną optymalizację kodu w trakcie 
-wykonania poprzez JVM HotSpot.
+To że rozgraniczam platformę JVM i język Java może wprawić czytelnika w konfuzję, dlatego też chciałbym wytłumaczyć, 
+że maszyna wirtualna Javy to dom dla wielu innych języków, a nie tylko Javy. Są to m.in. Ruby, Groovy, Scala, Clojure, Python. 
+Oprócz wielu dostępnych języków platforma JVM HotSpot\footnote{strona domowa \url{http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html}} oferuje wiele zaawansowanych algorytmów odśmiecania pamięci oraz silną optymalizację kodu w trakcie wykonania.
 
 Alternatywą do platformy JVM jest platforma .NET lub nie używanie jakiejkolwiek maszyny wirtualnej.
 
 Dlaczego JVM i Java? Celem tej pracy jest prototyp napisany w języku Java, a więc korzystanie z wirtualnej maszyny 
-javy jest wymagane. 
+javy jest wymagane. Na potrzeby aplikacji użyłem Javy w wersji 7 \cite{java7seHome}.
 Jeśli by jednak o tym na chwilę zapomnieć to JVM stanowi dorosłą, sprawdzoną w praktyce platformę dla wymagających 
 aplikacji w tym aplikacji biznesowych. Oprócz tego istnieją otwarte implementacje platformy JVM zatem nie trzeba być 
 związanym z zamkniętym rozwiązaniem jak .NET.
 
-Gdyby nie postawione jasno wymaganie co do Javy, to i tak zdecydowałbym się na użycie platformy JVM, ale z innym 
-językiem jak Scala lub Ruby, które oferują większą ekspresywność, a co za tym idzie wymagają mniejszej ilości kodu.
-
-TODO dodać jakiś link do JVM i Javy oraz może Scali 
+Gdyby nie postawione jasno wymaganie co do Javy, to i tak mój wybór padł by na platformę JVM, ale prawdopodobnie z 
+innym językiem jak Scala\cite{scalaLangHome}, który oferuje większą ekspresywność, a więc pozwala osiągnąć ten sam efekt mniejszą ilością kodu.
 
 \section{Maven}
 Maven to narzędzie do zarządzania projektem, w tym kompilacji, uruchamiania testów, pakowania źródeł i wdrażania 
@@ -1926,10 +1942,7 @@ Alternatywą, która daje podobne możliwości jest użycie dwóch narzędzi raz
   \item Apache Ant - do budowania projektu
 \end{itemize}
 
-Dlaczego Maven? Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie.
-
-TODO link http://maven.apache.org/
-TODO link do Apache Ivy i Apache Ant
+Dlaczego Maven? Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie. Zainteresowanych odsyłam na stronę domową Mavena \cite{mavenHome}
 
 \section{ObjectLedge}
 
@@ -1940,8 +1953,9 @@ krótko co to jest MVC i dodać linka
 krótko co to jest ORM
 
 \section{Jersey}
+Jersey jest referencyjną implementacją standardu o nazwie JAX-RS. Jest to standard, który umożliwia budowanie usług internetowych w języku Java w oparciu o architekturę REST. Architektura REST opiera się na protokole HTTP. Omówienie architektury REST jest poza zakresem tej pracy inżynierskiej dlatego też zainteresowanych odsyłam do pracy doktorskiej Roya Fieldinga, która zapoczątkowała architekturę REST \cite{Fielding2000} oraz do dokumentu RFC 2616 \cite{http-rfc}, a na sam koniec do specyfikacji JAX-RS \cite{jax-rs}.
 
-krótko co to jest REST i dodać linka do RFC
+Sam Jersey jest zintegrowany z frameworkiem ObjectLedge dlatego też używam Jerseya, a nie innej implementacji. Alternatywne implementacje to Apache CXF, RESTEasy oraz Restlet.
 
 %% koniec %%
 
