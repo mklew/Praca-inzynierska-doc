@@ -1887,10 +1887,10 @@ Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplik
   \item JVM - platforma uruchomieniowa aplikacji
   \item Java - użyty język na platformie JVM
   \item Maven - narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami
-  \item ObjectLedge - framework ułatwiający tworzenie aplikacji internetowych w języku Java
+  \item ObjectLedge - szkielet aplikacyjny ułatwiający tworzenie aplikacji internetowych w języku Java
   \item Hibernate - biblioteka do mapowania obiektowo-relacyjnego
   \item Jersey - biblioteka do RESTowych usług internetowych
-  \item AngularJS - framework dla aplikacji MVC po stronie klienta
+  \item AngularJS - szkielet aplikacyjny dla aplikacji MVC po stronie klienta
   \item PostgreSQL - relacyjna baza danych
 \end{itemize}
 
@@ -1906,7 +1906,7 @@ Alternatywy:
 \end{itemize}
 
 Dlaczego Git? SVN to narzędzie poprzedniej epoki w porównaniu do Gita i Mercuriala zatem tak naprawdę wybór odbył się
-pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten framework dla własnych 
+pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten projekt dla własnych 
 potrzeb chciałem korzystać z tego samego systemu kontroli wersji. Wpływ na wybór miało także osobiste doświadczenie.
 
 \section{JVM i Java}
@@ -1945,17 +1945,65 @@ Alternatywą, która daje podobne możliwości jest użycie dwóch narzędzi raz
 Dlaczego Maven? Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie. Zainteresowanych odsyłam na stronę domową Mavena \cite{mavenHome}
 
 \section{ObjectLedge}
+ObjectLedge jest szkieletem aplikacyjnym ułatwiającym tworzenie aplikacji internetowych w języku Java. ObjectLedge powstał 10 lat temu i jest rozwijany do dzisiaj przez organizację o tej samej nazwie - ObjectLedge \cite{objectLedgeOrgHome}. W momencie pisania tej pracy inżynierskiej należę do tej organizacji i miałem pewien wpływ na rozwój tego projektu. ObjectLedge jest wolnym oprogramowaniem dostępnym na licencji BSD.
 
-krótko co to jest MVC i dodać linka
+ObjectLedge jest szkieletem, który wpasowuje się w tzw. lekkie JEE, czyli wymaga tylko kontenera serwletów jak Tomcat lub Jetty. ObjectLedge wspiera bardzo popularny wzorzec projektowy MVC \ref{wzorzec-mvc} (Model - Widok - Kontroler). Oprócz tego ObjectLedge jest zintegrowany z PicoContainerem, który jest kontenerem odwracającym kontrolę\footnote{ang. IoC - Inversion of Control} wstrzykującym zależności. Czytelników, którzy nie spotkali się z tym określeniem odsyłam do artykułu Martina Fowlera. \cite{fowlerDIIOC} 
+
+Ciekawym rozwiązaniem w ObjectLedgu jest użycie konwencji ponad konfiguracją w celu rozwiązania problemu łączenia widoków z kontrolerami. Opierając się na konwencji zagnieżdżania szablonów oraz widoków nie trzeba pisać kodu, który będzie łączył jedno z drugim. Aktualnie bardzo popularnym szablonem aplikacyjnym jest Ruby on Rails\cite{rubyOnRailsHome}, który rozpropagował termin ,,konwencji ponad konfiguracją''.\footnote{ang. Convention over Configuration}
+
+ObjectLedge korzysta z Apache Velocity\cite{velocityHome} - procesora szablonów. Szablony Velocity pozwalają na dynamiczne generowanie dowolnych dokumentów tekstowych. ObjectLedge korzysta z silnika Velocity do generowania stron HTML.
+
+\subsection{Wzorzec MVC}
+\label{wzorzec-mvc}
+Wzorzec MVC jest popularnym wzorcem projektowym. Zainteresowanych historią wzorca odsyłam do źródła \cite{mvcHistory}. Krótko mówiąc wzorzec ten opiera się na separacji pewnego modelu od widoku na ten model. Modelem nazywamy domenę aplikacji czyli logikę, którą aplikacja realizuje. Manipulacji na modelu dokonuje kontroler w odpowiedzi na interakcje użytkownika na widokach. Zaletą wzorca jest to, że model jest wolny od szczegółów jego reprezentacji. Ponadto umożliwia użycie wielu widoków na ten sam model.
+
+Wzorzec ten ma zastosowanie w każdym typie aplikacji, która posiada pewien interfejs użytkownika. Może być to strona www lub dostęp z poziomu linii poleceń.
+
+Istnieje wiele wariacji wzorca MVC, ale wystarczy znać oryginalną koncepcję, żeby zrozumieć każdą jego odmianę.
+
+Większość szkieletów aplikacyjnych wspierających aplikacje internetowe realizuje pewną odmianę wzorca MVC. Wraz z doświadczeniem, można zauważyć, że większość szkieletów aplikacyjnych jest bardzo podobna i łatwo jest się uczyć nowych szkieletów, ponieważ realizują tą samą koncepcję tylko, że w różny sposób.
+
+\subsection{Alternatywy}
+Omówienie wszystkich alternatywnych szkieletów aplikacyjnych dla Javy jest zadaniem na osobną pracę inżynierską. Skupię się zatem na czterech różnych szkieletach i przedstawię tylko najbardziej charakterystyczne cechy każdego z nich:
+\begin{itemize}
+  \item Spring
+  \item Playframework
+  \item Seam
+  \item Vaadin
+\end{itemize}
+
+\subsubsection{Spring}
+Spring \cite{springHome} składa się z kilku modułów zintegrowanych ze sobą. Aby osiągnąć funkcjonalność taką jak ObjectLedge należało by użyć dwóch modułów:
+\begin{itemize}
+  \item Spring core - kontener wstrzykujący zależności
+  \item Spring MVC - moduł umożliwiający tworzenie aplikacji internetowych według wzorca MVC
+\end{itemize}
+
+Silną stroną Springa jest jego popularność oraz liczność modułów, które rozszerzają funkcjonalność Springa np. moduł Spring Security, który pozwala w bardzo prosty sposób dodać do aplikacji autoryzację oraz autentykację przy użyciu aspektów\footnote{programowanie aspektowe ang. AOP Aspect Oriented Programming} oraz adnotacji.
+
+Spring podobnie jak ObjectLedge wymaga tylko konterera serwletów.
+
+\subsubsection{Playframework}
+Playframework \cite{playframeworkHome} jest najnowszym z wymienionych szkieletów. Pierwsza wersja powstała w 2009r. Od innych różni się tym, że został napisany w Scali oraz bardzo mocno bazuje na Ruby on Rails zatem wszechobecne są konwencje. Playframework implementuje MVC. Playframework jest nastawiony na RESTową architekturę.\footnote{więcej o REST w \ref{jersey}} Szkielet w wersji 2 jest całkowicie bezstanowy, czyli dla każdego połączenia na serwerze nie ma sesji.\footnote{sesji w kontekście JEE}
+
+\subsubsection{Seam}
+Seam \cite{seamHome} różni się od wszystkich pozostałych szkieletów tym, że korzysta z pełnej biznesowej javy. Seam w wersji 2.3 wymaga serwera aplikacyjnego zgodnego z JEE 6. Seam nastawiony jest na tzw. bogate aplikacje internetowe.\footnote{ang. RIA Rich Internet Application}
+
+\subsubsection{Vaadin}
+Vaadin \cite{vaadinHome} jest szkieletem nastawionym na bogate aplikacje internetowe. Charakteryzuje się tym, tworzenie aplikacji bardziej przypomina tworzenie aplikacji okienkowej przy użyciu np. biblioteki Swing, ponieważ widoki tworzone są przy użyciu Javy. Nie trzeba zatem znać JavaScriptu, aby korzystać z bogatej palety dynamicznych komponentów. Dodatkowo w ten sposób tworzone widoki są statycznie typowane. Vaadin umożliwia tworzenie widoków w tradycyjny sposób. Vaadin wymaga tylko kontenera serwletów.
+
+\subsection{Dlaczego ObjectLedge?}
+Jeśli posiadałbym taką wiedzę jaką posiadam teraz to ObjectLedge nie byłby najlepszym rozwiązaniem. Patrząc jednak z perspektywy tamtego czasu to ObjectLedge stanowi bardzo prosty szkielet aplikacyjny, którego działanie można łatwo zrozumieć i modyfikować do własnych potrzeb. Java biznesowa jest bardzo obszerna. Istnieje ogrom rozwiązań, a ObjectLedge pozwala na łatwe wprowadzenie w ten temat i zbudowanie w pełni funkcjonalnej aplikacji gotowej do użycia w produkcji.
 
 \section{Hibernate}
 
 krótko co to jest ORM
 
 \section{Jersey}
+\label{jersey}
 Jersey jest referencyjną implementacją standardu o nazwie JAX-RS. Jest to standard, który umożliwia budowanie usług internetowych w języku Java w oparciu o architekturę REST. Architektura REST opiera się na protokole HTTP. Omówienie architektury REST jest poza zakresem tej pracy inżynierskiej dlatego też zainteresowanych odsyłam do pracy doktorskiej Roya Fieldinga, która zapoczątkowała architekturę REST \cite{Fielding2000} oraz do dokumentu RFC 2616 \cite{http-rfc}, a na sam koniec do specyfikacji JAX-RS \cite{jax-rs}.
 
-Sam Jersey jest zintegrowany z frameworkiem ObjectLedge dlatego też używam Jerseya, a nie innej implementacji. Alternatywne implementacje to Apache CXF, RESTEasy oraz Restlet.
+Sam Jersey jest zintegrowany z ObjectLedgem dlatego też używam Jerseya, a nie innej implementacji. Alternatywne implementacje to Apache CXF, RESTEasy oraz Restlet.
 
 %% koniec %%
 
