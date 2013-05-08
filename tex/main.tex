@@ -180,6 +180,7 @@ framerule=0.1pt,
 %%%% ROZDZIAŁ PIERWSZY %%%%%%%
 
 \chapter{Analiza dziedziny} 
+\label{analiza-dziedziny}
 TODO opis tego co znajduje się w tym rozdziale, max 5 zdań
 
 
@@ -1197,7 +1198,7 @@ samych usług. Przykładowo opisy pakietów mogą zaczynać się następująco:
 \begin{itemize}
  \item 5 dniowy pobyt z śniadaniem, obiadem, pobytem w SPA oraz butelką 
  szampana w dniu przyjazdu, dodatkowo (\dots) Tylko 1550zł!
- \item romantyczny walentynkowy weekend możesz spędzić w naszym hotelu. 
+ \item \label{pakiet-walentynki} romantyczny walentynkowy weekend możesz spędzić w naszym hotelu. 
  Bukiet róż dla wybranki w dniu przyjazdu oraz romantyczna kolacja wieczorem 
  w naszej restauracji, dodatkowo (\dots) Tylko 549zł!
  \item weekendowy pakiet, pierwsza noc w normalnej cenie, druga tylko 50\%. 
@@ -1356,7 +1357,7 @@ funkcjonalność    & Col2     & Col3          & Col4                & col5     
 TODO więcej rzeczy do porównania
 
 \chapter{Model funkcjonalny}
-
+\label{wymagania}
 \section{Cel systemu}
 Każdy, kto ukończył kurs inżynierii oprogramowania, bądź spotkał się z Siatką Zachmana\footnote{ang. Zachman Framework}
  \cite{zachman1986framework} albo pisał biznes plan lub realizował jakikolwiek projekt - nie koniecznie techniczny -  
@@ -1996,14 +1997,263 @@ Vaadin \cite{vaadinHome} jest szkieletem nastawionym na bogate aplikacje interne
 Jeśli posiadałbym taką wiedzę jaką posiadam teraz to ObjectLedge nie byłby najlepszym rozwiązaniem. Patrząc jednak z perspektywy tamtego czasu to ObjectLedge stanowi bardzo prosty szkielet aplikacyjny, którego działanie można łatwo zrozumieć i modyfikować do własnych potrzeb. Java biznesowa jest bardzo obszerna. Istnieje ogrom rozwiązań, a ObjectLedge pozwala na łatwe wprowadzenie w ten temat i zbudowanie w pełni funkcjonalnej aplikacji gotowej do użycia w produkcji.
 
 \section{Hibernate}
+Hibernate \cite{hibernateHome} jest biblioteką zapewniającą dostęp do danych z relacyjnej bazy danych. Hibernate zapewnia mapowanie obiektowo-relacyjne. Mapowanie obiektowo-relacyjne jest potrzebne, ponieważ między światem obiektowym, a relacyjnym istnieje impedancja. Z jednej strony mamy obiekty, a z drugiej wiersze w tabelach. Hibernate uwalnia programistę od ręcznego mapowania wierszy na obiekty i vice versa. 
 
-krótko co to jest ORM
+To tylko ułamek tego co oferuje Hibernate. Warta uwagi jest możliwość stosowania optymistycznej kontroli współbieżności\footnote{ang. optimistic concurreny control}, która pozwala na zwiększenie współbieżności dostępu do danych, czyli podniesienie transakcyjności systemu. Niezapoznanych z tematem odsyłam do książki Martina Fowlera \cite[76]{fowler2003patterns}.
+ Oprócz tego Hibernate pozwala śledzić cykl życia obiektu poprzez zdarzenia i posiada wiele innych ciekawych funkcjonalności wykraczających poza proste mapowanie.
+Hibernate to także implementacja specyfikacji JPA\footnote{ang. Java Persistance API}, która jest standardowym mechanizmem dostępu do danych dla biznesowej javy. Zainteresowanych specyfikacją odsyłam do źródła \cite{jpa2.0}.
+
+\subsection{JDBC}
+Alternatywą dla Hibernate jest albo inna implementacja specyfikacji JPA albo użycie czystego JDBC i ręczne mapowanie. Można zatem zastanawiać się nad tym czy stosować bibliotekę typu ORM czy nie. Na tak postawione pytanie odpowiedź będzie zależała od skomplikowania projektu, który chcemy zrealizować. W przypadku większości aplikacji biznesowych poziom skomplikowania jest na tyle wysoki, że użycie biblioteki mapującej jest bardzo uzasadnione. Ponadto używając Hibernate nie tracimy możliwości skorzystania z JDBC. Hibernate umożliwia wykonanie jednostki pracy korzystając z połączenia jdbc. Jest to przydatne, ponieważ nie zawsze chcemy otrzymać postać obiektową. Czasem wystarczy dostęp do samych wierszy.
+
+Podsumowując użycie biblioteki typy ORM jest koniecznością przy tego typu projekcie ze względu na skomplikowanie projektu i bogaty model danych. Hibernate stanowi uznaną implementację specyfikacji JPA. Ponadto, w projekcie widziałem zastosowanie dla funkcjonalności specyficznych dla samego Hibernate, które nie są dostępne z poziomu JPA. Z tych powodów wybrana została biblioteka Hibernate.
+
 
 \section{Jersey}
 \label{jersey}
 Jersey jest referencyjną implementacją standardu o nazwie JAX-RS. Jest to standard, który umożliwia budowanie usług internetowych w języku Java w oparciu o architekturę REST. Architektura REST opiera się na protokole HTTP. Omówienie architektury REST jest poza zakresem tej pracy inżynierskiej dlatego też zainteresowanych odsyłam do pracy doktorskiej Roya Fieldinga, która zapoczątkowała architekturę REST \cite{Fielding2000} oraz do dokumentu RFC 2616 \cite{http-rfc}, a na sam koniec do specyfikacji JAX-RS \cite{jax-rs}.
 
 Sam Jersey jest zintegrowany z ObjectLedgem dlatego też używam Jerseya, a nie innej implementacji. Alternatywne implementacje to Apache CXF, RESTEasy oraz Restlet.
+
+\section{AJAX}
+Zanim omówię Angulara chcę po krótce zapoznać czytelnika z techniką AJAX \footnote{ang. Asynchronous JavaScript and XML} - asynchroniczny JavaScript i XML. Ajax nie jest nową technologią, a jedynie terminem określającym nowoczesne zastosowanie istniejących technologii HTML, kaskadowych arkuszy stylów CSS, języka JavaScript. Wymiana danych pomiędzy przeglądarką, a serwerem odbywa się - zgodnie z pierwszą literką - asynchronicznie. Możliwe jest to dzięki obiektowi JavaScript o nazwie XMLHttpRequest\cite{XmlHttpRequest}. Planowanym formatem wymiany danych miał być XML, jednak powszechnie używa się innych formatów np. tekstu, fragmentu HTML, formatu JSON. Zainteresowanych techniką odsyłam do dalszej lektury na stronie Mozilli \cite{ajaxDocs}.
+
+\section{AngularJS}
+AngularJS \cite{angularHome} jest szkieletem aplikacyjnym napisanym w języku JavaScript realizującym MVC w stronie klienta.\footnote{po stronie przeglądarki} AngularJS jest odpowiednim narzędziem do stworzenia nowoczesnej bogatej aplikacji internetowej. Aplikacja stworzona przy użyciu Angulara jest całkowicie dynamiczna. Oznacza to, że po wejściu na stronę nie ma żadnych kolejnych przeładowań strony. Komunikacja z serwerem odbywa się przy użyciu techniki AJAX.
+
+Zaletą Angulara jest to, że widoki budowane są w sposób deklaratywny. Manipulacja na modelu sprawia, że wszystkie widoki są automatycznie odświeżane. Istnieje także wiązanie w drugą stronę. Interakcja z widokiem zmienia model i odświeża widok. Najłatwiej jest to zrozumieć na podstawie przykładów, które dostępne są na stronie domowej Angulara.
+
+Alternatyw do Angulara, a właściwie sposobów prezentacji w przeglądarce jest bez liku. Niektórzy wykorzystują tylko jQuery \cite{jqueryHome} do budowy aplikacji. Można także korzystać z bibliotek z bogatą ilością kontrolek. Przykładem takiej biblioteki jest Dojo. W początkowej wersji aplikacji używałem Dojo, ale po osiągnięciu dużego skomplikowania projektu porzuciłem Dojo i zacząłem używać Angulara, który znacznie uprościł pracę z przeglądarką.
+
+Praca z bibliotekami typu jQuery jest na niskim poziomie abstrakcji. Programista nie dysponuje narzędziami, aby uwolnić się od problemu jakim jest środowisko przeglądarki. AngularJS działa na wyższym poziomie abstrakcji i uwalnia programistę od trudności związanych z przeglądarką i manipulacją DOMem\footnote{ang. Document Object Model}.
+
+\section{PostgreSQL}
+PostgreSQL \cite{postgreSQLHome} jest obiektowo relacyjnym systemem zarządzania bazą danych. PostgreSQL ma swoje korzenie w systemie o nazwie POSTGRES opracowanego na Uniwersytecie Kalifornijskim. Implementacja systemu POSTGRES rozpoczęła się w roku 1986 i była wspierana przez amerykańską rządową agencję DARPA\footnote{ang. Defence Advanced Research Projects Agency}.W roku 1996 wybrano nazwę obowiązującą do dzisiaj. PostgreSQL jest jednym z najczęśniej używanych systemów do zarządzania bazą danych. Wpływ ma na to bogactwo funkcjonalności, duży stopień zgodności z najnowszym standardem SQL - obecnie SQL:2003, licencja BSD, dostępność na większości systemów operacyjnych, a przede wszystkim sukces w produkcyjnym zastosowaniu. Licencja BSD pozwala na modyfikowanie i używanie systemu PostgreSQL w dowolnych celach, zatem także w komercyjnych.
+
+\subsection{Alternatywne systemy RDBMS}
+Pod uwagę brane były tylko te systemy, które są darmowe i mogą być stosowane w celach akademickich i komercyjnie.
+Do alternatywnych systemów należą:
+\begin{description}
+  \item [Firebird] - to podobnie jak PostgreSQL wolne oprogramowanie dostępne na liberalnej licencji. Firebird jest zgodny z większością standardu SQL:2003,
+  \item [MySQL] - wersja społecznościowa bazy MySql jest dostępna za darmo. MySql jest również popularną bazą danych. MySql dostępny jest na licencji GPL. MySql spełnia większość standardu SQL:2003,
+  \item [Oracle Database 11g Express Edition] - firma Oracle jest liderem jeśli chodzi o systemy RDBMS. Posiada ponad 40\% rynku. Darmowa wersja bazy posiada ograniczenia ilości danych do 11Gb i zużycie pamięci RAM do 1Gb jak również parę innych ograniczeń. 
+\end{description}
+
+\subsection{Dlaczego PostgreSQL?}
+Projektowany system jest dość niezależny od konkretnej bazy danych, ponieważ nie ma potrzeby używania żadnych zaawansowanych funkcjonalności dostępnych tylko w określonym systemie zarządzania bazą danych. Jedyną funkcjonalnością, której używa projekt, która sama w sobie nie jest zaawansowana, a nie jest dostępna w systemie MySql są sekwencje, dlatego też MySql nie został wybrany. Oracle XE posiada ograniczenia i de facto jest wersją przejściową do wersji komercyjnej. Co prawda pełna wersja bazy, czyli Oracle 11g Enterprise Edition jest dostępna w celach akademickich, ale nie została brana pod uwagę, ponieważ projektowany system potencjalnie powinien być dostępny w użytku komercyjnym. Z pozostałych dwóch baz wybrana została bardziej popularna baza, czyli PostgreSQL.
+
+\section{Podsumowanie}
+W tym rozdziale omówiłem architekturę systemu oraz wszystkie najważniejsze klocki budulcowe systemu. Przedstawiłem ich zastosowanie oraz proces myślowy w wyborze każdego z nich. Postarałem się także wytłumaczyć nieznane dla czytelnika akronimy i wskazać dalszą lekturę. W następnym rozdziale przedstawię model danych systemu.
+
+\chapter{Model danych}
+Utworzenie modelu danych jest kolejnym etapem projektu po dokonaniu analizy wymagań i wybraniu odpowiednich technologii. Efektem tej pracy jest diagram związków encji.
+
+\section{Model związków-encji}
+Model związków-encji przedstawia encje, czyli pewne byty, elementy świata rzeczywistego powiązane z innymi encjami. Powiązania te nazywane są związkami. To tylko krótkie przypomnienie, ponieważ czytelnik powinien być zaznajomiony z modelowaniem encji. 
+Model powstał dzięki analizie domeny dziedziny przedstawionej w rozdziale \ref{analiza-dziedziny}, analizie wymagań z rozdziału \ref{wymagania} i makiet z tego samego rozdziału. Diagramy przedstawione zostały przy użyciu notacji Barkera\footnote{nazywaną także notacją Oracle}.
+
+\section{Proces modelarski}
+Proces modelarski przebiegał iteracyjnie. W każdej iteracji zachodziły pewne modyfikacje modelu. W idealizowanym świecie wystarczyłoby tylko raz utworzyć model, który później można by zaimplementować. Praktyka pokazuje jednak, że zmiany zachodzą w modelu nawet w późnym etapie projektu. Wraz z większą wiedzą o domenie problemu, wymaganiach klienta wizja systemu zmienia się. Niektóre z tych zmian wymagają modyfikacji modelu. 
+
+Modele przedstawione w niniejszym rozdziale są ostatnimi, najbardziej dopracowanymi wersjami modeli. Cały model jest zbyt duży, aby pokazać go na jednym diagramie, dlatego też przedstawię model w osobnych częściach.
+
+\section{Model rezerwacji}
+Diagram \ref{fig:db-logical-model-reservation} przedstawia część modelu związaną z rezerwacją. Najważniejszą encją jest encja rezerwacji. Część encji została uproszczonych. Ich pełne postacie będą przedstawione w kolejnych częściach modelu.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/rezerwacja-logiczny-v7.pdf}
+  }
+  \end{center}
+  \caption{Model rezerwacji}
+  \label{fig:db-logical-model-reservation}
+\end{figure}
+
+\subsection{Rezerwacja}
+Encja Rezerwacja zawiera informacje dotyczące rezerwacji. Bardzo istotny jest związek rezerwacji z encją Noc. Dzięki temu związkowi, można określić dzień przyjazdu i wyjazdu. Pozwala to także, na przedłużenie pobytu oraz praktycznie wszystkie operacje na rezerwacji, takie jak przesunięcie rezerwacji, operacji rozdzielenia rezerwacji, zmiany pokoju na ostatnią noc. 
+
+\subsubsection{Problem rezerwacji grupowej i pojedynczej}
+
+Podczas modelowania sporym problemem było rozwiązanie kwestii rezerwacji pojedynczej i grupowej. Chcemy osiągnąć taki model, aby:
+
+\begin{enumerate}
+  \item łatwo stwierdzić czy rezerwacja jest grupowa czy pojedyncza
+  \item każda rezerwacja była identyfikowana poprzez swój numer rezerwacji - niezależnie od tego czy jest to grupowa czy pojedyncza rezerwacja
+  \item rezerwacja grupowa powinna być identyfikowana poprzez numer grupy i sekwencję w grupie.
+\end{enumerate}
+
+Przedstawię kolejne podejścia do tego problemu. Podczas rozważań poruszam kwestie modelu fizycznego operatego o relacyjną bazę danych. Mam świadomość tego, że w modelu logicznym nie istnieje pojęcie klucza, indeksu i innych terminów z baz danych. 
+
+Pierwsze podejscie przedstawione na rysunku \ref{fig:db-logical-model-group-reservation-first-try} pokazuje, że problem został rozwiązany poprzez założenie, że rezerwacja pojedyncza i grupowa to dwa różne podtypy. Można jednak zauważyć, że rezerwacja grupowa oprócz złożonego identyfikatora składającego się z sekwencji oraz związku z grupą nie posiada żadnych atrybutów. Obserwacja ta wzbudziła moją wątpliwość. Oprócz tego, taki model wydaje się być trudny w implementacji. Jeśli przyjmiemy realizację tego modelu przy użyciu relacyjnej bazy danych\footnote{postać tabelaryczna to tylko jedna możliwość realizacji modelu fizycznego} to prawdopodobnie każdy podtyp miałby osobną tabele - musiałoby tak być, aby móc stworzyć klucz główny dla rezerwacji grupowej. Powodowałoby to dużo złączeń przy najczęstszej operacji, czyli wyświetlania rezerwacji.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=200px]{../img/podejscie1.pdf}
+  }
+  \end{center}
+  \caption{Pierwsze podejście do problemu rezerwacji grupowej i pojedynczej}
+  \label{fig:db-logical-model-group-reservation-first-try}
+\end{figure}
+
+Drugie podejście do problemu korzysta z obserwacji, że rezerwacja tak naprawdę nie składa się z podtypów, a jest jednym bytem. To czy rezerwacja jest grupowa wynika z tego, czy rezerwacja należy do grupy, czy też nie. W tym podejściu podejrzanym wydaje się związek typu jeden-do-jeden, który sygnalizuje zbyt duży podział. 
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=200px]{../img/podejscie2.pdf}
+  }
+  \end{center}
+  \caption{Drugie podejście do problemu rezerwacji grupowej i pojedynczej}
+  \label{fig:db-logical-model-group-reservation-second-try}
+\end{figure}
+
+Kolejne podejście pozbywa się podejrzanego związku jeden-do-jeden, ale zyskujemy dziwny identyfikator. Logika za tym identyfikatorem jest taka, że sekwencja dla rezerwacji pojedycznej ma wartość zero, a dla grupowej taką jak sekwencja w grupie licząc od jednego. Ta komplikacja kompromituje model. Aby ten model spełniał wymagania, należałoby także dodać odpowiednie warunki na obowiązkowość związku i wartość sekwencji. Można by się pozbyć warunku zmieniając związek na obustronnie obligatoryjny i użyć specjalnej instancji encji Grupa, która oznaczałaby, że grupa nie istnieje. Ten model wprowadza zbyt dużo komplikacji, dlatego szukałem głębiej czegoś prostszego.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=200px]{../img/podejscie3.pdf}
+  }
+  \end{center}
+  \caption{Trzecie podejście do problemu rezerwacji grupowej i pojedynczej}
+  \label{fig:db-logical-model-group-reservation-third-try}
+\end{figure}
+
+W czwartym podejściu odrzucam sekwencję z identyfikatora, dzięki czemu pozbawiam się komplikacji związanych ze specjalnymi wartościami. Powstał nowy atrybut o nazwie ,,czy grupowa'', którego nazwa dość dobrze sygnalizuje za co odpowiada. Model nie ogranicza rezerwacji w związku z grupą bez numeru sekwencji, dlatego też należałoby to wymusić odpowiednim warunkiem w modelu fizycznym. Plusem tego modelu jest to, że od razu wiadomo, czy rezerwacja jest pojedyncza czy grupowa. 
+
+Przyglądając się bliżej stwierdziłem, że ten atrybut jest redundantny, ponieważ z samego faktu istnienia związku między rezerwacją, a grupą wynika to czy rezerwacja jest grupowa czy pojedyncza. W kolejnym, piątym podejściu, atrybut ten został wyeliminowany.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=200px]{../img/podejscie4.pdf}
+  }
+  \end{center}
+  \caption{Czwarte podejście do problemu rezerwacji grupowej i pojedynczej}
+  \label{fig:db-logical-model-group-reservation-fourth-try}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=200px]{../img/podejscie5.pdf}
+  }
+  \end{center}
+  \caption{Piąte podejście do problemu rezerwacji grupowej i pojedynczej}
+  \label{fig:db-logical-model-group-reservation-fifth-try}
+\end{figure}
+
+Widząc końcowy efekt bardzo łatwo powiedzieć, że rozwiązanie jest trywialne. Jest to pewien sukces modelu. Czytelnik mógłby się zastanawiać dlaczego nie osiągnąłem tego modelu w pierwszym podejściu. Wynika to z analizy dziedziny. Analizując dziedzinę miałem przeświadczenie, że rezerwacja ma dwa typy - rezerwacja grupowa i rezerwacja pojedyncza. Stąd też w pierwszym podejściu model z podtypami. Dla tego modelu konieczny jest warunek wymuszający obligatoryjność sekwencji w grupie jeśli zachodzi związek między rezerwacją i grupą. Dodatkowo, aby spełnić wymaganie 3. należy utworzyć indeks na sekwencji i kluczu, jaki powstanie ze związku. Zadając pytania i zastanawiając się nad sensownością modelu udało się otrzymać prosty model, który spełnia wymagania.
+
+\subsection{Usługa}
+Encja usługa pozwala na realizację usługi typu budzenie na życzenie oraz innych usług, które muszą być zrealizowane w pewnym czasie. Nie ma dobrego naturalnego identyfikatora dla usługi, dlatego też jest to sztuczny identyfikator.
+
+\subsection{Typ usługi}
+Encja typ usługi jest encją słownikową. Określa dziedzinę możliwych w realizacji usług wraz ze standardową cenę za usługę. Jednym z typów usługi, może być ,,usługa inna'', która pozwoli na realizację nietypowej usługi żądanej przez klienta.
+
+\subsection{Noc}
+Encja noc jest istotna, ponieważ pozwala na dużą dowolność w przebiegu pobytu gościa w hotelu. Rezerwacja na 10 dni, składać się będzie z 10 nocy, gdzie każda noc mogłaby być spędzona w innym pokoju. Jest to oczywiście ekstremalny przypadek, ale zmiana pokoju na ostatnią noc jest dość często spotykana w hotelarskie.
+
+\subsection{Status nocy}
+Encja status nocy jest encją słownikową. Może zawierać takie wartości jak: użyta noc, nieużyta noc, noc ekstra lub inne. To czy ta encja jest potrzebna jest kwestią dyskusyjną, tak jak każda decyzja podczas modelowania.
+
+\subsection{Status rezerwacji}
+Encja status rezerwacji jest encją słownikową i określa możliwe statusy rezerwacji takie jakie poznaliśmy podczas analizy dziedziny. Dodatkowo te statusy mogą być rozszerzone o parę technicznych statusów.
+
+\subsection{Osoba}
+Encja osoba modeluje osobę, która może być gościem lub/i właścicielem rezerwacji bądź grupy. Osoba może mieć tożsamość prawną lub być osoba fizyczną czyli gościem. Dodatkowo model zakłada istnienie podtypu Pracownika, który jest przydany przy realizacji aplikacji. 
+
+\subsection{Adres}
+Encja adres modeluje adres osoby. Ważny jest związek z typem adresu, który określa czy adres jest główny, drugorzędny, korespondencyjny, kontaktowy, czy do płatności. Same atrybuty w encji adres nie są wystarczające do ustalenia pełnego adresu, dlatego też obowiązkowy jest identyfikujący związek z encją Kraj, która przedstawia dane specyficzne dla kraju. Encja Kraj to też swojego rodzaju encja słownikowa, ponieważ docelowo powinna zawierać dane wszystkich krajów na świecie.
+
+\subsection{Metoda obciążenia}
+Encja metoda obciążenia określa, kto powinnien płacić za rezerwację. Możliwymi opcjami są: właściciel rezerwacji, gość lub właściciel z limitem. Właściciel rezerwacji to metoda, która wybrana będzie, gdy rezerwacja będzie w ofercie biura podróży. Gość to metoda w przypadku rezerwacji pojedynczej przez osobę indywidualną. Właściciel rezerwacji może płacić za wszystkie rezerwacje w grupie lub płacić tylko z limitem. Za koszta przewyższające określony limit odpowiada gość. 
+
+\subsection{Podsumowanie}
+Model rezerwacji pozwala na stworzenie rezerwacji pojedycznej, grupowej, określenie właściciela rezerwacji, określenia korzystających z rezerwacji gości, bardzo dokładnego określenia przebiegu pobytu, modyfikacji pobytu, świadczenia usług, identyfikacji gości przy kolejnych wizytach i wgląd w ich historie. Model ten spełnia postawione mu wymagania.
+
+
+\section{Model stawek}
+Model stawek zawiera encje, które pozwalają na dokładne określenie stawek na pokój. 
+
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/stawki-logiczny-v4-1.pdf}
+  }
+  \end{center}
+  \caption{Model stawek}
+  \label{fig:db-logical-model-rates}
+\end{figure}
+
+\subsection{Stawka}
+Encja stawka określa stawki na pokoje. Encja posiada sztuczny identyfikator. Encja stawka umożliwia określenie następujących stawek z dokładnością co do pokoju:
+
+\begin{itemize}
+  \item stawka rack dla typów osób np. stawka rack dla klientów indywidualnych
+  \item stawka rack dla konkretnych osób np. stawka dla klienta stałego
+  \item stawka sezonowa dla typów osób
+  \item stawka sezonowa dla konkretnych osób
+  \item stawka pakietowa dla typów osób
+  \item stawka pakietowa dla konkretnych osób
+\end{itemize}
+
+\subsubsection{Stawka pakietowa}
+Stawka pakietowa jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu.
+
+Encja stawka daje ogromne możliwości w określaniu stawek i spełnia wszystkie wymagania dotyczące określania stawek na pokoje.
+
+\subsection{Typ osoby}
+Związek osoby z typem osoby nie był widoczny na poprzednim modelu. Encja typ osoby jest encją słownikową i pozwala rozróżnić czy dana osoba jest klientem indywidualnym, klientem korporacyjnym czy klientem innego rodzaju. 
+
+\subsection{Rack}
+Encja rack jest encją potrzebną do realizacji związku pomiędzy stawką, pokojem i okresami czasu. Związek ten reprezentuje stawkę Rack dla pokoju.
+
+\subsection{Sezon}
+Encja sezon pozwala na określanie stawek ograniczonych czasowo. Encja sezon posiada sztuczny identyfikator. Sezonem może być np. sezon świąteczny, wakacyjny. Można także użyć sezonu do określenia stawek na wszystkie weekendy pomiędzy styczniem, a marcem dla klientów indywidualnych. Encja sezon spełnia wymagania związane z stawkami sezonowymi i daje bardzo dużą elastyczność w określeniu konkretnych przedziałów czasowych.
+
+\subsection{Okres czasu}
+Encja okres czasu modeluje odcinek czasu, w którym dana stawka jest dostępna. Choć para dat jest kandydatem na identyfikator, to zbudowanie identyfikatora w ten sposób powodowałoby, że niemożliwe było by utworzenie stawki pakietowej i sezonowej dostępnej w tym samym okresie czasu. Z tego powodu okres czasu musi mieć sztuczny identyfikator.
+
+\subsection{Pokój}
+Encja pokój reprezentuje fizyczny pokój w hotelu. Pokój posiada naturalny identyfikator i jest to numer pokoju. Pokój posiada informacje o tym, czy jest zajęty, ile mieści osób standardowo oraz maksymalnie, ile może być dodatkowych łóżek. Posiada, także prefix, który wraz z numerem pokoju stanowi nazwę pokoju.
+
+\subsection{Typ Pokoju}
+Encja typ pokoju jest encją słownikową i określa możliwe typy pokojów.
+
+\subsection{Status pokoju}
+Encja status pokoju jest encja słownikową i określa status pokoju związany ze służbą pięter. Możliwe statusy to m.in. czysty pokój, brudny, nieczynny, remont.
+
+\subsection{Podsumowanie}
+Model stawek pozwala na precyzyjne określenie stawek dla typów osób jak również dla konkretnych osób. Dzięki temu możliwe są operacje na całych grupach, np. obniżka wszystkich stawek RACK dla klientów indywidualnych jak również określenie specjalnej stawki dla stałego klienta.
+
+
+\section{Model pakietu i dodatków}
+TODO
+
+
+\subsection{Podsumowanie}
+TODO
+
+
+\chapter{Implementacja}
+
+\section{Fizyczny model danych}
+
+\section{Praktyki programistyczne}
+Law of Demeter,
+
+\section{Testowanie}
+TODO opisać TDD, testy unitowe, black box testing, whitebox testing i inne takie
+
+\chapter{Podsumowanie}
+\section{Wnioski}
+
+\section{Dalszy rozwój}
+
 
 %% koniec %%
 
