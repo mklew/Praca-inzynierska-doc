@@ -179,10 +179,14 @@ framerule=0.1pt,
 % \input {chap1}
 %%%% ROZDZIAŁ PIERWSZY %%%%%%%
 
+\chapter{Wprowadzenie}
+
+\section{Cel pracy}
+Celem pracy było stworzenie prototypu aplikacji zarządzającej obłożeniem hotelu. Założeniem pracy było wykorzystanie architektury trójwarstwowej przy budowie aplikacji. Kolejnym założeniem był wybór języka Java, który jest obiektowym językiem wysokiego poziomu. Wybrana architektura pozwoliła na zbudowanie prototypu aplikacji o niskim koszcie utrzymania oraz wysokim potencjale rozwoju.
+
 \chapter{Analiza dziedziny} 
 \label{analiza-dziedziny}
-TODO opis tego co znajduje się w tym rozdziale, max 5 zdań
-
+Niniejszy rozdział zawiera wyniki analizy dziedziny hotelarstwa. Opracowanie zaczyna się od ogólnego omówienia czym jest hotelarstwo, jak wygląda organizacja w hotelu, a następnie omówione zostały pojęcia potrzebne do zrozumienia oraz zaprojektowania systemu zarządzania obłożeniem. Rozdział kończy się porównaniem istniejących systemów.
 
 \section{Źródła informacji}
 
@@ -347,8 +351,10 @@ kategoryzacji.
 Prawdopodobnie wszyscy znają ten podział, a przynajmniej wiedzą, że im 
 więcej gwiazdek tym wyższy standard. Różne turystyczne oferty mamią nas 
 gwiazdkami. Warto wiedzieć na co faktycznie możemy liczyć, ale czy na pewno 
-nasze oczekiwania zostaną spełnione? Kategoryzacja istnieje w wielu krajach 
-europejskich, ale jedna jest drugiej nie równa. Szczegółowość wymagań dla 
+nasze oczekiwania zostaną spełnione? 
+
+Kategoryzacja istnieje w wielu krajach 
+europejskich, ale jedna jest drugiej nierówna. Szczegółowość wymagań dla 
 kategorii różni się pomiędzy krajami. Nie wszędzie jest to także regulowane 
 prawnie. W Niemczech nie ma kategoryzacji, a kategorie obiektów są stosowane 
 w sposób umowny przez wydawców przewodników i biura podróży. Warto mieć to 
@@ -514,16 +520,15 @@ Definicja bazująca na ustawie jest dość skomplikowana, więc można spróbowa
 prościej:
 
 \begin{defn}{Klient}
-- osoba, korzystająca z usług hotelarskich, w szczególności usługi noclegowej
-.
+- osoba, korzystająca z usług hotelarskich, w szczególności usługi noclegowej.
 
 \end{defn}
 
 Klient oraz gość nie znaczą dokładnie tego samego, ponieważ jak wiemy, 
 hotel świadczy usługi towarzyszące, których świadczeniobiorca nie musi być 
 gościem hotelowym. Jednak nie wdając się w szczegóły, 
-będziemy używać tych nazw wymiennie. Więcej o klientach dowiemy się w 
-\ref{rodzaje-klientow}
+będziemy używać tych nazw wymiennie. Więcej o klientach dowiemy się w rozdziale
+\ref{rodzaje-klientow}.
 
 \subsection{Agent}
 Agent biura turystycznego pełni rolę pośrednika. Zazwyczaj biuro turystyczne 
@@ -532,7 +537,7 @@ ceny, niż zwykli klienci, a zatem może pozwolić sobie na ciekawszą ofertę.
 Oto definicja agenta\cite{ust:tur}:
 
 \begin{defn}{Agent turystyczny}
-przedsiębiorca, którego działalność polega na stałym pośredniczeniu w 
+- przedsiębiorca, którego działalność polega na stałym pośredniczeniu w 
 zawieraniu umów o świadczenie usług turystycznych na rzecz organizatorów 
 turystyki posiadających zezwolenia w kraju lub na rzecz innych usługodawców 
 posiadających siedzibę w kraju.
@@ -568,13 +573,13 @@ większe całości, podsystemy: sekcje, wydziały, zakłady, piony - gdzie
 następuje obarczenie odpowiedzialnością za sprawną realizację zagregowanych 
 zadań poszczególnych komórek organizacyjnych, a zwłaszcza kierowników tych 
 podsystemów. To w końcu podział władzy i informacji w ramach organizacji, a 
-więc uporządkowanie pionowego podziału pracy w ramach szczebli struktury(
-poziomów jej hierarchii)
+więc uporządkowanie pionowego podziału pracy w ramach szczebli struktury 
+(poziomów jej hierarchii)
 \end{defn}
 
 \subsection{Struktura organizacyjna w średniej wielkości hotelu}
 Pod lupę weźmiemy średniej wielkości hotel. Na tyle duży, że wymaga 
-wprowadzenia struktury organizacyjnej, ale na tyle skomplikowanej, że można 
+wprowadzenia struktury organizacyjnej, ale na tyle nieskomplikowanej, że można 
 będzie ją przedstawić w prosty sposób.
 
 \subsubsection{Przykład struktury organizacyjnej hotelu}
@@ -627,7 +632,7 @@ dyrektorem. Dyrektor nadzoruje i koordynuje działania kierowników.
 W naszym przykładzie dział hotelarski składa się z:
 \begin{itemize}
   \item węzła recepcyjnego - scharakteryzowanego poniżej,
-  \item służba pięter - odpowiada za utrzymanie czystości w hotelu oraz za 
+  \item służby pięter - odpowiedzialnej za utrzymanie czystości w hotelu, 
   przygotowanie jednostek mieszkalnych do sprzedaży oraz ciągów 
   komunikacyjnych do użytkowania.
 \end{itemize}
@@ -649,7 +654,7 @@ kilka, kilkanaście minut można powiedzieć, że najważniejszą i główną fu
 węzła recepcyjnego jest obsługa gościa w trakcie jego pobytu.
 
 Recepcja pełni także funkcję sprzedażową, ponieważ klient, 
-który przyjdzie wprost z ulicy chcąc wynająć pokój skieruje się recepcji. 
+który przyjdzie wprost z ulicy chcąc wynająć pokój skieruje się do recepcji. 
 Jest to zatem  bardzo ważna komórka i jedna z pierwszych, z którą spotyka 
 się gość podczas swojego pobytu. Oprócz tego pracownicy recepcji, mogą 
 oferować płatne usługi, co także tłumaczy funkcję sprzedażową.
@@ -658,15 +663,15 @@ Potocznie mówi się, że pierwsze wrażenie jest najważniejsze. Recepcja jest
 dobrym tego przykładem. To od pracowników recepcji zależy, jakie będzie 
 pierwsze wrażenie na kliencie. Od jakości obsługi podczas pobytu zależeć 
 będzie czy pierwsze wrażenie zostanie utrzymane na dobrym poziomie oraz to 
-czy klient opuści hotel szczęśliwy i będzie chciał wkrótce wrócić czy też nie
-.
+czy klient opuści hotel szczęśliwy i będzie chciał wkrótce wrócić czy też
+ nie.
 
 
 \subsubsection{Pracownicy recepcji}
 W recepcji możemy spotkać \cite[str. 47-51]{OrgaDzialHot}:
 
 \begin{itemize}
-  \item kierownika recepcji (front office manager) - odpowiada za sprawne 
+  \item kierownika recepcji - odpowiada za sprawne 
   funkcjonowanie recepcji,
   \item recepcjonistę dysponenta - do jego zadań należy m.in przydzielanie 
   pokoi gościom na dany dzień na podstawie rezerwacji i pokoi zwalnianych,
@@ -738,8 +743,7 @@ weekendu. Odwrotna sytuacja występuje w klasie biznesowej.
 \section{Pomieszczenia hotelowe}
 Hotel posiada liczne pomieszczenia. Tylko część z nich jest ogólnodostępna 
 dla gości. Są to np. jednostki mieszkalne. Pomieszczenia można także 
-podzielić na te, które dostępne są w określonych godzinach, a te które są 
-dostępne całodobowo.
+podzielić na te, które dostępne są w określonych godzinach dostępne całodobowo.
 
 Niektóre pomieszczenia:
 \begin{itemize}
@@ -779,15 +783,15 @@ Rodzaje pokoi hotelowych:
 
 \section{Karta pobytu}
 Karta pobytu to dokument, który otrzymuje gość po pomyślnym zakwaterowaniu. 
-Karta pobytu zawiera najważniejsze informacje o dobie hotelowej, cieszy 
-nocnej, warunkach bezpieczeństwa oraz usługach dodatkowych w hoteli i 
+Karta pobytu zawiera najważniejsze informacje o dobie hotelowej, ciszy 
+nocnej, warunkach bezpieczeństwa oraz usługach dodatkowych w hotelu i 
 gastronomii. Może także zawierać szkic miasta z zaznaczonym hotelem.
 
 Karta pobytu spełnia dwie funkcje:
 \begin{itemize}
-  \item{informacyjną}, przypomina gościom o podstawowych informacjach
+  \item{informacyjną}, przypomina gościom o podstawowych informacjach,
   \item{zabezpieczającą} służy do identyfikacji gościa pobierającego klucz 
-  lub podpisującego rachunek
+  lub podpisującego rachunek.
 \end{itemize}
 
 \section{Rezerwacja}
@@ -876,16 +880,15 @@ najczęściej spotykany sposób w przypadku dużych sieci hotelarskich. W naszym
 rodzimym przypadku spotkać się można z przedpłatą bankową.
 
 Rezerwacja gwarantowana to sposób obrony hotelu przed stratami finansowymi. 
-Jeśli gość zrezygnuje z rezerwacji to w zależności od terminu albo straci 
-całe zabezpieczenie, albo część. Szczegóły zależą od zakładu hotelarskiego, 
+Jeśli gość zrezygnuje z rezerwacji to w zależności od terminu straci 
+całe zabezpieczenie lub jego część. Szczegóły zależą od zakładu hotelarskiego, 
 ale zazwyczaj trzeba liczyć się z pewną karą.
 
-Jeśli gość nie pojawi się planowanego dnia przyjazdu, to rezerwacja zostaje 
+Jeśli gość nie pojawi się planowanego dnia przyjazdu to rezerwacja zostaje 
 utrzymywana do dnia następnego, a gość zostaje obciążony kosztami pokoju za 
 jedną noc, nie wliczając śniadania. Dalsza procedura zależy od hotelu, ale 
 prawdopodobnie pracownik skontaktuje się z gościem, aby wyjaśnić zaistniałą 
-sytuację. Koniec końców największy zysk jest z zadowolonego gościa 
-hotelowego, a nie kar finansowych, które to zadowoleniu szkodzą.
+sytuację.
 
 Warto dodać, że metoda dokonania gwarancji nie ma związku z metodą płatności 
 za pobyt.
@@ -962,7 +965,7 @@ terminie biuro ma prawo zrezygnować z całości lub części zamówionych pokoi
 bez ponoszenia kosztów. Hotel nie może zawierać na te miejsca innych umów.
 
 Tymi sposobami biuro podróży może pozwolić sobie zaoferować niższe ceny. 
-Jeśli skorzystamy z oferty otrzymamy Voucher.
+Jeśli skorzystamy z oferty otrzymamy voucher.
 
 \begin{defn}{Voucher} 
 to dokument indywidualny podobny do rezerwacji, który uprawnia beneficjenta 
@@ -1028,46 +1031,38 @@ być przekazane drogą elektroniczną bądź tradycyjną. Potwierdzenie rezerwac
 pozwala na sprawdzenie poprawności danych. Potwierdzenie rezerwacji stwarza 
 możliwość reklamy innych usług zakładu hotelarskiego. 
 
-Sam dokument z potwierdzeniem zawierać będzie:
+Sam dokument z potwierdzeniem zawiera:
 \begin{itemize}
-  \item numer rezerwacji
-  \item datę zgłoszenia rezerwacji
-  \item adres hotelu
-  \item informacje podane przy dokonaniu rezerwacji
-  \item podsumowanie kosztów za pokój
+  \item numer rezerwacji,
+  \item datę zgłoszenia rezerwacji,
+  \item adres hotelu,
+  \item informacje podane przy dokonaniu rezerwacji,
+  \item podsumowanie kosztów za pokój.
 \end{itemize}
 
 Może zawierać także numer rachunku bankowego, na który trzeba wpłacić 
 zaliczkę wraz z terminem wpłaty.
 
 \subsection{Odwoływanie rezerwacji}
-Polityka odwołania rezerwacji powinna być dostępna podczas dokonywania 
-rezerwacji. Zazwyczaj jest to możliwe i nie wiąże się z karami finansowymi, 
+Polityka odwołania rezerwacji określona jest podczas dokonywania 
+rezerwacji. Zazwyczaj odwołanie rezerwacji jest możliwe i nie wiąże się z karami finansowymi, 
 jeśli rezerwacja zostanie odwołana przed określonym terminem. 
 
 Zazwyczaj, aby odwołać rezerwację należy się skontaktować telefonicznie z 
-hotelem. Jeśli robimy to w dniu planowanego przyjazdu, to wiele 
-zależeć będzie od pracownika hotelu. Warto pamiętać, że pracownik hotelu ma 
-dostęp do informacji o lotach i może łatwo zweryfikować informację o 
-spóźnionym przylocie. Ważne jest tutaj odpowiednie przeszkolenie pracowników 
-i ich doświadczenie oraz indywidualne podejście do sprawy.
-
-Jeśli nie pojawimy się w hotelu w dni przyjazdu to typowym mechanizmem jest 
+hotelem. Jeśli nie pojawimy się w hotelu w dni przyjazdu to typowym mechanizmem jest 
 to, że nasza rezerwacja oznaczona będzie jako tzw. \emph{No show}. 
 
-"TODO dodać jakoś lepiej to źródło"
-Źródło definicji: http://abchotelu.pl/
 \begin{defn}{No show}
-oznacza nie pojawienie się gościa w hotelu niepoprzedzone anulowaniem rezerwacji. 
-Wiąże się z poniesieniem przez Gościa ustalonych kosztów w zależności od 
-rodzaju rezerwacji. 
+- oznacza nie pojawienie się gościa w hotelu niepoprzedzone anulowaniem rezerwacji. 
+Wiąże się z poniesieniem przez gościa ustalonych kosztów w zależności od 
+rodzaju rezerwacji.
 \end{defn}
 
 Dalsza procedura to kontakt z rezerwującym następnego dnia, wyjaśnienie 
 sytuacji, a w ostateczności obarczenie karą\footnote{np. wartość zabezpieczenia 
 + koszt jednej nocy}. Warto pamiętać o tym, że karanie klientów nie przynosi 
-długoterminowych zysków dlatego wspólny dialog z klientem i porozumienie 
-jest właściwą drogą rozwiązywania tego typu problemów.
+długoterminowych zysków, dlatego wspólny dialog z klientem i porozumienie 
+jest pierwszym sposobem rozwiązywania tego typu problemów.
 
 \subsection{Relokacja rezerwacji}
 Relokacja rezerwacji polega na przesunięciu w czasie daty przyjazdu lub/i 
@@ -1076,14 +1071,14 @@ hotelu oraz terminu, w którym dokonywać będziemy relokacji. Możliwe jest
 również, że cena pokoju może być wyższa w nowym terminie i zapłacimy wtedy 
 więcej. Warunkiem koniecznym do relokacji jest to, aby w nowym terminie 
 pokój był dostępny. Jeśli nie byłby dostępny to prawdopodobnie pracownik 
-hotelu zaoferuje nam inny tańszy bądź droższy pokój, który będzie dostępny w 
+hotelu zaoferuje nam inny pokój, który będzie dostępny w 
 tym terminie.
 
 \subsection{Stan rezerwacji}
 \label{chap1:stany-rezerwacji}
 Najważniejsze stany rezerwacji to:
 \begin{itemize}
-  \item nie potwierdzona - (ang. requested) żądanie rezerwacji zostało 
+  \item nie potwierdzona - (ang. not confirmed) żądanie rezerwacji zostało 
   przyjęte, ale pobyt nie został jeszcze potwierdzony,
   \item potwierdzona - (ang. reserved) pobyt został potwierdzony,
   \item odwołana - (ang. cancelled) rezerwacja została odwołana,
@@ -1103,7 +1098,7 @@ wszyscy klienci:
 \begin{itemize}
   \item klient indywidualny,
   \item klient grupowy,
-  \item klient korporacyjny(firmowy),
+  \item klient korporacyjny (firmowy),
   \item klient stały,
   \item klient związany z agentem biura pośredniczącego.
 \end{itemize}
@@ -1138,7 +1133,7 @@ rezerwującym jest biuro turystyczne, a beneficjentem rezerwacji jest klient.
 
 \section{Cennik}
 Ceny za pobyt i wszystkie inne usługi są określone według cennika. Cennik 
-ustalany jest przez właściciela hotelu, a dokładnie przez osoby do których 
+ustalany jest przez właściciela hotelu, a dokładnie przez osoby, do których 
 jest to zadanie delegowane. Cenników jest kilka. Każdy typ klienta będzie 
 miał swój cennik. Ponadto na ten sam pokój będzie wiele cen na raz. 
 Obowiązująca cena zależeć będzie od sposobu rezerwacji, sezonu, obłożenia i 
@@ -1212,7 +1207,7 @@ Można zatem zakupić pakiet, który określa wszystkie warunki pobytu. Można
 także dokupić pakiet do zwykłej rezerwacji, podobnie jak inne usługi.
 
 \section{OpenTravel}
-OpenTravel to organizacja non-profil założona w \mbox{1999r.} przez firmy z 
+OpenTravel to organizacja non-profit założona w \mbox{1999r.} przez firmy z 
 branży podróżniczej, której głównym celem jest stworzenie struktur dla 
 elektronicznych komunikatów, aby ułatwić komunikację pomiędzy osobnymi 
 systemami w światowej branży podróżniczej.
@@ -1228,7 +1223,6 @@ Z komunikatów zgodnych ze specyfikacją OpenTravel korzystają jedne z najwięk
   \item Marriott International
 \end{itemize}
 
-\subsection{Forma standardu}
 Forma standardu to schematy XML'owe, które dokładnie określają każdy aspekt 
 przesyłanych wiadomości.
 
@@ -1245,8 +1239,8 @@ integrację z OpenTravel.
 \section{Systemy CRS}
 \label{system-crs}
 Centralny System Rezerwacji \footnote{tłumaczenie z ,,Computer reservation 
-systems'' nazywane także ,,Central reservation systems''} CRS to systemy 
-informatyczne służące do przechowywania, odzyskiwania danych oraz do 
+systems'' nazywane także ,,Central reservation systems''} CRS to klasa systemów 
+informatycznych służących do przechowywania, odzyskiwania danych oraz do 
 przeprowadzania transakcji związanych z podróżą. Pozwalają na rezerwację 
 oraz sprzedaż np. biletów lotniczych, pokojów hotelowych, samochodów do 
 wynajęcia. Klient takiego systemu ma dostęp do wielu linii lotniczych, 
@@ -1265,15 +1259,11 @@ globalny nazywa się także systemem GDS - Globalny System Dystrybucji\footnote
 {tłumaczenie z ,,Global Distribution Systems''} Rozwój technologiczny 
 sprawił, że powstało także wiele podobnych rozwiązań na mniejszą skalę 
 stosowanych przez mniejsze sieci hotelowe i inne przedsiębiorstwa branży 
-podróżniczej. Uprościł się także dostęp do tych systemów dla klienta 
-indywidualnego bez ograniczeń terytorialnych. Może on zawierać transakcję z 
-dowolnego miejsca na świecie.
+podróżniczej. 
 
 Znaczna część dużych hoteli podłączonych jest pod jeden lub więcej systemów 
-klasy CRS.
-Za pośrednictwem systemów CRS dokonuje się ponad jedną czwartą wszystkich 
+klasy CRS. Za pośrednictwem systemów CRS dokonuje się ponad jedną czwartą wszystkich 
 rezerwacji w sektorze hotelarstwa.
-TODO dodać źródło tej statystyki lub wywalić ten fakt
 
 \section{Systemy hotelarskie}
 Wiemy już dość sporo o branży hotelarskiej. Zarządzanie hotelem to dość złożony proces, który wymaga wsparcia od strony systemu informatycznego.
@@ -1303,25 +1293,25 @@ Najbardziej kluczowymi elementami systemu hotelarskiego jest wsparcie dla:
   \item rezerwacji online
 \end{itemize}
 
-\subsection{Przykładowe systemy}
+% \subsection{Przykładowe systemy}
 
-\subsubsection{ProHOTT}
-TODO  http://www.protest.com.pl/
+% \subsubsection{ProHOTT}
+% TODO  http://www.protest.com.pl/
 
-\subsubsection{eZee Absolute}
-TODO 
-http://www.ezeeabsolute.com/features.php
+% \subsubsection{eZee Absolute}
+% TODO 
+% http://www.ezeeabsolute.com/features.php
 
-\subsubsection{Rezerwacje Hoteli Online}
-TODO http://www.hotelsystems.pl/
+% \subsubsection{Rezerwacje Hoteli Online}
+% TODO http://www.hotelsystems.pl/
 
-\subsubsection{Hotelogix}
-TODO http://www.hotelogix.com/index.php
+% \subsubsection{Hotelogix}
+% TODO http://www.hotelogix.com/index.php
 
 \subsection{Porównanie systemów}
 Porównamy 4 systemy hotelarskie:
 
-\begin{table}
+\begin{table}[H]
 \centering
 \caption{Porównanie systemów hotelarskich}
 \label{tab:systems}
@@ -1344,23 +1334,19 @@ rezerwacje &&&&\\
 grupowe           & tak      & tak           & tak                 & nie              \\ \hline
 historia gościa   & tak      & tak           & tak                 & nie              \\ \hline  
 pakiety pobytowe  & nie      & tak           & tak                 & nie              \\ \hline  
-dostępny jako &&&&\\   
-SaaS              & nie      & tak           & tak                 & nie              \\ \hline
+% dostępny jako &&&&\\   
+% SaaS              & nie      & tak           & tak                 & nie              \\ \hline
 
-funkcjonalność    & Col2     & Col3          & Col4                & col5             \\ \hline
+% funkcjonalność    & Col2     & Col3          & Col4                & col5             \\ \hline
 
 \end{tabular}
 \end{minipage}
 \end{table}
 
-
-TODO więcej rzeczy do porównania
-
 \chapter{Model funkcjonalny}
 \label{wymagania}
 \section{Cel systemu}
-Każdy, kto ukończył kurs inżynierii oprogramowania, bądź spotkał się z Siatką Zachmana\footnote{ang. Zachman Framework}
- \cite{zachman1986framework} albo pisał biznes plan lub realizował jakikolwiek projekt - nie koniecznie techniczny -  
+Każdy, kto ukończył kurs inżynierii oprogramowania, bądź pisał biznes plan lub realizował jakikolwiek projekt - nie koniecznie techniczny -  
  wie jak ważna jest odpowiedź na pytanie ,,Dlaczego?''. Określenie motywacji, celu, problemu biznesowego, który trzeba 
  rozwiązać na bardzo wstępnym etapie projektu jest kluczem do tego, aby skończony projekt spełniał biznesowe potrzeby.
 
@@ -1383,6 +1369,7 @@ Potencjalnym odbiorcą systemu jest mały lub średni zakład hotelarski, który
 Mając określony cel oraz potencjalnego odbiorcę możemy przystąpić do zdefiniowania wymagań funkcjonalnych i niefunkcjonalnych, których realizacja spełni postawiony cel.
 
 \subsection{Wymagania funkcjonalne}
+\label{wymagania-funkcjonalne}
 Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie analizy dziedziny.
 
 \begin{enumerate}
@@ -1409,7 +1396,7 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
       \item zmiany pokoju dla rezerwacji w trakcie pobytu,
       \item wyświetlania listy rezerwacji pomiędzy określonymi datami z określonymi statusami,
       \item dodawania zadań dla recepcji, które muszą być wykonane dla danej rezerwacji,
-      \item poglądu przeszłych operacji na rezerwacji przez upoważnionych do tego użytkowników systemu,
+      \item podglądu przeszłych operacji na rezerwacji przez upoważnionych do tego użytkowników systemu,
       \item przy tworzeniu rezerwacji dla byłego klienta system powinien o tym komunikować,
       \item rezerwacja powinna zawierać co najmniej informacje podstawowe zdefiniowane w \ref{chap1:info-na-rezerwacji},
       \item rezerwacji, której właścicielem jest agent biura turystycznego,
@@ -1454,7 +1441,7 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
               \item na dziecko,
               \item na pokój.
             \end{itemize}
-          \item sposób realizacji usługi:
+          \item sposób realizacji usługi:\label{sposob-realizacji}
             \begin{itemize}
               \item codziennie,
               \item codziennie oprócz dnia przyjazdu,
@@ -1775,7 +1762,7 @@ Cechy architektury warstwowej:
   \item warstwa wyższa korzysta z warstwy poniżej, która ukrywa inne niższe warstwy.
 \end{enumerate}
 
-Nie wszystkie architektury warstwowe posiadają wszytkie wyżej wymienione cechy - niektóre nie chowają warstw niższych 
+Nie wszystkie architektury warstwowe posiadają wszystkie wyżej wymienione cechy - niektóre nie chowają warstw niższych 
 przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
 
 Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa:
@@ -1810,7 +1797,7 @@ zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo.
 
 W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie 
 problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę 
-wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w warstwie prezentacji.
+wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w interfejsie użytkownika.
 
 Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. 
 Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
@@ -1912,7 +1899,7 @@ potrzeb chciałem korzystać z tego samego systemu kontroli wersji. Wpływ na wy
 
 \section{JVM i Java}
 To że rozgraniczam platformę JVM i język Java może wprawić czytelnika w konfuzję, dlatego też chciałbym wytłumaczyć, 
-że maszyna wirtualna Javy to dom dla wielu innych języków, a nie tylko Javy. Są to m.in. Ruby, Groovy, Scala, Clojure, Python. 
+że maszyna wirtualna Javy to dom dla wielu innych języków. Są to m.in. Ruby, Groovy, Scala, Clojure, Python. 
 Oprócz wielu dostępnych języków platforma JVM HotSpot\footnote{strona domowa \url{http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html}} oferuje wiele zaawansowanych algorytmów odśmiecania pamięci oraz silną optymalizację kodu w trakcie wykonania.
 
 Alternatywą do platformy JVM jest platforma .NET lub nie używanie jakiejkolwiek maszyny wirtualnej.
@@ -1999,14 +1986,14 @@ Jeśli posiadałbym taką wiedzę jaką posiadam teraz to ObjectLedge nie byłby
 \section{Hibernate}
 Hibernate \cite{hibernateHome} jest biblioteką zapewniającą dostęp do danych z relacyjnej bazy danych. Hibernate zapewnia mapowanie obiektowo-relacyjne. Mapowanie obiektowo-relacyjne jest potrzebne, ponieważ między światem obiektowym, a relacyjnym istnieje impedancja. Z jednej strony mamy obiekty, a z drugiej wiersze w tabelach. Hibernate uwalnia programistę od ręcznego mapowania wierszy na obiekty i vice versa. 
 
-To tylko ułamek tego co oferuje Hibernate. Warta uwagi jest możliwość stosowania optymistycznej kontroli współbieżności\footnote{ang. optimistic concurreny control}, która pozwala na zwiększenie współbieżności dostępu do danych, czyli podniesienie transakcyjności systemu. Niezapoznanych z tematem odsyłam do książki Martina Fowlera \cite[76]{fowler2003patterns}.
+To tylko ułamek tego co oferuje Hibernate. Warta uwagi jest możliwość stosowania optymistycznej kontroli współbieżności\footnote{ang. optimistic concurreny control}, która pozwala na zwiększenie współbieżności dostępu do danych, czyli podniesienie transakcyjności systemu. Niezapoznanych z tematem odsyłam do książki Martina Fowlera \cite[str. 76]{fowler2003patterns}.
  Oprócz tego Hibernate pozwala śledzić cykl życia obiektu poprzez zdarzenia i posiada wiele innych ciekawych funkcjonalności wykraczających poza proste mapowanie.
 Hibernate to także implementacja specyfikacji JPA\footnote{ang. Java Persistance API}, która jest standardowym mechanizmem dostępu do danych dla biznesowej javy. Zainteresowanych specyfikacją odsyłam do źródła \cite{jpa2.0}.
 
 \subsection{JDBC}
 Alternatywą dla Hibernate jest albo inna implementacja specyfikacji JPA albo użycie czystego JDBC i ręczne mapowanie. Można zatem zastanawiać się nad tym czy stosować bibliotekę typu ORM czy nie. Na tak postawione pytanie odpowiedź będzie zależała od skomplikowania projektu, który chcemy zrealizować. W przypadku większości aplikacji biznesowych poziom skomplikowania jest na tyle wysoki, że użycie biblioteki mapującej jest bardzo uzasadnione. Ponadto używając Hibernate nie tracimy możliwości skorzystania z JDBC. Hibernate umożliwia wykonanie jednostki pracy korzystając z połączenia jdbc. Jest to przydatne, ponieważ nie zawsze chcemy otrzymać postać obiektową. Czasem wystarczy dostęp do samych wierszy.
 
-Podsumowując użycie biblioteki typy ORM jest koniecznością przy tego typu projekcie ze względu na skomplikowanie projektu i bogaty model danych. Hibernate stanowi uznaną implementację specyfikacji JPA. Ponadto, w projekcie widziałem zastosowanie dla funkcjonalności specyficznych dla samego Hibernate, które nie są dostępne z poziomu JPA. Z tych powodów wybrana została biblioteka Hibernate.
+Podsumowując użycie biblioteki typu ORM jest koniecznością przy tego typu projekcie ze względu na skomplikowanie projektu i bogaty model danych. Hibernate stanowi uznaną implementację specyfikacji JPA. Ponadto, w projekcie widziałem zastosowanie dla funkcjonalności specyficznych dla samego Hibernate, które nie są dostępne z poziomu JPA. Z tych powodów wybrana została biblioteka Hibernate.
 
 
 \section{Jersey}
@@ -2028,7 +2015,7 @@ Alternatyw do Angulara, a właściwie sposobów prezentacji w przeglądarce jest
 Praca z bibliotekami typu jQuery jest na niskim poziomie abstrakcji. Programista nie dysponuje narzędziami, aby uwolnić się od problemu jakim jest środowisko przeglądarki. AngularJS działa na wyższym poziomie abstrakcji i uwalnia programistę od trudności związanych z przeglądarką i manipulacją DOMem\footnote{ang. Document Object Model}.
 
 \section{PostgreSQL}
-PostgreSQL \cite{postgreSQLHome} jest obiektowo relacyjnym systemem zarządzania bazą danych. PostgreSQL ma swoje korzenie w systemie o nazwie POSTGRES opracowanego na Uniwersytecie Kalifornijskim. Implementacja systemu POSTGRES rozpoczęła się w roku 1986 i była wspierana przez amerykańską rządową agencję DARPA\footnote{ang. Defence Advanced Research Projects Agency}.W roku 1996 wybrano nazwę obowiązującą do dzisiaj. PostgreSQL jest jednym z najczęśniej używanych systemów do zarządzania bazą danych. Wpływ ma na to bogactwo funkcjonalności, duży stopień zgodności z najnowszym standardem SQL - obecnie SQL:2003, licencja BSD, dostępność na większości systemów operacyjnych, a przede wszystkim sukces w produkcyjnym zastosowaniu. Licencja BSD pozwala na modyfikowanie i używanie systemu PostgreSQL w dowolnych celach, zatem także w komercyjnych.
+PostgreSQL \cite{postgreSQLHome} jest systemem zarządzania relacyjną bazą danych. PostgreSQL ma swoje korzenie w systemie o nazwie POSTGRES opracowanego na Uniwersytecie Kalifornijskim. Implementacja systemu POSTGRES rozpoczęła się w roku 1986 i była wspierana przez amerykańską rządową agencję DARPA\footnote{ang. Defence Advanced Research Projects Agency}.W roku 1996 wybrano nazwę obowiązującą do dzisiaj. PostgreSQL jest jednym z najczęśniej używanych systemów do zarządzania bazą danych. Wpływ ma na to bogactwo funkcjonalności, duży stopień zgodności z najnowszym standardem SQL - obecnie SQL:2003, licencja BSD, dostępność na większości systemów operacyjnych, a przede wszystkim sukces w produkcyjnym zastosowaniu. Licencja BSD pozwala na modyfikowanie i używanie systemu PostgreSQL w dowolnych celach, zatem także w komercyjnych.
 
 \subsection{Alternatywne systemy RDBMS}
 Pod uwagę brane były tylko te systemy, które są darmowe i mogą być stosowane w celach akademickich i komercyjnie.
@@ -2063,7 +2050,7 @@ Diagram \ref{fig:db-logical-model-reservation} przedstawia część modelu zwią
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[width=\textwidth]{../img/rezerwacja-logiczny-v7.pdf}
+    \includegraphics[width=\textwidth]{../img/rezerwacja-logiczny-v8.pdf}
   }
   \end{center}
   \caption{Model rezerwacji}
@@ -2083,9 +2070,9 @@ Podczas modelowania sporym problemem było rozwiązanie kwestii rezerwacji pojed
   \item rezerwacja grupowa powinna być identyfikowana poprzez numer grupy i sekwencję w grupie.
 \end{enumerate}
 
-Przedstawię kolejne podejścia do tego problemu. Podczas rozważań poruszam kwestie modelu fizycznego operatego o relacyjną bazę danych. Mam świadomość tego, że w modelu logicznym nie istnieje pojęcie klucza, indeksu i innych terminów z baz danych. 
+Przedstawię kolejne podejścia do tego problemu. Podczas rozważań poruszam kwestie modelu fizycznego opartego o relacyjną bazę danych. Mam świadomość tego, że w modelu logicznym nie istnieje pojęcie klucza, indeksu i innych terminów z baz danych. 
 
-Pierwsze podejscie przedstawione na rysunku \ref{fig:db-logical-model-group-reservation-first-try} pokazuje, że problem został rozwiązany poprzez założenie, że rezerwacja pojedyncza i grupowa to dwa różne podtypy. Można jednak zauważyć, że rezerwacja grupowa oprócz złożonego identyfikatora składającego się z sekwencji oraz związku z grupą nie posiada żadnych atrybutów. Obserwacja ta wzbudziła moją wątpliwość. Oprócz tego, taki model wydaje się być trudny w implementacji. Jeśli przyjmiemy realizację tego modelu przy użyciu relacyjnej bazy danych\footnote{postać tabelaryczna to tylko jedna możliwość realizacji modelu fizycznego} to prawdopodobnie każdy podtyp miałby osobną tabele - musiałoby tak być, aby móc stworzyć klucz główny dla rezerwacji grupowej. Powodowałoby to dużo złączeń przy najczęstszej operacji, czyli wyświetlania rezerwacji.
+Pierwsze podejście przedstawione na rysunku \ref{fig:db-logical-model-group-reservation-first-try} pokazuje, że problem został rozwiązany poprzez założenie, że rezerwacja pojedyncza i grupowa to dwa różne podtypy. Można jednak zauważyć, że rezerwacja grupowa oprócz złożonego identyfikatora składającego się z sekwencji oraz związku z grupą nie posiada żadnych atrybutów. Obserwacja ta wzbudziła moją wątpliwość. Oprócz tego, taki model wydaje się być trudny w implementacji. Jeśli przyjmiemy realizację tego modelu przy użyciu relacyjnej bazy danych\footnote{postać tabelaryczna to tylko jedna możliwość realizacji modelu fizycznego} to prawdopodobnie każdy podtyp miałby osobną tabele - musiałoby tak być, aby móc stworzyć klucz główny dla rezerwacji grupowej. Powodowałoby to dużo złączeń przy najczęstszej operacji, czyli wyświetlania rezerwacji.
 
 \begin{figure}[H]
   \begin{center}
@@ -2109,7 +2096,7 @@ Drugie podejście do problemu korzysta z obserwacji, że rezerwacja tak naprawd�
   \label{fig:db-logical-model-group-reservation-second-try}
 \end{figure}
 
-Kolejne podejście pozbywa się podejrzanego związku jeden-do-jeden, ale zyskujemy dziwny identyfikator. Logika za tym identyfikatorem jest taka, że sekwencja dla rezerwacji pojedycznej ma wartość zero, a dla grupowej taką jak sekwencja w grupie licząc od jednego. Ta komplikacja kompromituje model. Aby ten model spełniał wymagania, należałoby także dodać odpowiednie warunki na obowiązkowość związku i wartość sekwencji. Można by się pozbyć warunku zmieniając związek na obustronnie obligatoryjny i użyć specjalnej instancji encji Grupa, która oznaczałaby, że grupa nie istnieje. Ten model wprowadza zbyt dużo komplikacji, dlatego szukałem głębiej czegoś prostszego.
+Kolejne podejście pozbywa się podejrzanego związku jeden-do-jeden, ale zyskujemy dziwny identyfikator. Logika za tym identyfikatorem jest taka, że sekwencja dla rezerwacji pojedynczej ma wartość zero, a dla grupowej taką jak sekwencja w grupie licząc od jednego. Ta komplikacja kompromituje model. Aby ten model spełniał wymagania, należałoby także dodać odpowiednie warunki na obowiązkowość związku i wartość sekwencji. Można by się pozbyć warunku zmieniając związek na obustronnie obligatoryjny i użyć specjalnej instancji encji Grupa, która oznaczałaby, że grupa nie istnieje. Ten model wprowadza zbyt dużo komplikacji, dlatego szukałem głębiej czegoś prostszego.
 
 \begin{figure}[H]
   \begin{center}
@@ -2154,7 +2141,7 @@ Encja usługa pozwala na realizację usługi typu budzenie na życzenie oraz inn
 Encja typ usługi jest encją słownikową. Określa dziedzinę możliwych w realizacji usług wraz ze standardową cenę za usługę. Jednym z typów usługi, może być ,,usługa inna'', która pozwoli na realizację nietypowej usługi żądanej przez klienta.
 
 \subsection{Noc}
-Encja noc jest istotna, ponieważ pozwala na dużą dowolność w przebiegu pobytu gościa w hotelu. Rezerwacja na 10 dni, składać się będzie z 10 nocy, gdzie każda noc mogłaby być spędzona w innym pokoju. Jest to oczywiście ekstremalny przypadek, ale zmiana pokoju na ostatnią noc jest dość często spotykana w hotelarskie.
+Encja noc jest istotna, ponieważ pozwala na dużą dowolność w przebiegu pobytu gościa w hotelu. Rezerwacja na 10 dni, składać się będzie z 10 nocy, gdzie każda noc mogłaby być spędzona w innym pokoju. Jest to oczywiście ekstremalny przypadek, ale zmiana pokoju na ostatnią noc jest dość często spotykana w hotelarstwie.
 
 \subsection{Status nocy}
 Encja status nocy jest encją słownikową. Może zawierać takie wartości jak: użyta noc, nieużyta noc, noc ekstra lub inne. To czy ta encja jest potrzebna jest kwestią dyskusyjną, tak jak każda decyzja podczas modelowania.
@@ -2163,16 +2150,16 @@ Encja status nocy jest encją słownikową. Może zawierać takie wartości jak:
 Encja status rezerwacji jest encją słownikową i określa możliwe statusy rezerwacji takie jakie poznaliśmy podczas analizy dziedziny. Dodatkowo te statusy mogą być rozszerzone o parę technicznych statusów.
 
 \subsection{Osoba}
-Encja osoba modeluje osobę, która może być gościem lub/i właścicielem rezerwacji bądź grupy. Osoba może mieć tożsamość prawną lub być osoba fizyczną czyli gościem. Dodatkowo model zakłada istnienie podtypu Pracownika, który jest przydany przy realizacji aplikacji. 
+Encja osoba modeluje osobę, która może być gościem i/lub właścicielem rezerwacji bądź grupy. Osoba może mieć tożsamość prawną lub być osobą fizyczną czyli gościem. Dodatkowo model zakłada istnienie podtypu Pracownika, który jest przydany przy realizacji aplikacji. 
 
 \subsection{Adres}
-Encja adres modeluje adres osoby. Ważny jest związek z typem adresu, który określa czy adres jest główny, drugorzędny, korespondencyjny, kontaktowy, czy do płatności. Same atrybuty w encji adres nie są wystarczające do ustalenia pełnego adresu, dlatego też obowiązkowy jest identyfikujący związek z encją Kraj, która przedstawia dane specyficzne dla kraju. Encja Kraj to też swojego rodzaju encja słownikowa, ponieważ docelowo powinna zawierać dane wszystkich krajów na świecie.
+Encja adres modeluje adres osoby. Ważny jest związek z typem adresu, który określa czy adres jest główny, drugorzędny, korespondencyjny, kontaktowy, czy do płatności. Same atrybuty w encji adres nie są wystarczające do ustalenia pełnego adresu, dlatego też obowiązkowy jest identyfikujący związek z encją kraj, która przedstawia dane specyficzne dla kraju. Encja kraj to też swojego rodzaju encja słownikowa, ponieważ docelowo powinna zawierać dane wszystkich krajów na świecie.
 
 \subsection{Metoda obciążenia}
-Encja metoda obciążenia określa, kto powinnien płacić za rezerwację. Możliwymi opcjami są: właściciel rezerwacji, gość lub właściciel z limitem. Właściciel rezerwacji to metoda, która wybrana będzie, gdy rezerwacja będzie w ofercie biura podróży. Gość to metoda w przypadku rezerwacji pojedynczej przez osobę indywidualną. Właściciel rezerwacji może płacić za wszystkie rezerwacje w grupie lub płacić tylko z limitem. Za koszta przewyższające określony limit odpowiada gość. 
+Encja metoda obciążenia określa kto powinien płacić za rezerwację. Możliwymi opcjami są: właściciel rezerwacji, gość lub właściciel z limitem. Właściciel rezerwacji to metoda, która wybrana będzie, gdy rezerwacja będzie w ofercie biura podróży. Gość to metoda w przypadku rezerwacji pojedynczej przez osobę indywidualną. Właściciel rezerwacji może płacić za wszystkie rezerwacje w grupie lub płacić tylko z limitem. Za koszta przewyższające określony limit odpowiada gość. 
 
 \subsection{Podsumowanie}
-Model rezerwacji pozwala na stworzenie rezerwacji pojedycznej, grupowej, określenie właściciela rezerwacji, określenia korzystających z rezerwacji gości, bardzo dokładnego określenia przebiegu pobytu, modyfikacji pobytu, świadczenia usług, identyfikacji gości przy kolejnych wizytach i wgląd w ich historie. Model ten spełnia postawione mu wymagania.
+Model rezerwacji pozwala na stworzenie rezerwacji pojedynczej, grupowej, określenie właściciela rezerwacji, określenia korzystających z rezerwacji gości, bardzo dokładnego określenia przebiegu pobytu, modyfikacji pobytu, świadczenia usług, identyfikacji gości przy kolejnych wizytach i wgląd w ich historie. Model ten spełnia postawione mu wymagania.
 
 
 \section{Model stawek}
@@ -2182,7 +2169,7 @@ Model stawek zawiera encje, które pozwalają na dokładne określenie stawek na
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[width=\textwidth]{../img/stawki-logiczny-v4-1.pdf}
+    \includegraphics[width=\textwidth]{../img/stawki-logiczny-v6.pdf}
   }
   \end{center}
   \caption{Model stawek}
@@ -2202,15 +2189,15 @@ Encja stawka określa stawki na pokoje. Encja posiada sztuczny identyfikator. En
 \end{itemize}
 
 \subsubsection{Stawka pakietowa}
-Stawka pakietowa jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu.
+Stawka pakietowa jest związana z nocą pakietową \ref{noc-pakietowa}, która dalej jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu. Model pakietu został jest przedstawiony w osobnej części modelu \ref{model-pakietu-i-dodatkow}.
 
-Encja stawka daje ogromne możliwości w określaniu stawek i spełnia wszystkie wymagania dotyczące określania stawek na pokoje.
+Encja stawka daje ogromne możliwości w określaniu stawek i spełnia wszystkie wymagania dotyczące określania stawek na pokoje. 
 
 \subsection{Typ osoby}
 Związek osoby z typem osoby nie był widoczny na poprzednim modelu. Encja typ osoby jest encją słownikową i pozwala rozróżnić czy dana osoba jest klientem indywidualnym, klientem korporacyjnym czy klientem innego rodzaju. 
 
 \subsection{Rack}
-Encja rack jest encją potrzebną do realizacji związku pomiędzy stawką, pokojem i okresami czasu. Związek ten reprezentuje stawkę Rack dla pokoju.
+Encja rack jest encją potrzebną do ustawienia stawek typu rack. Encja rack jest identyfikowana poprzez kod oraz związek z pokojem. Częstą praktyką jest nadawanie stawkom rack kodów typu RACK100 lub RACK500. Atrybut kod pozwala na nadawanie nazw kodowych stawkom.
 
 \subsection{Sezon}
 Encja sezon pozwala na określanie stawek ograniczonych czasowo. Encja sezon posiada sztuczny identyfikator. Sezonem może być np. sezon świąteczny, wakacyjny. Można także użyć sezonu do określenia stawek na wszystkie weekendy pomiędzy styczniem, a marcem dla klientów indywidualnych. Encja sezon spełnia wymagania związane z stawkami sezonowymi i daje bardzo dużą elastyczność w określeniu konkretnych przedziałów czasowych.
@@ -2219,7 +2206,7 @@ Encja sezon pozwala na określanie stawek ograniczonych czasowo. Encja sezon pos
 Encja okres czasu modeluje odcinek czasu, w którym dana stawka jest dostępna. Choć para dat jest kandydatem na identyfikator, to zbudowanie identyfikatora w ten sposób powodowałoby, że niemożliwe było by utworzenie stawki pakietowej i sezonowej dostępnej w tym samym okresie czasu. Z tego powodu okres czasu musi mieć sztuczny identyfikator.
 
 \subsection{Pokój}
-Encja pokój reprezentuje fizyczny pokój w hotelu. Pokój posiada naturalny identyfikator i jest to numer pokoju. Pokój posiada informacje o tym, czy jest zajęty, ile mieści osób standardowo oraz maksymalnie, ile może być dodatkowych łóżek. Posiada, także prefix, który wraz z numerem pokoju stanowi nazwę pokoju.
+Encja pokój reprezentuje fizyczny pokój w hotelu. Pokój posiada naturalny identyfikator i jest to numer pokoju. Pokój posiada informacje o tym, czy jest zajęty, ile mieści osób standardowo oraz maksymalnie, ile może być dodatkowych łóżek. Posiada, także prefiks, który wraz z numerem pokoju stanowi nazwę pokoju.
 
 \subsection{Typ Pokoju}
 Encja typ pokoju jest encją słownikową i określa możliwe typy pokojów.
@@ -2232,32 +2219,191 @@ Model stawek pozwala na precyzyjne określenie stawek dla typów osób jak równ
 
 
 \section{Model pakietu i dodatków}
-TODO
+\label{model-pakietu-i-dodatkow}
+W tej części modelu przedstawione zostaną encje, które częściowo były widoczne w części modelu rezerwacji. Model przedstawiony został na rysunku \ref{fig:db-logical-model-package}.
 
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[width=\textwidth]{../img/pakiet-logiczny-v5.pdf}
+  }
+  \end{center}
+  \caption{Model pakietu i dodatków}
+  \label{fig:db-logical-model-package}
+\end{figure}
 
-\subsection{Podsumowanie}
-TODO
+\subsection{Pakiet}
+Encja pakiet umożliwia definiowanie pakietów na grupę dodatków np. obiad i kolacja jak również na definiowanie pakietów definiujących cały pobyt i cenę każdej nocy z osobna. Pakiet nie ma naturalnego identyfikatora, dlatego też został użyty sztuczny identyfikator.
 
+To czy pakiet jest pakietem na pobyt czy tylko zgrupowanymi dodatkami wynika z istnienia związków w jakie wchodzi konkretny pakiet. Jeśli pakiet wchodzi w związek z nocą pakietową to jest to pakiet na pobyt. Skorzystanie z takiego pakietu będzie możliwe jedynie poprzez zdefiniowanie stawek dla tego pakietu. Możliwe jest precyzyjne definiowanie stawek na każdą noc w pakiecie.
+
+Warto zauważyć, że pakiet dodatków będzie miał taką samą cenę, dla każdego gościa niezależnie od jego typu. W przypadku pakietu z pobytem korzystamy z bogactwa encji stawka, która pozwala określać stawki na typy osób oraz konkretne osoby.
+
+Pakiet może być dostępny tylko w określonym czasie. Tą funkcjonalność realizuje związek z okresami czasu.
+
+\subsection{Noc pakietowa}
+\label{noc-pakietowa}
+Encja noc pakietowa pozwala na określenie ceny dla każdej nocy z osobna na każdy pokój w ofercie pakietu z pobytem. Taka precyzja pozwala na budowanie wyrafinowanych ofert. Encja jest encją słabą identyfikowaną poprzez związek z pakietem oraz sekwencję.
+
+\subsection{Dodatek}
+Encja dodatek określa cenę, nazwę i maksymalną zniżkę na dany produkt \ref{model-produkt}. Każdy dodatek ma określony sposób realizacji oraz sposób kalkulacji opłaty za dodatek. Encja dodatek posiada sztuczny identyfikator.
+
+\subsection{Sposób kalkulacji}
+Encja sposób kalkulacji pozwala na określenie w jaki sposób powinna być kalkulowana opłaca za dodatek. Możliwe sposoby kalkulacji to m.in. na osobę, na pokój, na dorosłego. Encja ta jest encją słownikową.
+
+\subsection{Sposób realizacji}
+Encja sposób realizacji umożliwia określenie tego kiedy dodatek ma zostać zrealizowany. Możliwe sposoby realizacji zostały zdefiniowane w punkcie \ref{sposob-realizacji} w wymaganiach funkcjonalnych \ref{wymagania-funkcjonalne}.
+
+\subsection{Produkt}
+\label{model-produkt}
+Encja produkt definiuje produkt, który może być użyty jako dodatek. Takim produktem jest np. obiad, gazeta, kwiaty. Produkt może mieć także charakter użycia usług fakultatywnych np. skorzystanie z basenu. Encja produkt posiada sztuczny identyfikator.
+
+\subsection{Kupiony pakiet}
+Encja kupiony pakiet jest encją powstałą ze związku rezerwacji i pakietu. Wartość atrybutu ceny, może różnić się od tej zdefiniowanej w pakiecie z powodów zniżek, umiejętności negocjacyjnych klienta lub uprzejmości obsługi hotelu. Atrybut o nazwie timestamp jest częścią identyfikatora, aby umożliwić zakup wielu takich samych pakietów i śledzić ich czas zakupu.
+
+\subsection{Kupiony dodatek}
+Encja kupiony dodatek ma sens analogiczny do encji kupiony pakiet.
+
+\subsection{Podsumowanie modelu pakietów i dodatków}
+Model pakietów oraz dodatków pozwala na budowanie wyrafinowanych ofert pobytowych z precyzyjnie określonymi stawkami oraz sprzedaż usług dodatkowych z określonymi sposobami dostarczania i kalkulacji ceny dodatków do pobytu. Model ten umożliwia spełnienie wymagań dotyczących dodatków oraz pakietów.
+
+\section{Podsumowanie modelu logicznego}
+W tym rozdziale przedstawiłem model logiczny aplikacji. Przedstawiłem także przykładowy proces myślowy i rozważania nad modelowaniem konkretnego problemu, który pokazuje, że odpowiednie modelowanie encji nie jest prostym zadaniem. Pozostała część modelu powstała w oparciu o podobne rozważania i szukanie coraz lepszego, prostszego, bardziej ekspresywnego modelu, który spełni wymagania. Całość modelu logicznego została dołączona do dodatku \ref{dodatek-model-logiczny}. W rezultacie modelowania powstał przejrzysty model mogący spełnić wszystkie wymagania.
 
 \chapter{Implementacja}
+W niniejszym rozdziale przedstawione zostały wybrane elementy implementacji systemu. Zacznę od omówienia modelu fizycznego, a następnie omówię parę elementów z wyższych warstw aplikacji. 
 
 \section{Fizyczny model danych}
+Fizyczny model danych, w tym przypadku tabelaryczny model danych powstał poprzez przekształcenie modelu związków encji do postaci tabelarycznej. Model ten został przedstawiony na rysunku \ref{fig:db-physical-model}.
+
+Proces wymagał podjęcia pewnych decyzji. Oprócz standardowych działań jak wprowadzenie dodatkowej tabeli w miejsce związku wiele do wiele należało zdecydować się na sposób implementacji podtypów. Postanowiłem zastosować technikę jednej tabeli z dyskryminatorem określającym typ oraz warunkami wymuszającymi obligatoryjność atrybutów w zależności od wartości dyskryminatora. Za tą metodą przemawia brak złączeń, a więc wydajność kosztem miejsca.
+
+Implementacja łuków została osiągnięta poprzez opcjonalne klucze obce z warunkami sprawdzającymi zajście tylko jeden relacji i wykluczanie pozostałych.
+
+Kolejność kolumn w tabelach ma znaczenie. Dobrą praktyką jest uporządkowanie kolumn w zależności od najmniejszej znanej długości oraz według obligatoryjności. Oznacza to, że wymagana wartość w kolumnie o typie CHAR, będzie wcześniej niż wymagana wartość w kolumnie o typie VARCHAR2. Dzięki takiej kolejności oszczędza się miejsce w bazie danych.
+
+\subsection{Klucze}
+Podobne znaczenie ma kolejność kolumn w złożonych kluczach głównych, w których część klucza jest kluczem obcym. Umieszczając te klucze obce, które są częścią klucza głównego przed resztą klucza zyskujemy darmowy indeks na ten klucz obcy.
+
+Na wszystkie klucze obce zostały nałożone indeksy nieunikalne. Indeksy nieunikalne założone zostały, aby umożliwić szybkie złączenia. 
+
+Indeks unikalny został zastosowany, aby w tabeli rezerwacji nie było dwóch rezerwacji, które należą do takiej samej grupy i mają taką samą sekwencję. Na rysunku \ref{fig:db-physical-model} jedyne indeksy unikalne to te, których nazwa kończy się na ,,UNIQUE\_\_IDX''.
+
+W większość tabel zostały użyte sztuczne identyfikatory generowane z sekwencji. Jedynie tabela pokoje zawiera naturalny klucz główny. Tabele powstałe z encji słownikowych posiadają klucze główne zbudowane ze swoich atrybutów.
+
+\subsection{Złączenie klucza}
+Wartym odnotowania jest złączenie klucza obcego w tabeli stawki. Tabela stawki posiada klucz obcy z numerem pokoju oraz klucz obcy do tabeli racks, który składa się z numeru pokoju oraz kodu rack. Złączenie numeru pokoju w jedną kolumnę i użycie go w obu tych kluczach wymusza integralność danych, zatem nie jest możliwe zdefiniowanie stawki rack dla pokoju innego niż ten sam pokój. Gdyby istniały dwie kolumny z numerem pokoju to byłoby to możliwe. Można by temu zapobiec wymagając równości wartości w tych kolumnach poprzez dodatkowy warunek. Złączenie kolumn jest jednak najbardziej eleganckim rozwiązaniem.
+
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[scale=0.25, angle=270]{../img/model-fizyczny-v3.pdf}
+  }
+  \end{center}
+  \caption{Model fizyczny bazy danych}
+  \label{fig:db-physical-model}
+\end{figure}
+
+\section{Dostęp do danych}
+Tradycyjną metodą dostępu do danych jest mapowanie na obiekty typu POJO\footnote{ang. Plain Old Java Object}, czyli proste obiekty javowe, zawierające tylko atrybuty oraz metody ,,getXXX'' oraz ,,setXXX''. Następnie, aby zaimplementować typową funkcjonalność zapisywania, odczytów, aktualizacji oraz usuwania obiektów stosuje się wzorzec DAO\footnote{ang. Data Access Object}, który zapewnia tą podstawową funkcjonalność.
+
+Niestety takie podejście prowadzi do tzw. anemicznego modelu. Oznacza, to że obiekty są tylko kontenerami na dane, a logika z nimi związana jest rozproszona w wielu innych miejscach. Zainspirowany podejściem budowy bogatego modelu \cite{evans2004domain} postanowiłem wzbogacić POJO o logikę biznesową oraz zwiększyć ich obiektowość poprzez użycie tzw. obiektów-wartości\footnote{ang. value objects}. Różnicę przedstawiają niniejsze wydruki fragmentu klasy reprezentującej pokój. 
+
+\begin{lstlisting}[language=Java,style=outcode,caption=POJO]
+public class Room
+{
+    private String prefix; 
+    private String name;
+    private String type;
+    private Set<Rate> rates;
+    private String housekeepingStatus;
+    private String availability;
+    private int maxExtraBeds;
+    private int standardOccupancy;
+    private int maximumOccupancy;
+
+    // ...
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,style=outcode,caption=Agregat zawierający obiekty wartości]
+public class Room
+{
+    private String prefix; 
+    private RoomName name;
+    private RoomType type;
+    private Set<Rate> rates;
+    private HousekeepingStatus housekeepingStatus;
+    private RoomAvailability availability;
+    private Integer maxExtraBeds;
+    private Occupancy occupancy;
+
+    // ...
+}
+\end{lstlisting}
+
+\subsection{Repozytorium zamiast DAO}
+W nomenklaturze DDD występuję pojęcie ,,repozytorium''. Jest do kontrakt, który zawiera bogatszy zestaw metod niż tylko te, które są potrzebne do realizacji operacji CRUD\footnote{ang. Create Read Update Delete} tak jak w przypadku obiektów typu DAO. Metody te mają sens biznesowy. Model domeny posługuje się interfejsem do realizacji logiki biznesowej. Implementacja repozytoriów jest niezależna od modelu domeny. W przypadku tej aplikacji repozytoria zostały zaimplementowane przy użyciu biblioteki Hibernate. Przykład kontraktu odpowiedzialnego za działania na rezerwacji został przedstawiony na niniejszym wydruku.
+
+\begin{lstlisting}[language=Java,style=outcode,caption=Repozytorium rezerwacji]
+public interface ReservationRepository
+{
+    Collection<Reservation> findAllReservationsAroundDates(DateTime checkIn,
+       DateTime checkOut);
+
+    void bookNewReservation(Reservation reservation);
+
+    Collection<Reservation> getAll();
+
+    Optional<Reservation> lookup(Id id);
+
+    void deleteReservation(Reservation reservation);
+
+    void update(Reservation reservation);
+}
+\end{lstlisting}
 
 \section{Praktyki programistyczne}
-Law of Demeter,
+Podczas implementacji aplikacji dużą wagę przywiązałem do dobrych praktyk programistycznych. Stosowałem wzorce projektowe poznane w tradycyjnej książce autorstwa gangu czworga \cite{gamma1994design}. Stosowałem także wskazówki zawarte w książce ,,Effecitve Java'' \cite{bloch2008effective}, a szczególnie wskazówkę nr. 15, która zaleca minimalizację użycia obiektów zmieniających stan i faworyzacji niezmiennych obiektów.
+
+\subsection{Obiekty DTO}
+Oprócz typowych wzorców jak fabryka, kompozyt, strategia jest wzorzec warstwy obiektów DTO\footnote{ang. Data Transfer Object}, czyli obiektów transferujących dane. Obiekty DTO zostały zastosowane w warstwie prezentacji w komunikacji pomiędzy serwerem, a klientem. Przyjętym formatem wymiany danych jest JSON. Dzięki bibliotece Jersey programista jest uwolniony od konwersji obiektów na odpowiedni format. Dzięki stosowaniu odpowiedniego formatu usługi internetowe mogą przyjmować obiekty DTO, a nie proste typy. Wysłane żądanie, które zawiera obiekt w formacie JSON zostaje przekształcone na odpowiedni obiekt DTO. Pozwala to na eleganckie tworzenie usług internetowych, które konsumują obiekty DTO i produkują obiekty DTO.
 
 \section{Testowanie}
-TODO opisać TDD, testy unitowe, black box testing, whitebox testing i inne takie
+Nieodłącznym elementem pracy nad implementacją było testowanie. Korzystając ze wskazówek zawartych w książce ,,Practical Unit Testing with TestNG and Mockito'' \cite{kaczanowski2012practical} pisałem testy jednostkowe używając nowoczesnych narzędzi. Testy jednostkowe były prawdziwie jednostkowe, a zatem testowany obiekt, był uwolniony od jakichkolwiek innych obiektów i dzięki temu był testowany w całkowitej izolacji. Wszystkie jego zależności były wstrzykiwane podczas testu. Dzięki kodowaniu do interfejsów, a nie do konkretnych klas łatwo jest wstrzykiwać zaślepki oraz szpiegów do testowanego obiektu w celu sprawdzenia jego działania. Aby to było możliwe należało tworzyć luźno powiązane komponenty co jest kolejną dobrą praktyką programistyczną.
+
+Oprócz testów jednostkowych tworzyłem testy integracyjne. Testy integracyjne obejmowały interakcję z bazą danych. Testy pokrywały implementacje repozytoriów i sprawdzały zmiany w bazie danych. 
 
 \chapter{Podsumowanie}
+
 \section{Wnioski}
+Cel pracy został osiągnięty. Został zaprojektowany, następnie zaimplementowany system wspierający pracę hotelarza. System ten umożliwia dokonanie rezerwacji pojedynczej, 
+
+TODO TODO
+
+System zaprojektowany został z myślą o niskim koszcie utrzymania oraz dalszego rozwoju.
 
 \section{Dalszy rozwój}
-
-
+TODO
 %% koniec %%
 
 \appendix
+
+
+\chapter{Pełny model logiczny}
+\label{dodatek-model-logiczny}
+\begin{figure}[H]
+  \begin{center}
+  \fbox{
+    \includegraphics[scale=0.25, angle=270]{../img/model-logiczny-calosc-v2-1.pdf}
+  }
+  \end{center}
+  \caption{Model logiczny}
+  \label{fig:db-logical-model-full}
+\end{figure}
+
+\chapter{Wygląd aplikacji}
+TODO
 
 % tutaj załączniki
 
