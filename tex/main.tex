@@ -17,7 +17,6 @@
 \usepackage{amsthm}
 \usepackage{bookman}
 
-
 \usepackage{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -70,7 +69,7 @@
 % \setlength{\oddsidemargin}{\evensidemargin}
 % \setlength{\evensidemargin}{0.3cm}
 \usepackage[sort, compress]{cite}
-
+\usepackage{pdfpages}
 %\usepackage{multibib}
 %\newcites{bk,st,doc,web}{Książki i~artykuły,Standardy i~zalecenia,Dokumentacja produktów,Publikacje i~serwisy internetowe}
 
@@ -162,8 +161,8 @@ framerule=0.1pt,
 \renewcommand{\baselinestretch}{1.0}
 \raggedbottom
 
-
-\input {title} % TO DO WYWALENIA I DO ZROBIENIA INCLUDE PIERWSZYCH TRZECH STRON
+\includepdf[pages=-]{pierwsze_strony}
+%\input {title} % TO DO WYWALENIA I DO ZROBIENIA INCLUDE PIERWSZYCH TRZECH STRON
 
 \tableofcontents
 % \addcontentsline{toc}{chapter}{{Przedmowa1}{vii}}{vii}
@@ -456,7 +455,7 @@ osobodzień. Nocleg jest jednostką miary usługi noclegowej.
 
 Nocleg wykorzystywany jest w miernikach usług hotelarskich:
 \begin{itemize}
-  \item nominalna liczba noclegów - ilość miejsc, które można wynająć w 
+  \item nominalna liczba noclegów - liczba miejsc, które można wynająć w 
   danym okresie.
   \item wskaźnik frekwencji - stopień wykorzystania miejsc w procentach
 \end{itemize}
@@ -482,7 +481,7 @@ RevPAR \approxeq Freq \cdot ADR
   \item[Freq] wskaźnik frekwencji. Procent okupowanych pokoi.
   \item[ADR]\footnote{ang. {\em Average Daily Rate} } średnia stawka(netto) 
   za pokój bez śniadania. ADR liczone jest jako iloraz przychodów netto ze 
-  sprzedaży pokoi i ilości sprzedanych pokoi.
+  sprzedaży pokoi i liczby sprzedanych pokoi.
 
 \end{description}
 
@@ -956,13 +955,13 @@ pokoi wraz z określonymi usługami przy ustalonych warunkach cenowych -
 które będą korzystniejsze niż dla klienta indywidualnego. Najważniejszym dla 
 biura jest termin, do którego musi powiadomić hotel o faktycznym 
 wykorzystaniu miejsc. Jeśli w wyznaczonym terminie powiadomi hotel i 
-zmniejszy ilość pokoi to obciążone zostanie tylko za wykorzystaną ilość, a 
+zmniejszy liczbę pokoi to obciążone zostanie tylko za wykorzystaną liczbę, a 
 reszta pokoi wróci do wolnej puli. Przy takiej umowie hotel zobowiązuje się, 
-że określona ilość pokoi będzie dostępna i że nie będą one przedmiotem 
+że określona liczba pokoi będzie dostępna i że nie będą one przedmiotem 
 podobnej umowy z innym biurem turystycznym bądź inną instytucją.
 
 Druga możliwość to tzw. \emph{allotment}. Biuro podróży wykupuje określoną 
-ilość miejsc za bardzo atrakcyjną cenę. Umowa ta również określa, w jakim 
+liczbę miejsc za bardzo atrakcyjną cenę. Umowa ta również określa, w jakim 
 terminie biuro ma prawo zrezygnować z całości lub części zamówionych pokoi 
 bez ponoszenia kosztów. Hotel nie może zawierać na te miejsca innych umów.
 
@@ -1116,7 +1115,7 @@ grupowych wydarzeń.
 \subsection{Klient korporacyjny}
 Duże korporacje lub nawet mniejsze firmy mogą zawiązać z hotelem podobne 
 umowy do umów biur podróżniczych. Klient korporacyjny to pracownik firmy, 
-która ma z hotelem podpisaną umowę. Taka umowa może opiewać na ilość nocy 
+która ma z hotelem podpisaną umowę. Taka umowa może opiewać na liczbę nocy 
 wykorzystanych w ciągu roku poprzez pracowników firmy. Cena jest zatem 
 odpowiednio niższa. Wszystkie szczegóły reguluje umowa pomiędzy stronami.
 
@@ -1428,7 +1427,7 @@ kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Ta
 aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach 
 proceduralnych.
 
-Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas 
+Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały zaawansowanej logiki biznesowej. Dotychczas 
 cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. 
 Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu 
 strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co 
@@ -1550,7 +1549,7 @@ Dostępne narzędzia:
 \subsection{Apache Maven}
 Pozwala na automatyczne wygenerowanie dokumentacji projektu zawierającego JavaDoc oraz 
 stronę www z informacjami o projekcie. Największa zaletą jest pobieranie wszystkich zadeklarowanych zależności 
-projektowych np. bibliotek z centralnego repozytorium. Centralne repozytorium zawiera ogromną ilość projektów Java. Maven odpowiada za dołączanie do projektu wszystkich bibliotek w zadeklarowanych wersjach.
+projektowych np. bibliotek z centralnego repozytorium. Centralne repozytorium zawiera ogromną liczbę projektów Java. Maven odpowiada za dołączanie do projektu wszystkich bibliotek w zadeklarowanych wersjach.
 Zainteresowanych odsyłam na stronę domową Mavena \cite{mavenHome}.
 
 \section{Szkielety aplikacyjne}
@@ -1945,7 +1944,7 @@ aplikacji w tym aplikacji biznesowych. Oprócz tego istnieją otwarte implementa
 związanym z zamkniętym rozwiązaniem jak .NET.
 
 Gdyby nie postawione jasno wymaganie co do Javy, to i tak mój wybór padł by na platformę JVM, ale prawdopodobnie z 
-innym językiem jak Scala\cite{scalaLangHome}, który oferuje większą ekspresywność, a więc pozwala osiągnąć ten sam efekt mniejszą ilością kodu.
+innym językiem jak Scala\cite{scalaLangHome}, który oferuje większą ekspresywność, a więc pozwala osiągnąć ten sam efekt mniejszą liczbą linii kodu.
 
 \section{Dlaczego Maven?}
 Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie. Ponadto Maven jest \emph{de facto} standardem przy tego typu projektach.
