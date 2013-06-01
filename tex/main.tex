@@ -161,7 +161,9 @@ framerule=0.1pt,
 \pagenumbering{roman}
 \renewcommand{\baselinestretch}{1.0}
 \raggedbottom
-\input {title}
+
+
+\input {title} % TO DO WYWALENIA I DO ZROBIENIA INCLUDE PIERWSZYCH TRZECH STRON
 
 \tableofcontents
 % \addcontentsline{toc}{chapter}{{Przedmowa1}{vii}}{vii}
@@ -1343,6 +1345,316 @@ pakiety pobytowe  & nie      & tak           & tak                 & nie        
 \end{minipage}
 \end{table}
 
+\chapter{Technologie}
+\section{Wstęp}
+W tym rozdziale omówiona została architektura warstwowa. Szczególna uwaga została poświęcona architekturze trójwarstwowej. Omówione zostały także dostępne rozwiązania technologiczne, która pozwalają na realizację aplikacji.
+
+\section{Architektura}
+Spotkałem się z wieloma próbami definicji architektury. Podoba mi się podejście Martina Fowlera, który nie próbuje jej 
+definiować, ale podaje dwa popularne elementy, które każda definicja zawiera: \cite{fowler2003patterns}
+
+\begin{enumerate}
+  \item podział systemu na części na najwyższym poziomie abstrakcji, \footnote{tłumaczenie własne}
+  \item podjęte decyzje, które później trudno\footnote{kosztownie} zmienić.
+\end{enumerate}
+\subsection{Wstęp do architektury trójwarstwowej}
+Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to 
+architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
+
+Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i 
+wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
+
+Większość poniższych informacji opiera się na rewelacyjnej książce Martina Fowlera 
+,,Patterns of enterprise application architecture''. \cite{fowler2003patterns}
+
+\begin{defn}{Aplikacja biznesowa}
+
+co jest, a co nie jest aplikacją biznesową łatwo zrozumieć na podstawie przykładów:
+\begin{description}
+  \item[Aplikacja biznesowa] obsługa faktur, system zarządzania stanem magazynku, system do ubezpieczeń, śledzenie 
+  paczek
+  \item[Inny typ aplikacji] gry komputerowe, kompilatory, procesory tekstu(np. Microsoft Word, OpenOffice), 
+  komunikatory internetowe, programy do edycji grafiki, 
+\end{description}
+Najbardziej charakterystyczną cechą aplikacji biznesowej jest to, że operuje ona na podstawie pewnych persystentnych  
+danych.\footnote{muszą być dostępne pomiędzy uruchomieniami aplikacji} Tych danych jest zazwyczaj bardzo dużo, a same 
+dane mogą żyć dłużej od aplikacji. Bardzo prawdopodobne jest to, że nowa aplikacja będzie musiała korzystać z danych 
+poprzedniej aplikacji.
+
+Następnie aplikacje biznesowe używane są przez wielu użytkowników, który wykonują na nich pewną pracę dokonując tzw. 
+transakcji. Aplikacja biznesowa rzadko funkcjonuje samodzielnie - zazwyczaj musi zintegrować się z innymi aplikacjami 
+biznesowymi.
+
+Aplikacje biznesowe realizują logikę biznesową. Logika biznesowa jest logiczna tylko z nazwy. Są to pewne reguły, 
+które istnieją i w oparciu o nie działa przedsiębiorstwo. Aplikacja musi działać w oparciu o te same reguły.
+\end{defn}
+
+\subsection{Warstwy}
+Podział systemów na warstwy jest bardzo powszechny w dziedzinie informatyki. Najlepszym przykładem jest tutaj model 
+ISO/OSI, w którym są warstwy: fizyczna, łącza, sieciowa i inne. Protokół FTP działa w oparciu o TCP, które znajduje 
+się w niższej warstwie. TCP nawet nie wie o istnieniu FTP. Ta sytuacja bardzo dobrze ilustruje jak działają warstwy.
+
+Cechy architektury warstwowej:
+\begin{enumerate}
+  \item system podzielony jest na osobne warstwy,
+  \item warstwy niższe nie wiedzą o warstwach wyższych,
+  \item warstwa wyższa korzysta z warstwy poniżej, która ukrywa inne niższe warstwy.
+\end{enumerate}
+
+Nie wszystkie architektury warstwowe posiadają wszystkie wyżej wymienione cechy - niektóre nie chowają warstw niższych 
+przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
+
+Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa:
+
+\begin{enumerate}
+  \item Zalety
+    \begin{itemize}
+      \item można zrozumieć działanie jednej warstwy bez wiedzy o tym jak działają inne warstwy,
+      \item warstwa może być wymieniona na alternatywną implementację, która implementuje ten sam kontrakt,
+      \item podział na warstwy umożliwia dużą reużywalność
+    \end{itemize}
+  \item Wady
+    \begin{itemize}
+      \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach niższych
+      \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność -
+       z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w 
+       całym systemie
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Historia architektury trójwarstwowej}
+W latach 90' popularne były systemy \emph{klient-serwer}. Klient składał się z aplikacji z interfejsem użytkownika i 
+kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Takie systemy sprawdzały się w przypadku 
+aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach 
+proceduralnych.
+
+Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas 
+cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. 
+Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu 
+strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co 
+zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo. 
+
+W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie 
+problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę 
+wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w interfejsie użytkownika.
+
+Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. 
+Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
+
+Rozkwit narzędzi i architektury trójwarstwowej nastąpił dopiero, gdy aplikacje internetowe zyskały na popularności.
+
+\subsection{Omówienie architektury trójwarstwowej}
+
+Architektura trójwarstwowa składa się z następujących trzech warstw:
+
+\begin{description}
+  \item[Prezentacji] - odpowiedzialnością warstwy prezentacji jest obsługa interakcji użytkownika z systemem. Może to 
+  być interfejs bazujący na przeglądarce - wtedy mówimy o cienkim kliencie\footnote{\url{http://en.wikipedia.org/wiki/Thin\_client}}.
+   Może to być również typowa aplikacja okienkowa używająca biblioteki 
+   Swing\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/guides/swing/index.html}} 
+   lub innych jak Qt\footnote{\url{http://qt-project.org/}} lub 
+   WPF\footnote{\url{http://msdn.microsoft.com/pl-pl/library/ms754130.aspx}} - mówimy wtedy o
+    grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. 
+
+    Obecnie w nowo pisanych aplikacjach nie spotyka się grubego klienta. Spowodowane jest to tym, że środowisko 
+    przeglądarki oferuje prawie takie same możliwości co typowa aplikacja okienkowa. HTML5 i JavaScript pozwalają 
+    tworzyć wyrafinowane dynamiczne interfejsy. Aktualnie coraz modniejsze są całkowicie dynamiczne aplikacje po 
+    stronie klienta, komunikujące się z warstwą logiki poprzez asynchroniczne żądania. Jest to nurt, który będzie 
+    rozkwitał, ponieważ powstają do tego coraz lepsze narzędzia i pisanie aplikacji w taki sposób jest prostsze i 
+    atrakcyjniejsze dla końcowego użytkownika. 
+  
+  \item[Aplikacji] - nazywana też warstwą logiki, warstwą domeny, realizuje logikę aplikacyjną nazywaną także logiką 
+  biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy 
+  problem. Model ten jest powodem dla którego aplikacja została stworzona. 
+  
+  \item[Źródła danych] - nazywana też warstwą bazodanową, ponieważ bardzo często największym elementem, z którego się 
+  składa jest relacyjna baza danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium 
+  składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi 
+  systemami w celu realizacji funkcjonalności aplikacji. 
+\end{description}
+
+Przedstawione warstwy reprezentują podział logiczny systemu, a nie fizyczny. W języku polskim brakuje dobrego 
+tłumaczenia słowa ,,tier'', które oznacza fizyczny podział na warstwy. Oznacza to, że aplikacja uruchomiona lokalnie 
+nadal jest aplikacją trójwarstwową mimo, że całość działa na jednej fizycznej warstwie. 
+
+\subsubsection{Model jest najważniejszy}
+Podział na trzy warstwy powoduje, że cała funkcjonalność aplikacji dotycząca logowania, zabezpieczeń, przyjęcia 
+żądania, transakcyjności, wysłania odpowiedzi na żądanie i inne czysto techniczne działania skupione są w jednej 
+warstwie razem z logiką biznesową. Nie stanowi to problemu dla aplikacji, które mają prosty model dziedziny. Jednak w 
+przypadku bardziej skomplikowanego modelu warto jest dokonać destylacji modelu i wydzielić go do osobnej warstwy. 
+
+Do destylacji modelu dziedziny i nastawienia się na to, że to właśnie model domeny jest najistotniejszym elementem 
+całego systemu zachęca Eric Evans w swojej książce \cite{evans2004domain}. Oprócz tego przedstawia swoje podejście do 
+modelowania domeny i uczy interesujących praktyk przydanych przy tworzeniu aplikacji biznesowych. Pomijając szczegóły 
+chcę przedstawić lepszy podział na warstwy, który pozwala na łatwiejsze zrozumienie działania aplikacji.
+
+\begin{description}
+  \item[warstwa prezentacji] - odpowiedzialność taka jak wcześniej,
+  \item[warstwa aplikacji] - zabezpieczenia, logowanie, obsługa błędów, koordynacja działań i użycie warstwy domeny do 
+  obsługi żądania. Jest to bardzo cienka warstwa - otoczka wokół warstwy domeny.
+  \item[warstwa domeny] - serce systemu, tutaj żyje model dziedziny. Warstwa ta jest pozbawiona wszystkich zależności, 
+  które nie są powiązane z domeną problemu. Dostęp do danych odbywa się poprzez \emph{repozytoria}. Repozytorium to 
+  interfejs, który ma znaczenie dla domeny problemu i abstrahuje od tego, że będzie zależny od bazy danych,
+  \item[warstwa infrastruktury] - wspiera wszystkie wyższe warstwy, implementuje kontrakty nałożone przez warstwę 
+  domeny. Jest to analogiczna warstwa do warstwy źródła danych z tą różnicą, że nie jest chowana przed warstwą 
+  prezentacji.
+\end{description}
+
+Taki podział pozwala na całkowite wydzielenie domeny. Jeśli stworzymy model reprezentujący świat faktur lub kontraktów 
+pochodnych lub ubezpieczeń i zakładając, że zrobimy to dobrze to będziemy mogli użyć tego samego modelu w innej 
+aplikacji. Sposobem, żeby mieć pewność, że domena nie przecieka do innych warstw jest stworzenie osobnego projektu, 
+dla warstwy domeny, który nie zależy od żadnej z innych warstw. Zainteresowanych odsyłam do książki \cite{
+evans2004domain}, która zapoczątkowała ,,Domain Driven Design''.\footnote{\url{http://www.domaindrivendesign.org/}}
+
+\section{Obszary technologiczne}
+W tym rozdziale przyjrzymy się dostępnym technologiom w następujących obszarach technologicznych:
+
+\begin{itemize}
+  \item systemy kontroli wersji,
+  \item języki programowania i platformy uruchomieniowe,
+  \item narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami,
+  \item szkielety aplikacyjne do aplikacji internetowych,
+  \item biblioteki zapewniające dostęp do bazy danych,
+  \item budowa interfejsu użytkownika,
+  \item relacyjne bazy danych,
+\end{itemize}
+
+\section{Systemy kontroli wersji}
+Użycie systemu kontroli jest przydatne zarówno przy tworzeniu aplikacji jak i innych pracach. Aktualnie rzadko się zdarza, aby praca nad projektem nie była poddawana kontroli wersji. Chcę zaprezentować trzy systemy kontroli wersji:
+
+\begin{itemize}
+  \item Subversion - znany także jako SVN jest centralnym systemem kontroli wersji. Do wprowadzania zmian potrzebne jest połączenie z serwerem.
+  \item Git \cite{gitHome} - zdecentralizowany system kontroli wersji. Pozwala na lokalną pracę, a zdalny serwer nawet nie jest potrzebny. Wersjonowane są całe pliki, a nie tylko zmiany pomiędzy rewizjami. Pozwala na szybkie i tanie\footnote{praktycznie nie zajmujące miejsca} tworzenie gałęzi i przełączanie się pomiędzy nimi.
+  \item Mercurial - zdecentralizowany system kontroli wersji posiadający podobną funkcjonalność jak Git
+\end{itemize}
+
+\section{Języki programowania i platformy uruchomieniowe}
+Aktualnie dostępnych jest co najmniej kilka bardzo dojrzałych i wiele młodych języków programowania. Wybór języka programowania na też niejako wpływ na wybór platformy uruchomieniowej. Ograniczę zatem rozważania do dwóch platform i języków na nich dostępnych. Dostępne rozwiązania:
+
+\begin{itemize}
+  \item JVM - wirtualna maszyna Javy. JVM HotSpot\footnote{strona domowa \url{http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html}} oferuje wiele zaawansowanych algorytmów odśmiecania pamięci oraz silną optymalizację kodu w trakcie wykonania. JVM to dom dla wielu języków programowania. Java jest najpopularniejszym językiem używanym na platformie JVM. Oprócz tego można skorzystać z innych języków a są to m.in. Ruby, Groovy, Scala, Clojure, Python. 
+  \item platforma .NET - jest platformą firmy Microsoft. Głównym językiem jest C\#. Oprócz tego dostępny jest także F\#.
+  \item brak maszyny wirtualnej i korzystanie bezpośrednio z systemu operacyjnego
+\end{itemize}
+
+\section{Budowa projektu i zarządzanie}
+Przy bardziej zaawansowanym projekcie dobrze jest mieć narzędzie zarządzania projektem, w tym kompilacji, uruchamiania testów, pakowania źródeł i wdrażania zbudowanego artefaktu. 
+
+Dostępne narzędzia:
+\begin{itemize}
+  \item Apache Ivy - do zarządzania zależnościami
+  \item Apache Ant - do budowania projektu
+  \item Apache Maven - do zarządzania zależnościami i budowania projektu
+\end{itemize}
+
+\subsection{Apache Maven}
+Pozwala na automatyczne wygenerowanie dokumentacji projektu zawierającego JavaDoc oraz 
+stronę www z informacjami o projekcie. Największa zaletą jest pobieranie wszystkich zadeklarowanych zależności 
+projektowych np. bibliotek z centralnego repozytorium. Centralne repozytorium zawiera ogromną ilość projektów Java. Maven odpowiada za dołączanie do projektu wszystkich bibliotek w zadeklarowanych wersjach.
+Zainteresowanych odsyłam na stronę domową Mavena \cite{mavenHome}.
+
+\section{Szkielety aplikacyjne}
+Większość dostępnych szkieletów aplikacyjnych dla aplikacji internetowych implementuje w pewien sposób wzorzec MVC (Model - Widok - Kontroler). Warto zatem powiedzieć coś więcej na temat samego wzorca. 
+
+Omówienie wszystkich szkieletów aplikacyjnych jest zadaniem na osobną pracę inżynierską. Skupię się zatem na pięciu różnych szkieletach i przedstawię tylko najbardziej charakterystyczne cechy każdego z nich:
+\begin{itemize}
+  \item ObjectLedge,
+  \item Spring,
+  \item Playframework,
+  \item Seam,
+  \item Vaadin.
+\end{itemize}
+
+\subsection{Wzorzec MVC}
+\label{wzorzec-mvc}
+Wzorzec MVC jest popularnym wzorcem projektowym. Zainteresowanych historią wzorca odsyłam do źródła \cite{mvcHistory}. Krótko mówiąc wzorzec ten opiera się na separacji pewnego modelu od widoku na ten model. Modelem nazywamy domenę aplikacji czyli logikę, którą aplikacja realizuje. Manipulacji na modelu dokonuje kontroler w odpowiedzi na interakcje użytkownika na widokach. Zaletą wzorca jest to, że model jest wolny od szczegółów jego reprezentacji. Ponadto umożliwia użycie wielu widoków na ten sam model.
+
+Wzorzec ten ma zastosowanie w każdym typie aplikacji, która posiada pewien interfejs użytkownika. Może być to strona www lub dostęp z poziomu linii poleceń.
+
+Istnieje wiele wariacji wzorca MVC, ale wystarczy znać oryginalną koncepcję, żeby zrozumieć każdą jego odmianę.
+
+Większość szkieletów aplikacyjnych wspierających aplikacje internetowe realizuje pewną odmianę wzorca MVC. Wraz z doświadczeniem, można zauważyć, że większość szkieletów aplikacyjnych jest bardzo podobna i łatwo jest się uczyć nowych szkieletów, ponieważ realizują tą samą koncepcję tylko, że w różny sposób.
+
+\subsection{ObjectLedge}
+ObjectLedge jest szkieletem aplikacyjnym ułatwiającym tworzenie aplikacji internetowych w języku Java. ObjectLedge powstał 10 lat temu i jest rozwijany do dzisiaj przez organizację o tej samej nazwie - ObjectLedge \cite{objectLedgeOrgHome}. W momencie pisania tej pracy inżynierskiej należę do tej organizacji i miałem pewien wpływ na rozwój tego projektu. ObjectLedge jest wolnym oprogramowaniem dostępnym na licencji BSD.
+
+ObjectLedge jest szkieletem, który wpasowuje się w tzw. lekkie JEE, czyli wymaga tylko kontenera serwletów jak Tomcat lub Jetty. ObjectLedge wspiera bardzo popularny wzorzec projektowy MVC \ref{wzorzec-mvc} . Oprócz tego ObjectLedge jest zintegrowany z PicoContainerem, który jest kontenerem odwracającym kontrolę\footnote{ang. IoC - Inversion of Control} wstrzykującym zależności. Czytelników, którzy nie spotkali się z tym określeniem odsyłam do artykułu Martina Fowlera. \cite{fowlerDIIOC} 
+
+Ciekawym rozwiązaniem w ObjectLedgu jest użycie konwencji ponad konfiguracją w celu rozwiązania problemu łączenia widoków z kontrolerami. Opierając się na konwencji zagnieżdżania szablonów oraz widoków nie trzeba pisać kodu, który będzie łączył jedno z drugim. Aktualnie bardzo popularnym szablonem aplikacyjnym jest Ruby on Rails\cite{rubyOnRailsHome}, który rozpropagował termin ,,konwencji ponad konfiguracją''.\footnote{ang. Convention over Configuration}
+
+ObjectLedge korzysta z Apache Velocity\cite{velocityHome} - procesora szablonów. Szablony Velocity pozwalają na dynamiczne generowanie dowolnych dokumentów tekstowych. ObjectLedge korzysta z silnika Velocity do generowania stron HTML.
+
+\subsubsection{Jersey}
+\label{jersey}
+Jersey jest referencyjną implementacją standardu o nazwie JAX-RS. Jest to standard, który umożliwia budowanie usług internetowych w języku Java w oparciu o architekturę REST. Architektura REST opiera się na protokole HTTP. Omówienie architektury REST jest poza zakresem tej pracy inżynierskiej, dlatego też zainteresowanych odsyłam do pracy doktorskiej Roya Fieldinga, która zapoczątkowała architekturę REST \cite{Fielding2000} oraz do dokumentu RFC 2616 \cite{http-rfc}, a na sam koniec do specyfikacji JAX-RS \cite{jax-rs}.
+
+Jersey jest zintegrowany z ObjectLedgem. Alternatywne implementacje JAX-RS to Apache CXF, RESTEasy oraz Restlet.
+
+\subsection{Spring}
+Spring \cite{springHome} składa się z kilku modułów zintegrowanych ze sobą. Aby osiągnąć funkcjonalność taką jak ObjectLedge należało by użyć dwóch modułów:
+\begin{itemize}
+  \item Spring core - kontener wstrzykujący zależności
+  \item Spring MVC - moduł umożliwiający tworzenie aplikacji internetowych według wzorca MVC
+\end{itemize}
+
+Silną stroną Springa jest jego popularność oraz liczność modułów, które rozszerzają funkcjonalność Springa np. moduł Spring Security, który pozwala w bardzo prosty sposób dodać do aplikacji autoryzację oraz autentykację przy użyciu aspektów\footnote{programowanie aspektowe ang. AOP Aspect Oriented Programming} oraz adnotacji.
+
+Spring podobnie jak ObjectLedge wymaga tylko konterera serwletów.
+
+\subsection{Playframework}
+Playframework \cite{playframeworkHome} jest najnowszym z wymienionych szkieletów. Pierwsza wersja powstała w 2009r. Od innych różni się tym, że został napisany w Scali oraz bardzo mocno bazuje na Ruby on Rails zatem wszechobecne są konwencje. Playframework implementuje MVC. Playframework jest nastawiony na RESTową architekturę.\footnote{więcej o REST w \ref{jersey}} Szkielet w wersji 2 jest całkowicie bezstanowy, czyli dla każdego połączenia na serwerze nie ma sesji.\footnote{sesji w kontekście JEE}
+
+\subsection{Seam}
+Seam \cite{seamHome} różni się od wszystkich pozostałych szkieletów tym, że korzysta z pełnej biznesowej javy. Seam w wersji 2.3 wymaga serwera aplikacyjnego zgodnego z JEE 6. Seam nastawiony jest na tzw. bogate aplikacje internetowe.\footnote{ang. RIA Rich Internet Application}
+
+\subsection{Vaadin}
+Vaadin \cite{vaadinHome} jest szkieletem nastawionym na bogate aplikacje internetowe. Charakteryzuje się tym, tworzenie aplikacji bardziej przypomina tworzenie aplikacji okienkowej przy użyciu np. biblioteki Swing, ponieważ widoki tworzone są przy użyciu Javy. Nie trzeba zatem znać JavaScriptu, aby korzystać z bogatej palety dynamicznych komponentów. Dodatkowo w ten sposób tworzone widoki są statycznie typowane. Vaadin umożliwia tworzenie widoków w tradycyjny sposób. Vaadin wymaga tylko kontenera serwletów.
+
+\section{Biblioteki zapewniające dostęp do bazy danych}
+Dostęp do danych z bazy danych można uzyskać poprzez bibliotekę mapowania obiektowo relacyjnego lub bezpośrednio poprzez interfejs JDBC i konkretny sterownik dla źródła danych.
+
+\subsection{Hibernate}
+Hibernate \cite{hibernateHome} jest biblioteką zapewniającą dostęp do danych z relacyjnej bazy danych. Hibernate zapewnia mapowanie obiektowo-relacyjne. Mapowanie obiektowo-relacyjne jest potrzebne, ponieważ między światem obiektowym, a relacyjnym istnieje niedopasowanie. Z jednej strony mamy obiekty, a z drugiej wiersze w tabelach. Hibernate uwalnia programistę od ręcznego mapowania wierszy na obiekty i vice versa. 
+
+To tylko ułamek tego co oferuje Hibernate. Warta uwagi jest możliwość stosowania optymistycznej kontroli współbieżności\footnote{ang. optimistic concurreny control}, która pozwala na zwiększenie współbieżności dostępu do danych, czyli podniesienie transakcyjności systemu. Niezapoznanych z tematem odsyłam do książki Martina Fowlera \cite{fowler2003patterns}.
+ Oprócz tego Hibernate pozwala śledzić cykl życia obiektu poprzez zdarzenia i posiada wiele innych ciekawych funkcjonalności wykraczających poza proste mapowanie.
+Hibernate to także implementacja specyfikacji JPA\footnote{ang. Java Persistance API}, która jest standardowym mechanizmem dostępu do danych dla JEE. Zainteresowanych specyfikacją odsyłam do źródła \cite{jpa2.0}.
+
+\subsection{JDBC}
+JDBC jest interfejsem opracowanym przez firmę Sun umożliwiającym aplikacjom napisanym w języku Java porozumiewać się z bazami danych za pomocą języka SQL. Interfejs ten jest odpowiednikiem standardu ODBC opracowanego przez SQL Access Group. Korzystanie z JDBC oznacza ręczne mapowanie obiektowo relacyjne.
+
+\section{Budowa interfejsu użytkownika}
+Do zbudowania interfejsu użytkownika w aplikacji internetowej służy przede wszystkim HTML, CSS oraz JavaScript. Aby jednak zbudować aplikację, która jest przyjazna i interaktywna należy skorzystać z techniki AJAX. Aby to zrobić, można skorzystać z samego języka JavaScript lub wspomóc się bibliotekami, a nawet szkieletami aplikacyjnymi po stronie klienta.
+
+\subsection{AJAX}
+AJAX \footnote{ang. Asynchronous JavaScript and XML} - asynchroniczny JavaScript i XML. Ajax nie jest nową technologią, a jedynie terminem określającym nowoczesne zastosowanie istniejących technologii HTML, kaskadowych arkuszy stylów CSS, języka JavaScript. Wymiana danych pomiędzy przeglądarką, a serwerem odbywa się - zgodnie z pierwszą literką - asynchronicznie. Możliwe jest to dzięki obiektowi JavaScript o nazwie XMLHttpRequest\cite{XmlHttpRequest}. Planowanym formatem wymiany danych miał być XML, jednak powszechnie używa się innych formatów np. tekstu, fragmentu HTML, formatu JSON. Zainteresowanych techniką odsyłam do dalszej lektury na stronie Mozilli \cite{ajaxDocs}.
+
+\subsection{jQuery}
+jQuery jest bardzo popularną biblioteką, która znacznie ułatwia budowanie interfejsu użytkownika. Przede wszystkim jest to narzędzie, które zapewnia kompatybilność pomiędzy przeglądarkami. Pozwala na obsługę zdarzeń, animacje, wyszukiwanie elementów w drzewie DOM\footnote{ang. Document Object Model} oraz ułatwia pracę z XHR. jQuery nie wprowadza jednak żadnej struktury do aplikacji.
+
+\subsection{Dojo}
+Dojo jest rozbudowaną biblioteką, która oprócz funkcjonalności jQuery posiada całą bibliotekę kontrolek przydanych w aplikacjach internetowych i mobilnych. Użycie Dojo wprowadza strukturę do kodu poprzez moduły. Dijit - system kontrolek nie ustępuje tym znanym z aplikacji okienkowych. Ogrom funkcjonalności Dojo jest zaletą, ale również wadą, ponieważ większość biblioteki jest bardzo słabo udokumentowana.
+
+\subsection{AngularJS}
+AngularJS \cite{angularHome} jest szkieletem aplikacyjnym napisanym w języku JavaScript realizującym MVC w stronie klienta.\footnote{po stronie przeglądarki} AngularJS jest odpowiednim narzędziem do stworzenia nowoczesnej bogatej aplikacji internetowej. Aplikacja stworzona przy użyciu Angulara jest całkowicie dynamiczna. Oznacza to, że po wejściu na stronę nie ma żadnych kolejnych przeładowań strony. Komunikacja z serwerem odbywa się przy użyciu techniki AJAX.
+
+Zaletą Angulara jest to, że widoki budowane są w sposób deklaratywny. Manipulacja na modelu sprawia, że wszystkie widoki są automatycznie odświeżane. Istnieje także wiązanie w drugą stronę. Interakcja z widokiem zmienia model i odświeża widok. Najłatwiej jest to zrozumieć na podstawie przykładów, które dostępne są na stronie domowej Angulara.
+
+\section{Relacyjne bazy danych}
+W tym rozdziale omówione zostały dostępne relacyjne bazy danych.
+
+Pod uwagę brane były tylko te systemy, które są darmowe i mogą być stosowane w celach akademickich i komercyjnie.
+Dostępne rozwiązania:
+\begin{description}
+  \item [Oracle Database 11g Express Edition] - firma Oracle jest liderem jeśli chodzi o systemy RDBMS. Posiada ponad 40\% rynku. Darmowa wersja bazy posiada ograniczenia ilości danych do 11Gb i zużycie pamięci RAM do 1Gb jak również parę innych ograniczeń. 
+  \item [PostgreSql]  \cite{postgreSQLHome} - jest systemem zarządzania relacyjną bazą danych. PostgreSQL ma swoje korzenie w systemie o nazwie POSTGRES opracowanego na Uniwersytecie Kalifornijskim. Implementacja systemu POSTGRES rozpoczęła się w roku 1986 i była wspierana przez amerykańską rządową agencję DARPA\footnote{ang. Defence Advanced Research Projects Agency}.W roku 1996 wybrano nazwę obowiązującą do dzisiaj. PostgreSQL jest jednym z najczęśniej używanych systemów do zarządzania bazą danych. Wpływ ma na to bogactwo funkcjonalności, duży stopień zgodności z najnowszym standardem SQL - obecnie SQL:2003, licencja BSD, dostępność na większości systemów operacyjnych, a przede wszystkim sukces w produkcyjnym zastosowaniu. Licencja BSD pozwala na modyfikowanie i używanie systemu PostgreSQL w dowolnych celach, zatem także w komercyjnych,
+  \item [Firebird] - to podobnie jak PostgreSQL wolne oprogramowanie dostępne na liberalnej licencji. Firebird jest zgodny z większością standardu SQL:2003,
+  \item [MySQL] - wersja społecznościowa bazy MySql jest dostępna za darmo. MySql jest również popularną bazą danych. MySql dostępny jest na licencji GPL. MySql spełnia większość standardu SQL:2003.
+\end{description}
+
+\section{Podsumowanie}
+W tym rozdziale omówiłem architekturę trójwarstwową oraz dostępne rozwiązania technologiczne. Przedstawiłem ich zastosowanie, postarałem się także wytłumaczyć nieznane dla czytelnika akronimy i wskazać dalszą lekturę. W następnym rozdziale przedstawię model funkcjonalny systemu.
+
 \chapter{Model funkcjonalny}
 \label{wymagania}
 \section{Cel systemu}
@@ -1595,7 +1907,66 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
     \end{itemize}
 \end{enumerate}
 
-\section{Aktorzy}
+\section{Podsumowanie}
+W tym rozdziale przedstawiony został cel biznesowy aplikacji, wymagania funkcjonalne oraz wymagania niefunkcjonalne. Z tą wiedzą można zacząć proces projektowania aplikacji, który zaczyna się w następnym rozdziale.
+
+
+\chapter{Projekt systemu}
+\section{Wstęp}
+Jednym z pierwszych kroków w procesie wytwórczym aplikacji jest wybór odpowiednich rozwiązań technicznych, które pozwolą spełnić wymagania funkcjonalne, niefunkcjonalne i zrealizować cel aplikacji. Na tym etapie projektanci aplikacji stoją przed wyborem m.in. architektury systemu, języków programowania, szkieletów aplikacyjnych. Wpływ na ten wybór, jest podyktowany doświadczeniem projektantów oraz ograniczeniami aplikacji. Ograniczenia aplikacji poznaliśmy w poprzednim rozdziale.
+
+W poniższym rozdziale zapoznamy się z moimi wyborami jako projektanta tej aplikacji. Każdy wybór odpowiada czytelnikowi na pytanie ,,Dlaczego?''. Następnie zapoznamy się z zidentyfikowanymi aktorami, przykładowym przypadkiem użycia oraz procesem makietowania.
+
+\section{Lista wybranych technologii}
+Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplikacji. Następnie pokrótce omówię, każde z narzędzi i podam dostępne alternatywy.
+
+\begin{itemize}
+  \item Git - system kontroli wersji
+  \item JVM - platforma uruchomieniowa aplikacji
+  \item Java - użyty język na platformie JVM
+  \item Maven - narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami
+  \item ObjectLedge - szkielet aplikacyjny ułatwiający tworzenie aplikacji internetowych w języku Java
+  \item Hibernate - biblioteka do mapowania obiektowo-relacyjnego
+  \item Jersey - biblioteka do RESTowych usług internetowych
+  \item AngularJS - szkielet aplikacyjny dla aplikacji MVC po stronie klienta
+  \item PostgreSQL - relacyjna baza danych
+\end{itemize}
+
+\section{Dlaczego Git?}
+SVN to narzędzie poprzedniej epoki w porównaniu do Gita i Mercuriala zatem tak naprawdę wybór odbył się
+pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten projekt dla własnych 
+potrzeb chciałem korzystać z tego samego systemu kontroli wersji. Wpływ na wybór miało także osobiste doświadczenie.
+
+\section{Dlaczego JVM i Java?}
+Celem tej pracy jest prototyp napisany w języku Java, a więc korzystanie z wirtualnej maszyny 
+javy jest wymagane. Na potrzeby aplikacji użyłem Javy w wersji 7 \cite{java7seHome}.
+Jeśli by jednak o tym na chwilę zapomnieć to JVM stanowi dorosłą, sprawdzoną w praktyce platformę dla wymagających 
+aplikacji w tym aplikacji biznesowych. Oprócz tego istnieją otwarte implementacje platformy JVM zatem nie trzeba być 
+związanym z zamkniętym rozwiązaniem jak .NET.
+
+Gdyby nie postawione jasno wymaganie co do Javy, to i tak mój wybór padł by na platformę JVM, ale prawdopodobnie z 
+innym językiem jak Scala\cite{scalaLangHome}, który oferuje większą ekspresywność, a więc pozwala osiągnąć ten sam efekt mniejszą ilością kodu.
+
+\section{Dlaczego Maven?}
+Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie. Ponadto Maven jest \emph{de facto} standardem przy tego typu projektach.
+
+\section{Dlaczego ObjectLedge?}
+Jeśli posiadałbym taką wiedzę jaką posiadam teraz to ObjectLedge nie byłby najlepszym rozwiązaniem. Patrząc jednak z perspektywy tamtego czasu to ObjectLedge stanowi bardzo prosty szkielet aplikacyjny, którego działanie można łatwo zrozumieć i modyfikować do własnych potrzeb. Java EE jest bardzo obszerna. Istnieje ogrom rozwiązań, a ObjectLedge pozwala na łatwe wprowadzenie w ten temat i zbudowanie w pełni funkcjonalnej aplikacji gotowej do użycia w produkcji.
+
+\section{Dlaczego Hibernate?}
+Alternatywą dla Hibernate jest albo inna implementacja specyfikacji JPA albo użycie czystego JDBC i ręczne mapowanie. Można zatem zastanawiać się nad tym czy stosować bibliotekę typu ORM czy nie. Na tak postawione pytanie odpowiedź będzie zależała od skomplikowania projektu, który chcemy zrealizować. W przypadku większości aplikacji biznesowych poziom skomplikowania jest na tyle wysoki, że użycie biblioteki mapującej jest bardzo uzasadnione. Ponadto używając Hibernate nie tracimy możliwości skorzystania z JDBC. Hibernate umożliwia wykonanie jednostki pracy korzystając z połączenia jdbc. Jest to przydatne, ponieważ nie zawsze chcemy otrzymać postać obiektową. Czasem wystarczy dostęp do samych wierszy.
+
+Podsumowując użycie biblioteki typu ORM jest koniecznością przy tego typu projekcie ze względu na skomplikowanie projektu i bogaty model danych. Hibernate stanowi uznaną implementację specyfikacji JPA. Ponadto, w projekcie widziałem zastosowanie dla funkcjonalności specyficznych dla samego Hibernate, które nie są dostępne z poziomu JPA. Z tych powodów wybrana została biblioteka Hibernate.
+
+\section{Dlaczego AngularJS?}
+ W początkowej wersji aplikacji używałem Dojo, ale po osiągnięciu dużego skomplikowania projektu porzuciłem Dojo i zacząłem używać Angulara, który znacznie uprościł pracę z przeglądarką. AngularJS to odpowiednie narzędzie do odpowiedniego problemu. Praca z bibliotekami typu jQuery jest na niskim poziomie abstrakcji. Programista nie dysponuje narzędziami, aby uwolnić się od problemu jakim jest środowisko przeglądarki. AngularJS działa na wyższym poziomie abstrakcji i uwalnia programistę od trudności związanych z przeglądarką i manipulacją DOMem.
+
+
+\section{Dlaczego PostgreSQL?}
+Projektowany system jest dość niezależny od konkretnej bazy danych, ponieważ nie ma potrzeby używania żadnych zaawansowanych funkcjonalności dostępnych tylko w określonym systemie zarządzania bazą danych. Jedyną funkcjonalnością, której używa projekt, która sama w sobie nie jest zaawansowana, a nie jest dostępna w systemie MySql są sekwencje, dlatego też MySql nie został wybrany. Oracle XE posiada ograniczenia i de facto jest wersją przejściową do wersji komercyjnej. Co prawda pełna wersja bazy, czyli Oracle 11g Enterprise Edition jest dostępna w celach akademickich, ale nie została brana pod uwagę, ponieważ projektowany system potencjalnie powinien być dostępny w użytku komercyjnym. Z pozostałych dwóch baz wybrana została bardziej popularna baza, czyli PostgreSQL.
+
+
+\section{Identyfikacja aktorów}
 Przyglądając się wymaganiom oraz myśląc o tym w jaki sposób system będzie użytkowany można zauważyć kilku aktorów. Oto oni:
 
 \begin{description}
@@ -1689,7 +2060,7 @@ będzie przydatna w późniejszym etapie projektu. Teraz jednak najważniejsza j
 potencjalnych błędów oraz nieporozumień. Ujrzenie nawet bardzo prostego szkicu daje bardzo wiele informacji zarówno 
 dla projektantów jak i klienta.
 
-Przed dalszym projektowaniem i implementacją systemu utworzyłem makiety\footnote{do utworzenia makiet skorzystałem z narzędzia dostępnego pod adresem \url{http://www.balsamiq.com/ }} najważniejszych części systemu. Jedną z nich przedstawiam poniżej. Makieta formularza nowej rezerwacji jest w wersji językowej określonej przez wymagania.
+Przed implementacją systemu utworzyłem makiety\footnote{do utworzenia makiet skorzystałem z narzędzia dostępnego pod adresem \url{http://www.balsamiq.com/ }} najważniejszych części systemu. Jedną z nich przedstawiam poniżej. Makieta formularza nowej rezerwacji jest w wersji językowej określonej przez wymagania.
 
 \begin{figure}[H]
   \begin{center}
@@ -1703,334 +2074,13 @@ Przed dalszym projektowaniem i implementacją systemu utworzyłem makiety\footno
 
 Zainteresowanych tematem prototypowania odsyłam do książki o inżynierii oprogramowania autorstwa Krzysztofa Sachy. \cite[str. 71]{sacha2010inzynieria} oraz do artykułu na ten temat \cite{wireframes2012infoq}.
 
-\chapter{Technologie}
-
-\section{Wstęp}
-Kolejnym krokiem w procesie wytwórczym aplikacji jest wybór odpowiednich rozwiązań technicznych, które pozwolą spełnić wymagania funkcjonalne, niefunkcjonalne i zrealizować cel aplikacji. Na tym etapie projektanci aplikacji stoją przed wyborem m.in. architektury systemu, języków programowania, szkieletów aplikacyjnych. Wpływ na ten wybór, jest podyktowany doświadczeniem projektantów oraz ograniczeniami aplikacji. Ograniczenia aplikacji poznaliśmy w poprzednim rozdziale.
-
-W poniższym rozdziale zapoznamy się z moimi wyborami jako projektanta tej aplikacji. Każdy wybór odpowiada czytelnikowi na pytanie ,,Dlaczego?''. Pierwszym z wyborów jest architektura aplikacji, której to została poświęcona specjalna uwaga, aby dość dobrze zapoznać czytelnika z architekturą trójwarstwową.
-
-\section{Architektura}
-Spotkałem się z wieloma próbami definicji architektury. Podoba mi się podejście Martina Fowlera, który nie próbuje jej 
-definiować, ale podaje dwa popularne elementy, które każda definicja zawiera: \cite{fowler2003patterns}
-
-\begin{enumerate}
-  \item podział systemu na części na najwyższym poziomie abstrakcji, \footnote{tłumaczenie własne}
-  \item podjęte decyzje, które później trudno\footnote{kosztownie} zmienić.
-\end{enumerate}
-\subsection{Wstęp do architektury trójwarstwowej}
-Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to 
-architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
-
-Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i 
-wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
-
-Większość poniższych informacji opiera się na rewelacyjnej książce Martina Fowlera 
-,,Patterns of enterprise application architecture''. \cite{fowler2003patterns}
-
-\begin{defn}{Aplikacja biznesowa}
-
-co jest, a co nie jest aplikacją biznesową łatwo zrozumieć na podstawie przykładów:
-\begin{description}
-  \item[Aplikacja biznesowa] obsługa faktur, system zarządzania stanem magazynku, system do ubezpieczeń, śledzenie 
-  paczek
-  \item[Inny typ aplikacji] gry komputerowe, kompilatory, procesory tekstu(np. Microsoft Word, OpenOffice), 
-  komunikatory internetowe, programy do edycji grafiki, 
-\end{description}
-Najbardziej charakterystyczną cechą aplikacji biznesowej jest to, że operuje ona na podstawie pewnych persystentnych  
-danych.\footnote{muszą być dostępne pomiędzy uruchomieniami aplikacji} Tych danych jest zazwyczaj bardzo dużo, a same 
-dane mogą żyć dłużej od aplikacji. Bardzo prawdopodobne jest to, że nowa aplikacja będzie musiała korzystać z danych 
-poprzedniej aplikacji.
-
-Następnie aplikacje biznesowe używane są przez wielu użytkowników, który wykonują na nich pewną pracę dokonując tzw. 
-transakcji. Aplikacja biznesowa rzadko funkcjonuje samodzielnie - zazwyczaj musi zintegrować się z innymi aplikacjami 
-biznesowymi.
-
-Aplikacje biznesowe realizują logikę biznesową. Logika biznesowa jest logiczna tylko z nazwy. Są to pewne reguły, 
-które istnieją i w oparciu o nie działa przedsiębiorstwo. Aplikacja musi działać w oparciu o te same reguły.
-\end{defn}
-
-\subsection{Warstwy}
-Podział systemów na warstwy jest bardzo powszechny w dziedzinie informatyki. Najlepszym przykładem jest tutaj model 
-ISO/OSI, w którym są warstwy: fizyczna, łącza, sieciowa i inne. Protokół FTP działa w oparciu o TCP, które znajduje 
-się w niższej warstwie. TCP nawet nie wie o istnieniu FTP. Ta sytuacja bardzo dobrze ilustruje jak działają warstwy.
-
-Cechy architektury warstwowej:
-\begin{enumerate}
-  \item system podzielony jest na osobne warstwy,
-  \item warstwy niższe nie wiedzą o warstwach wyższych,
-  \item warstwa wyższa korzysta z warstwy poniżej, która ukrywa inne niższe warstwy.
-\end{enumerate}
-
-Nie wszystkie architektury warstwowe posiadają wszystkie wyżej wymienione cechy - niektóre nie chowają warstw niższych 
-przed warstwami wyższymi. Tak naprawdę jedynym obowiązkowym kryterium jest sam podział systemu na warstwy.
-
-Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa:
-
-\begin{enumerate}
-  \item Zalety
-    \begin{itemize}
-      \item można zrozumieć działanie jednej warstwy bez wiedzy o tym jak działają inne warstwy,
-      \item warstwa może być wymieniona na alternatywną implementację, która implementuje ten sam kontrakt,
-      \item podział na warstwy umożliwia dużą reużywalność
-    \end{itemize}
-  \item Wady
-    \begin{itemize}
-      \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach niższych
-      \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność -
-       z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w 
-       całym systemie
-    \end{itemize}
-\end{enumerate}
-
-\subsection{Historia architektury trójwarstwowej}
-W latach 90' popularne były systemy \emph{klient-serwer}. Klient składał się z aplikacji z interfejsem użytkownika i 
-kodem odpowiedzialnym za logikę. Część serwerową stanowiła baza danych. Takie systemy sprawdzały się w przypadku 
-aplikacji opartych głównie na manipulacji danymi z relacyjnej bazy danych. Aplikacja kliencka pisana była w językach 
-proceduralnych.
-
-Problem pojawił się gdy aplikacje stały się bardziej złożone i wymagały sporej ilości logiki biznesowej. Dotychczas 
-cała logika była pomieszana z interfejsem użytkownika. Kumulowanie się tej logiki utrudniało pracę z kodem. 
-Alternatywnym miejscem dla logiki były procedury składowane. Procedury składowane nie oferowały dobrego sposobu 
-strukturyzacji kodu. Ponadto procedury składowane miały dialekt specyficzny dla danego dostawcy bazy danych, co 
-zamykało furtkę do zmiany dostawcy bez przepisywania procedur na nowo. 
-
-W tym samym czasie obiektowe języki programowania zyskiwały na popularności. Miały również sposób na rozwiązanie 
-problemu logiki biznesowej. Tym sposobem było przejście na 3 warstwy. Nowa warstwa miała zawierać całą logikę 
-wyciągniętą z interfejsu użytkownika. Tym sposobem znika problem logiki w interfejsie użytkownika.
-
-Pojawił się jednak nowy problem. Brakowało odpowiednich narzędzi do budowy aplikacji w architekturze trójwarstwowej. 
-Ówczesne narzędzia do aplikacji klient-serwer nie nadawały się, ponieważ były mocno powiązane z bazą danych. 
-
-Rozkwit narzędzi i architektury trójwarstwowej nastąpił dopiero, gdy aplikacje internetowe zyskały na popularności.
-
-\subsection{Omówienie architektury trójwarstwowej}
-
-Architektura trójwarstwowa składa się z następujących trzech warstw:
-
-\begin{description}
-  \item[Prezentacji] - odpowiedzialnością warstwy prezentacji jest obsługa interakcji użytkownika z systemem. Może to 
-  być interfejs bazujący na przeglądarce - wtedy mówimy o cienkim kliencie\footnote{\url{http://en.wikipedia.org/wiki/Thin\_client}}.
-   Może to być również typowa aplikacja okienkowa używająca biblioteki 
-   Swing\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/guides/swing/index.html}} 
-   lub innych jak Qt\footnote{\url{http://qt-project.org/}} lub 
-   WPF\footnote{\url{http://msdn.microsoft.com/pl-pl/library/ms754130.aspx}} - mówimy wtedy o
-    grubym kliencie.\footnote{\url{http://en.wikipedia.org/wiki/Fat\_client}}. 
-
-    Obecnie w nowo pisanych aplikacjach nie spotyka się grubego klienta. Spowodowane jest to tym, że środowisko 
-    przeglądarki oferuje prawie takie same możliwości co typowa aplikacja okienkowa. HTML5 i JavaScript pozwalają 
-    tworzyć wyrafinowane dynamiczne interfejsy. Aktualnie coraz modniejsze są całkowicie dynamiczne aplikacje po 
-    stronie klienta, komunikujące się z warstwą logiki poprzez asynchroniczne żądania. Jest to nurt, który będzie 
-    rozkwitał, ponieważ powstają do tego coraz lepsze narzędzia i pisanie aplikacji w taki sposób jest prostsze i 
-    atrakcyjniejsze dla końcowego użytkownika. 
-  
-  \item[Aplikacji] - nazywana też warstwą logiki, warstwą domeny, realizuje logikę aplikacyjną nazywaną także logiką 
-  biznesową. Jest to kluczowa część systemu. W tej warstwie istnieje pewien model domeny, który rozwiązuje biznesowy 
-  problem. Model ten jest powodem dla którego aplikacja została stworzona. 
-  
-  \item[Źródła danych] - nazywana też warstwą bazodanową, ponieważ bardzo często największym elementem, z którego się 
-  składa jest relacyjna baza danych. Logika w tej warstwie odpowiada za komunikację z bazą danych lub innym medium 
-  składowania danych. Do tej warstwy należy także monitor transakcji, kolejki wiadomości i komunikacja z innymi 
-  systemami w celu realizacji funkcjonalności aplikacji. 
-\end{description}
-
-Przedstawione warstwy reprezentują podział logiczny systemu, a nie fizyczny. W języku polskim brakuje dobrego 
-tłumaczenia słowa ,,tier'', które oznacza fizyczny podział na warstwy. Oznacza to, że aplikacja uruchomiona lokalnie 
-nadal jest aplikacją trójwarstwową mimo, że całość działa na jednej fizycznej warstwie. 
-
-\subsubsection{Model jest najważniejszy}
-Podział na trzy warstwy powoduje, że cała funkcjonalność aplikacji dotycząca logowania, zabezpieczeń, przyjęcia 
-żądania, transakcyjności, wysłania odpowiedzi na żądanie i inne czysto techniczne działania skupione są w jednej 
-warstwie razem z logiką biznesową. Nie stanowi to problemu dla aplikacji, które mają prosty model dziedziny. Jednak w 
-przypadku bardziej skomplikowanego modelu warto jest dokonać destylacji modelu i wydzielić go do osobnej warstwy. 
-
-Do destylacji modelu dziedziny i nastawienia się na to, że to właśnie model domeny jest najistotniejszym elementem 
-całego systemu zachęca Eric Evans w swojej książce \cite{evans2004domain}. Oprócz tego przedstawia swoje podejście do 
-modelowania domeny i uczy interesujących praktyk przydanych przy tworzeniu aplikacji biznesowych. Pomijając szczegóły 
-chcę przedstawić lepszy podział na warstwy, który pozwala na łatwiejsze zrozumienie działania aplikacji.
-
-\begin{description}
-  \item[warstwa prezentacji] - odpowiedzialność taka jak wcześniej,
-  \item[warstwa aplikacji] - zabezpieczenia, logowanie, obsługa błędów, koordynacja działań i użycie warstwy domeny do 
-  obsługi żądania. Jest to bardzo cienka warstwa - otoczka wokół warstwy domeny.
-  \item[warstwa domeny] - serce systemu, tutaj żyje model dziedziny. Warstwa ta jest pozbawiona wszystkich zależności, 
-  które nie są powiązane z domeną problemu. Dostęp do danych odbywa się poprzez \emph{repozytoria}. Repozytorium to 
-  interfejs, który ma znaczenie dla domeny problemu i abstrahuje od tego, że będzie zależny od bazy danych,
-  \item[warstwa infrastruktury] - wspiera wszystkie wyższe warstwy, implementuje kontrakty nałożone przez warstwę 
-  domeny. Jest to analogiczna warstwa do warstwy źródła danych z tą różnicą, że nie jest chowana przed warstwą 
-  prezentacji.
-\end{description}
-
-Taki podział pozwala na całkowite wydzielenie domeny. Jeśli stworzymy model reprezentujący świat faktur lub kontraktów 
-pochodnych lub ubezpieczeń i zakładając, że zrobimy to dobrze to będziemy mogli użyć tego samego modelu w innej 
-aplikacji. Sposobem, żeby mieć pewność, że domena nie przecieka do innych warstw jest stworzenie osobnego projektu, 
-dla warstwy domeny, który nie zależy od żadnej z innych warstw. Zainteresowanych odsyłam do książki \cite{
-evans2004domain}, która zapoczątkowała ,,Domain Driven Design''.\footnote{\url{http://www.domaindrivendesign.org/}}
-
-\section{Lista wybranych technologii}
-Poniżej przedstawiam listę użytych narzędzi do implementacji prototypu aplikacji. Następnie pokrótce omówię, każde z narzędzi i podam dostępne alternatywy.
-
-\begin{itemize}
-  \item Git - system kontroli wersji
-  \item JVM - platforma uruchomieniowa aplikacji
-  \item Java - użyty język na platformie JVM
-  \item Maven - narzędzie do budowania projektu i zarządzania zależnościami między bibliotekami
-  \item ObjectLedge - szkielet aplikacyjny ułatwiający tworzenie aplikacji internetowych w języku Java
-  \item Hibernate - biblioteka do mapowania obiektowo-relacyjnego
-  \item Jersey - biblioteka do RESTowych usług internetowych
-  \item AngularJS - szkielet aplikacyjny dla aplikacji MVC po stronie klienta
-  \item PostgreSQL - relacyjna baza danych
-\end{itemize}
-
-\section{Git}
-Git \cite{gitHome} to zdecentralizowany system kontroli wersji. Użycie systemu kontroli jest przydatne zarówno przy tworzeniu 
-aplikacji jak i przy tworzeniu tej pracy dyplomowej. Głównymi cechami Gita jest szybkość, łatwe i tanie\footnote{nie 
-zajmujące miejsca i szybkie} tworzenie gałęzi, precyzyjne zarządzanie zmianami.
-
-Alternatywy:
-\begin{itemize}
-  \item SVN - centralny system kontroli wersji
-  \item Mercurial - bardzo podobny do Gita zdecentralizowany system kontroli wersji
-\end{itemize}
-
-Dlaczego Git? SVN to narzędzie poprzedniej epoki w porównaniu do Gita i Mercuriala zatem tak naprawdę wybór odbył się
-pomiędzy Gitem i Mercurialem. ObjectLedge korzysta z Gita. Jako, że zamierzałem modyfikować ten projekt dla własnych 
-potrzeb chciałem korzystać z tego samego systemu kontroli wersji. Wpływ na wybór miało także osobiste doświadczenie.
-
-\section{JVM i Java}
-To że rozgraniczam platformę JVM i język Java może wprawić czytelnika w konfuzję, dlatego też chciałbym wytłumaczyć, 
-że maszyna wirtualna Javy to dom dla wielu innych języków. Są to m.in. Ruby, Groovy, Scala, Clojure, Python. 
-Oprócz wielu dostępnych języków platforma JVM HotSpot\footnote{strona domowa \url{http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html}} oferuje wiele zaawansowanych algorytmów odśmiecania pamięci oraz silną optymalizację kodu w trakcie wykonania.
-
-Alternatywą do platformy JVM jest platforma .NET lub nie używanie jakiejkolwiek maszyny wirtualnej.
-
-Dlaczego JVM i Java? Celem tej pracy jest prototyp napisany w języku Java, a więc korzystanie z wirtualnej maszyny 
-javy jest wymagane. Na potrzeby aplikacji użyłem Javy w wersji 7 \cite{java7seHome}.
-Jeśli by jednak o tym na chwilę zapomnieć to JVM stanowi dorosłą, sprawdzoną w praktyce platformę dla wymagających 
-aplikacji w tym aplikacji biznesowych. Oprócz tego istnieją otwarte implementacje platformy JVM zatem nie trzeba być 
-związanym z zamkniętym rozwiązaniem jak .NET.
-
-Gdyby nie postawione jasno wymaganie co do Javy, to i tak mój wybór padł by na platformę JVM, ale prawdopodobnie z 
-innym językiem jak Scala\cite{scalaLangHome}, który oferuje większą ekspresywność, a więc pozwala osiągnąć ten sam efekt mniejszą ilością kodu.
-
-\section{Maven}
-Maven to narzędzie do zarządzania projektem, w tym kompilacji, uruchamiania testów, pakowania źródeł i wdrażania 
-zbudowanego artefaktu. Pozwala także na automatyczne wygenerowanie dokumentacji projektu zawierającego JavaDoc oraz 
-stronę www z informacjami o projekcie. Największa zaletą jest pobieranie wszystkich zadeklarowanych zależności 
-projektowych np. bibliotek z centralnego repozytorium. Centralne repozytorium zawiera ogromną ilość projektów Java. 
-
-Maven odpowiada za dołączanie do projektu wszystkich bibliotek we właściwych wersjach co znacznie 
-upraszcza pracę nad aplikacją.  
-
-Maven jest de facto standardowym rozwiązaniem w przypadku pisania jakiejkolwiek aplikacji w języku Java. Maven oferuje dużo więcej niż jestem w stanie tutaj przedstawić.
-
-Alternatywą, która daje podobne możliwości jest użycie dwóch narzędzi razem:
-\begin{itemize}
-  \item Apache Ivy - do zarządzania zależnościami
-  \item Apache Ant - do budowania projektu
-\end{itemize}
-
-Dlaczego Maven? Ponieważ jest to jedno narzędzie, które robi to co trzeba, a nie dwa. Oprócz tego ObjectLedge korzysta z Mavena i jest to z tego względu wygodne rozwiązanie. Zainteresowanych odsyłam na stronę domową Mavena \cite{mavenHome}
-
-\section{ObjectLedge}
-ObjectLedge jest szkieletem aplikacyjnym ułatwiającym tworzenie aplikacji internetowych w języku Java. ObjectLedge powstał 10 lat temu i jest rozwijany do dzisiaj przez organizację o tej samej nazwie - ObjectLedge \cite{objectLedgeOrgHome}. W momencie pisania tej pracy inżynierskiej należę do tej organizacji i miałem pewien wpływ na rozwój tego projektu. ObjectLedge jest wolnym oprogramowaniem dostępnym na licencji BSD.
-
-ObjectLedge jest szkieletem, który wpasowuje się w tzw. lekkie JEE, czyli wymaga tylko kontenera serwletów jak Tomcat lub Jetty. ObjectLedge wspiera bardzo popularny wzorzec projektowy MVC \ref{wzorzec-mvc} (Model - Widok - Kontroler). Oprócz tego ObjectLedge jest zintegrowany z PicoContainerem, który jest kontenerem odwracającym kontrolę\footnote{ang. IoC - Inversion of Control} wstrzykującym zależności. Czytelników, którzy nie spotkali się z tym określeniem odsyłam do artykułu Martina Fowlera. \cite{fowlerDIIOC} 
-
-Ciekawym rozwiązaniem w ObjectLedgu jest użycie konwencji ponad konfiguracją w celu rozwiązania problemu łączenia widoków z kontrolerami. Opierając się na konwencji zagnieżdżania szablonów oraz widoków nie trzeba pisać kodu, który będzie łączył jedno z drugim. Aktualnie bardzo popularnym szablonem aplikacyjnym jest Ruby on Rails\cite{rubyOnRailsHome}, który rozpropagował termin ,,konwencji ponad konfiguracją''.\footnote{ang. Convention over Configuration}
-
-ObjectLedge korzysta z Apache Velocity\cite{velocityHome} - procesora szablonów. Szablony Velocity pozwalają na dynamiczne generowanie dowolnych dokumentów tekstowych. ObjectLedge korzysta z silnika Velocity do generowania stron HTML.
-
-\subsection{Wzorzec MVC}
-\label{wzorzec-mvc}
-Wzorzec MVC jest popularnym wzorcem projektowym. Zainteresowanych historią wzorca odsyłam do źródła \cite{mvcHistory}. Krótko mówiąc wzorzec ten opiera się na separacji pewnego modelu od widoku na ten model. Modelem nazywamy domenę aplikacji czyli logikę, którą aplikacja realizuje. Manipulacji na modelu dokonuje kontroler w odpowiedzi na interakcje użytkownika na widokach. Zaletą wzorca jest to, że model jest wolny od szczegółów jego reprezentacji. Ponadto umożliwia użycie wielu widoków na ten sam model.
-
-Wzorzec ten ma zastosowanie w każdym typie aplikacji, która posiada pewien interfejs użytkownika. Może być to strona www lub dostęp z poziomu linii poleceń.
-
-Istnieje wiele wariacji wzorca MVC, ale wystarczy znać oryginalną koncepcję, żeby zrozumieć każdą jego odmianę.
-
-Większość szkieletów aplikacyjnych wspierających aplikacje internetowe realizuje pewną odmianę wzorca MVC. Wraz z doświadczeniem, można zauważyć, że większość szkieletów aplikacyjnych jest bardzo podobna i łatwo jest się uczyć nowych szkieletów, ponieważ realizują tą samą koncepcję tylko, że w różny sposób.
-
-\subsection{Alternatywy}
-Omówienie wszystkich alternatywnych szkieletów aplikacyjnych dla Javy jest zadaniem na osobną pracę inżynierską. Skupię się zatem na czterech różnych szkieletach i przedstawię tylko najbardziej charakterystyczne cechy każdego z nich:
-\begin{itemize}
-  \item Spring
-  \item Playframework
-  \item Seam
-  \item Vaadin
-\end{itemize}
-
-\subsubsection{Spring}
-Spring \cite{springHome} składa się z kilku modułów zintegrowanych ze sobą. Aby osiągnąć funkcjonalność taką jak ObjectLedge należało by użyć dwóch modułów:
-\begin{itemize}
-  \item Spring core - kontener wstrzykujący zależności
-  \item Spring MVC - moduł umożliwiający tworzenie aplikacji internetowych według wzorca MVC
-\end{itemize}
-
-Silną stroną Springa jest jego popularność oraz liczność modułów, które rozszerzają funkcjonalność Springa np. moduł Spring Security, który pozwala w bardzo prosty sposób dodać do aplikacji autoryzację oraz autentykację przy użyciu aspektów\footnote{programowanie aspektowe ang. AOP Aspect Oriented Programming} oraz adnotacji.
-
-Spring podobnie jak ObjectLedge wymaga tylko konterera serwletów.
-
-\subsubsection{Playframework}
-Playframework \cite{playframeworkHome} jest najnowszym z wymienionych szkieletów. Pierwsza wersja powstała w 2009r. Od innych różni się tym, że został napisany w Scali oraz bardzo mocno bazuje na Ruby on Rails zatem wszechobecne są konwencje. Playframework implementuje MVC. Playframework jest nastawiony na RESTową architekturę.\footnote{więcej o REST w \ref{jersey}} Szkielet w wersji 2 jest całkowicie bezstanowy, czyli dla każdego połączenia na serwerze nie ma sesji.\footnote{sesji w kontekście JEE}
-
-\subsubsection{Seam}
-Seam \cite{seamHome} różni się od wszystkich pozostałych szkieletów tym, że korzysta z pełnej biznesowej javy. Seam w wersji 2.3 wymaga serwera aplikacyjnego zgodnego z JEE 6. Seam nastawiony jest na tzw. bogate aplikacje internetowe.\footnote{ang. RIA Rich Internet Application}
-
-\subsubsection{Vaadin}
-Vaadin \cite{vaadinHome} jest szkieletem nastawionym na bogate aplikacje internetowe. Charakteryzuje się tym, tworzenie aplikacji bardziej przypomina tworzenie aplikacji okienkowej przy użyciu np. biblioteki Swing, ponieważ widoki tworzone są przy użyciu Javy. Nie trzeba zatem znać JavaScriptu, aby korzystać z bogatej palety dynamicznych komponentów. Dodatkowo w ten sposób tworzone widoki są statycznie typowane. Vaadin umożliwia tworzenie widoków w tradycyjny sposób. Vaadin wymaga tylko kontenera serwletów.
-
-\subsection{Dlaczego ObjectLedge?}
-Jeśli posiadałbym taką wiedzę jaką posiadam teraz to ObjectLedge nie byłby najlepszym rozwiązaniem. Patrząc jednak z perspektywy tamtego czasu to ObjectLedge stanowi bardzo prosty szkielet aplikacyjny, którego działanie można łatwo zrozumieć i modyfikować do własnych potrzeb. Java biznesowa jest bardzo obszerna. Istnieje ogrom rozwiązań, a ObjectLedge pozwala na łatwe wprowadzenie w ten temat i zbudowanie w pełni funkcjonalnej aplikacji gotowej do użycia w produkcji.
-
-\section{Hibernate}
-Hibernate \cite{hibernateHome} jest biblioteką zapewniającą dostęp do danych z relacyjnej bazy danych. Hibernate zapewnia mapowanie obiektowo-relacyjne. Mapowanie obiektowo-relacyjne jest potrzebne, ponieważ między światem obiektowym, a relacyjnym istnieje impedancja. Z jednej strony mamy obiekty, a z drugiej wiersze w tabelach. Hibernate uwalnia programistę od ręcznego mapowania wierszy na obiekty i vice versa. 
-
-To tylko ułamek tego co oferuje Hibernate. Warta uwagi jest możliwość stosowania optymistycznej kontroli współbieżności\footnote{ang. optimistic concurreny control}, która pozwala na zwiększenie współbieżności dostępu do danych, czyli podniesienie transakcyjności systemu. Niezapoznanych z tematem odsyłam do książki Martina Fowlera \cite[str. 76]{fowler2003patterns}.
- Oprócz tego Hibernate pozwala śledzić cykl życia obiektu poprzez zdarzenia i posiada wiele innych ciekawych funkcjonalności wykraczających poza proste mapowanie.
-Hibernate to także implementacja specyfikacji JPA\footnote{ang. Java Persistance API}, która jest standardowym mechanizmem dostępu do danych dla biznesowej javy. Zainteresowanych specyfikacją odsyłam do źródła \cite{jpa2.0}.
-
-\subsection{JDBC}
-Alternatywą dla Hibernate jest albo inna implementacja specyfikacji JPA albo użycie czystego JDBC i ręczne mapowanie. Można zatem zastanawiać się nad tym czy stosować bibliotekę typu ORM czy nie. Na tak postawione pytanie odpowiedź będzie zależała od skomplikowania projektu, który chcemy zrealizować. W przypadku większości aplikacji biznesowych poziom skomplikowania jest na tyle wysoki, że użycie biblioteki mapującej jest bardzo uzasadnione. Ponadto używając Hibernate nie tracimy możliwości skorzystania z JDBC. Hibernate umożliwia wykonanie jednostki pracy korzystając z połączenia jdbc. Jest to przydatne, ponieważ nie zawsze chcemy otrzymać postać obiektową. Czasem wystarczy dostęp do samych wierszy.
-
-Podsumowując użycie biblioteki typu ORM jest koniecznością przy tego typu projekcie ze względu na skomplikowanie projektu i bogaty model danych. Hibernate stanowi uznaną implementację specyfikacji JPA. Ponadto, w projekcie widziałem zastosowanie dla funkcjonalności specyficznych dla samego Hibernate, które nie są dostępne z poziomu JPA. Z tych powodów wybrana została biblioteka Hibernate.
-
-
-\section{Jersey}
-\label{jersey}
-Jersey jest referencyjną implementacją standardu o nazwie JAX-RS. Jest to standard, który umożliwia budowanie usług internetowych w języku Java w oparciu o architekturę REST. Architektura REST opiera się na protokole HTTP. Omówienie architektury REST jest poza zakresem tej pracy inżynierskiej dlatego też zainteresowanych odsyłam do pracy doktorskiej Roya Fieldinga, która zapoczątkowała architekturę REST \cite{Fielding2000} oraz do dokumentu RFC 2616 \cite{http-rfc}, a na sam koniec do specyfikacji JAX-RS \cite{jax-rs}.
-
-Sam Jersey jest zintegrowany z ObjectLedgem dlatego też używam Jerseya, a nie innej implementacji. Alternatywne implementacje to Apache CXF, RESTEasy oraz Restlet.
-
-\section{AJAX}
-Zanim omówię Angulara chcę po krótce zapoznać czytelnika z techniką AJAX \footnote{ang. Asynchronous JavaScript and XML} - asynchroniczny JavaScript i XML. Ajax nie jest nową technologią, a jedynie terminem określającym nowoczesne zastosowanie istniejących technologii HTML, kaskadowych arkuszy stylów CSS, języka JavaScript. Wymiana danych pomiędzy przeglądarką, a serwerem odbywa się - zgodnie z pierwszą literką - asynchronicznie. Możliwe jest to dzięki obiektowi JavaScript o nazwie XMLHttpRequest\cite{XmlHttpRequest}. Planowanym formatem wymiany danych miał być XML, jednak powszechnie używa się innych formatów np. tekstu, fragmentu HTML, formatu JSON. Zainteresowanych techniką odsyłam do dalszej lektury na stronie Mozilli \cite{ajaxDocs}.
-
-\section{AngularJS}
-AngularJS \cite{angularHome} jest szkieletem aplikacyjnym napisanym w języku JavaScript realizującym MVC w stronie klienta.\footnote{po stronie przeglądarki} AngularJS jest odpowiednim narzędziem do stworzenia nowoczesnej bogatej aplikacji internetowej. Aplikacja stworzona przy użyciu Angulara jest całkowicie dynamiczna. Oznacza to, że po wejściu na stronę nie ma żadnych kolejnych przeładowań strony. Komunikacja z serwerem odbywa się przy użyciu techniki AJAX.
-
-Zaletą Angulara jest to, że widoki budowane są w sposób deklaratywny. Manipulacja na modelu sprawia, że wszystkie widoki są automatycznie odświeżane. Istnieje także wiązanie w drugą stronę. Interakcja z widokiem zmienia model i odświeża widok. Najłatwiej jest to zrozumieć na podstawie przykładów, które dostępne są na stronie domowej Angulara.
-
-Alternatyw do Angulara, a właściwie sposobów prezentacji w przeglądarce jest bez liku. Niektórzy wykorzystują tylko jQuery \cite{jqueryHome} do budowy aplikacji. Można także korzystać z bibliotek z bogatą ilością kontrolek. Przykładem takiej biblioteki jest Dojo. W początkowej wersji aplikacji używałem Dojo, ale po osiągnięciu dużego skomplikowania projektu porzuciłem Dojo i zacząłem używać Angulara, który znacznie uprościł pracę z przeglądarką.
-
-Praca z bibliotekami typu jQuery jest na niskim poziomie abstrakcji. Programista nie dysponuje narzędziami, aby uwolnić się od problemu jakim jest środowisko przeglądarki. AngularJS działa na wyższym poziomie abstrakcji i uwalnia programistę od trudności związanych z przeglądarką i manipulacją DOMem\footnote{ang. Document Object Model}.
-
-\section{PostgreSQL}
-PostgreSQL \cite{postgreSQLHome} jest systemem zarządzania relacyjną bazą danych. PostgreSQL ma swoje korzenie w systemie o nazwie POSTGRES opracowanego na Uniwersytecie Kalifornijskim. Implementacja systemu POSTGRES rozpoczęła się w roku 1986 i była wspierana przez amerykańską rządową agencję DARPA\footnote{ang. Defence Advanced Research Projects Agency}.W roku 1996 wybrano nazwę obowiązującą do dzisiaj. PostgreSQL jest jednym z najczęśniej używanych systemów do zarządzania bazą danych. Wpływ ma na to bogactwo funkcjonalności, duży stopień zgodności z najnowszym standardem SQL - obecnie SQL:2003, licencja BSD, dostępność na większości systemów operacyjnych, a przede wszystkim sukces w produkcyjnym zastosowaniu. Licencja BSD pozwala na modyfikowanie i używanie systemu PostgreSQL w dowolnych celach, zatem także w komercyjnych.
-
-\subsection{Alternatywne systemy RDBMS}
-Pod uwagę brane były tylko te systemy, które są darmowe i mogą być stosowane w celach akademickich i komercyjnie.
-Do alternatywnych systemów należą:
-\begin{description}
-  \item [Firebird] - to podobnie jak PostgreSQL wolne oprogramowanie dostępne na liberalnej licencji. Firebird jest zgodny z większością standardu SQL:2003,
-  \item [MySQL] - wersja społecznościowa bazy MySql jest dostępna za darmo. MySql jest również popularną bazą danych. MySql dostępny jest na licencji GPL. MySql spełnia większość standardu SQL:2003,
-  \item [Oracle Database 11g Express Edition] - firma Oracle jest liderem jeśli chodzi o systemy RDBMS. Posiada ponad 40\% rynku. Darmowa wersja bazy posiada ograniczenia ilości danych do 11Gb i zużycie pamięci RAM do 1Gb jak również parę innych ograniczeń. 
-\end{description}
-
-\subsection{Dlaczego PostgreSQL?}
-Projektowany system jest dość niezależny od konkretnej bazy danych, ponieważ nie ma potrzeby używania żadnych zaawansowanych funkcjonalności dostępnych tylko w określonym systemie zarządzania bazą danych. Jedyną funkcjonalnością, której używa projekt, która sama w sobie nie jest zaawansowana, a nie jest dostępna w systemie MySql są sekwencje, dlatego też MySql nie został wybrany. Oracle XE posiada ograniczenia i de facto jest wersją przejściową do wersji komercyjnej. Co prawda pełna wersja bazy, czyli Oracle 11g Enterprise Edition jest dostępna w celach akademickich, ale nie została brana pod uwagę, ponieważ projektowany system potencjalnie powinien być dostępny w użytku komercyjnym. Z pozostałych dwóch baz wybrana została bardziej popularna baza, czyli PostgreSQL.
 
 \section{Podsumowanie}
-W tym rozdziale omówiłem architekturę systemu oraz wszystkie najważniejsze klocki budulcowe systemu. Przedstawiłem ich zastosowanie oraz proces myślowy w wyborze każdego z nich. Postarałem się także wytłumaczyć nieznane dla czytelnika akronimy i wskazać dalszą lekturę. W następnym rozdziale przedstawię model danych systemu.
+W tym rozdziale omówione zostały wybory technologiczne. Każdy wybór posiadał uzasadnienie przedstawione czytelnikowi. Następnie czytelnik poznał proces projektowy aplikacji. W następnym rozdziale omówiony został model danych.
+
+%%%%
+%%%% CHAPTER MODEL DANYCH
+%%%%
 
 \chapter{Model danych}
 Utworzenie modelu danych jest kolejnym etapem projektu po dokonaniu analizy wymagań i wybraniu odpowiednich technologii. Efektem tej pracy jest diagram związków encji.
@@ -2377,14 +2427,15 @@ Oprócz testów jednostkowych tworzyłem testy integracyjne. Testy integracyjne 
 \chapter{Podsumowanie}
 
 \section{Wnioski}
-Cel pracy został osiągnięty. Został zaprojektowany, następnie zaimplementowany system wspierający pracę hotelarza. System ten umożliwia dokonanie rezerwacji pojedynczej, 
+Wynikiem tej pracy jest kompletny projekt modelu systemu oraz jego częściowa implementacja w postaci działającego i funkcjonalnego prototypu aplikacji. Zaprojektowany system spełnia wszystkie postawione mu wymagania. System pozwala na tworzenie rezerwacji pojedynczej i grupowej, zarządzanie informacjami gości, tworzenie stawek rack, sezonowych i pakietowych dla określonych osób lub/i typów osób, zarządzanie pokojami oraz sprzedaż usług dodatkowych.
 
-TODO TODO
+Prototyp aplikacji pozwala na dokonywanie rezerwacji pojedynczej według stawek rack i stawek sezonowych, przeprowadzenie prostego audytu nocnego, zarządzanie informacjami gości, łatwy podgląd obłożenia hotelu, przyjazdów, wyjazdów i statystyk hotelu. Prototyp aplikacji nadaje się do użytku dla małego zakładu hotelarskiego. W przypadku pełnej implementacji powstałby zaawansowany produkt użyteczny dla średniej wielkości hotelu.
 
-System zaprojektowany został z myślą o niskim koszcie utrzymania oraz dalszego rozwoju.
+Decyzje dotyczące wyboru konkretnych technologii okazały się być bardzo trafne. Wybrane technologie pozwoliły na stworzenie nowoczesnej, przyjaznej dla użytkownika, całkowicie dynamicznej, zapewniającej bogate doświadczenia podczas użytkowania, funkcjonalnej i łatwo rozwijalnej aplikacji. Cel pracy został osiągnięty.
 
 \section{Dalszy rozwój}
-TODO
+Dalszy rozwój systemu powinien obejmować implementację rezerwacji grupowych, obsługę wszystkich typów klientów, generowanie raportów, zarządzanie pakietami i dodatkami, obsługę stawki pakietowej oraz wsparcie dla służby pięter. Należałoby także zrealizować publiczną część systemu i umożliwić wystawianie ofert pakietowych w internecie oraz dokonywanie rezerwacji on-line. Ważnym elementem przy rezerwacji on-line byłaby integracja z zewnętrznymi systemami płatności. W celu udostępnienia oferty hotelu dla biur turystycznych należałoby także zintegrować system z systemami typu CRS.
+
 %% koniec %%
 
 \appendix
