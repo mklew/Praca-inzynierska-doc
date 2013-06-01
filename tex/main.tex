@@ -188,14 +188,14 @@ Celem pracy było stworzenie prototypu aplikacji zarządzającej obłożeniem ho
 
 \chapter{Analiza dziedziny} 
 \label{analiza-dziedziny}
-Niniejszy rozdział zawiera wyniki analizy dziedziny hotelarstwa. Opracowanie zaczyna się od ogólnego omówienia czym jest hotelarstwo, jak wygląda organizacja w hotelu, a następnie omówione zostały pojęcia potrzebne do zrozumienia oraz zaprojektowania systemu zarządzania obłożeniem. Rozdział kończy się porównaniem istniejących systemów.
+Niniejszy rozdział zawiera wyniki analizy dziedziny hotelarstwa. Opracowanie zawiera ogólne omówienie hotelarstwa oraz organizacji hotelu oraz pojęcia potrzebne do zrozumienia oraz zaprojektowania systemu zarządzania obłożeniem. Rozdział kończy się porównaniem istniejących systemów.
 
 \section{Źródła informacji}
 
 Analiza dziedziny powstała na wskutek agregacji i uporządkowania informacji 
 z kilku źródeł. Posłużyłem się literaturą branżową, ustawą i informacjami z 
 internetu jak również uzyskałem informację przeprowadzając rozmowy z 
-pracownikami hotelu na różnym szczeblu. Miałem okazję rozmawiać z 
+pracownikami hoteli na różnych stanowiskach. Miałem okazję rozmawiać z 
 recepcjonistką oraz kierownikiem recepcji w dwóch różnych hotelach w 
 Warszawie. Poniżej czytelnik znajdzie przefiltrowane, spójne wiadomości na
  temat branży hotelarskiej.
@@ -205,8 +205,8 @@ Warszawie. Poniżej czytelnik znajdzie przefiltrowane, spójne wiadomości na
 
 Ludzie zmieniali swoje miejsce od tysiącleci. Dlaczego? Powody były różne i 
 przez tysiąclecia znacząco się nie zmieniły. Kiedyś wędrówki handlowe, a 
-dziś wyjazdy biznesowe. Religijne wyprawy w miejsca kultu, podróże 
-turystyczne do atrakcyjnych, bądź historycznych miejsc.     Historia 
+dziś wyjazdy biznesowe, religijne wyprawy w miejsca kultu lub podróże 
+turystyczne do atrakcyjnych, bądź historycznych miejsc. Historia 
 hotelarstwa ma bogatą przeszłość i sięga aż II tysiąclecia p.n.e gdzie na 
 terenach Bliskiego Wschodu znaleziono pierwsze ślady budownictwa 
 nastawionego na gościnę podróżnych. Najstarsze domy zajezdne odnotowano 
@@ -238,8 +238,8 @@ Hotelarstwo to forma działalności gospodarczej charakteryzująca się:
 
 \subsection{Definicja usługi hotelarskiej}
 
-Czym jest usługa hotelarska? Na to pytanie odpowie treść ustawy o usługach 
-turystycznych \cite{ust:tur}.
+Czym jest usługa hotelarska? Na to pytanie odpowiada treść \textit{Ustawy o usługach 
+turystycznych} \cite{ust:tur}.
 
 \begin{defn}{Usługa hotelarska}
 
@@ -363,9 +363,6 @@ w sposób umowny przez wydawców przewodników i biura podróży. Warto mieć to
 na uwadze przy następnej podróży.
 
 \section{Podział usług hotelarskich}   
-Omówię podział usług hotelarskich, a następnie krótko je zcharakteryzuję na 
-podstawie \cite[8-10]{OrgaDzialHot}.
-
 Podstawowymi usługami świadczonymi przez hotel są usługi noclegowe i 
 gastronomiczne. Wszystkie inne usługi są im podporządkowane.
 
@@ -426,7 +423,7 @@ przy hotelu. Przykładami usług towarzyszących są:
 \subsection{Usługi obce}
 Te usługi, które są świadczone bezpośrednio przez obsługę hotelową nazywa 
 się usługami własnymi. Są jednak pewne usługi dodatkowe, których hotel nie 
-może, bądź nie jest to opłacalne, świadczyć. Sprzedawanie usług dodatkowych 
+może świadczyć. Sprzedawanie usług dodatkowych 
 korzystając z zewnętrznych firm pozwala hotelowi zwiększyć swoją \mbox{atrakcyjność.} Przykładem usług obcych mogą być wszelakiej maści usługi turystyczne, 
 które organizuje zewnętrzne biuro turystyczne.
 
@@ -441,10 +438,6 @@ Część usług dodatkowych może być wymuszona poprzez wymagania kategoryzacyj
  hotelu, to usługi \emph{dobrowolne}.
 
 \section{Istotne definicje}
-Przedstawię definicję noclegu oraz doby hotelowej. Następnie przedstawię 
-definicję klienta i agenta. Więcej o klientach dowiemy się w
- \ref{rodzaje-klientow}.
-
 \subsection{Definicja noclegu}
 
 \begin{defn}{Nocleg}
@@ -462,11 +455,11 @@ Nocleg wykorzystywany jest w miernikach usług hotelarskich:
 \end{itemize}
 
 \subsubsection{Wskaźnik RevPAR}
-Podstawowym wskaźnikiem jest wskaźnik RevPAR\footnote{skrót: Revenue per 
+Podstawowym wskaźnikiem jest wskaźnik RevPAR\footnote{ang. Revenue per 
 available room}. RevPAR określa zrealizowane, 
 dzienne obroty każdego wybudowanego pokoju. Liczony jest na podstawie
- ilorazu dochodów z pokojów do dostępnych pokojów. RevPAR uwzględnia tylko 
- dochód z wynajmu pokojów. Nie brane są pod uwagę inne źródła dochodu.
+ ilorazu dochodów z pokojów do liczby wszystkich dostępnych pokojów w hotelu. RevPAR uwzględnia tylko 
+ dochód z wynajmu pokojów. Nie brane są pod uwagę inne źródła dochodu, czyli np. te ze sprzedaży usług.
 
 \begin{equation}
 RevPAR = \frac{Rooms Revenue}{Rooms Available}
@@ -625,10 +618,9 @@ Struktura podzielona jest na 4 działy:
 \end{itemize}
 
 Działania tych działów muszą być koordynowane, tak aby każdy z nich 
-efektywnie uczestniczył w zaspokajaniu potrzeb gości.
-
-Za każdy dział odpowiedzialny jest kierownik, który odpowiada przed 
-dyrektorem. Dyrektor nadzoruje i koordynuje działania kierowników.
+efektywnie uczestniczył w zaspokajaniu potrzeb gości. Za każdy dział 
+odpowiedzialny jest kierownik, który odpowiada przed dyrektorem. Dyrektor
+ nadzoruje i koordynuje działania kierowników.
 
 \subsection{Dział Hotelarski}
 W naszym przykładzie dział hotelarski składa się z:
@@ -670,7 +662,7 @@ czy klient opuści hotel szczęśliwy i będzie chciał wkrótce wrócić czy te
 
 
 \subsubsection{Pracownicy recepcji}
-W recepcji możemy spotkać \cite[str. 47-51]{OrgaDzialHot}:
+W recepcji możemy spotkać \cite{OrgaDzialHot}:
 
 \begin{itemize}
   \item kierownika recepcji - odpowiada za sprawne 
@@ -686,7 +678,7 @@ W recepcji możemy spotkać \cite[str. 47-51]{OrgaDzialHot}:
 \end{itemize}
 
 \subsubsection{Obowiązki recepcji} 
-Recepcja odpowiada za\cite[str. 50]{OrgaDzialHot}:
+Recepcja odpowiada za \cite{OrgaDzialHot}:
 
 \begin{itemize}
   \item przyjmowanie i realizacja zleceń na rezerwację miejsc noclegowych,
@@ -707,7 +699,7 @@ Recepcja odpowiada za\cite[str. 50]{OrgaDzialHot}:
 \end{itemize}
 
 \subsubsection{Zespoły recepcji}
-W recepcji można wyróżnić następujące zespoły\cite[str. 8-10]{hotel2:part1}:
+W recepcji można wyróżnić następujące zespoły\cite{hotel2:part1}:
 \begin{enumerate}
   \item hall recepcyjny - część ogólnodostępna,
   \item lada recepcyjna,
@@ -716,10 +708,6 @@ W recepcji można wyróżnić następujące zespoły\cite[str. 8-10]{hotel2:part
 \end{enumerate}
 
 \section{Klasyfikacja hoteli raz jeszcze}
-Wcześniej zapoznaliśmy się z klasyfikacją obiektów hotelarskich. Teraz 
-chciałbym przedstawić prosty podział hoteli\footnote{obiektów hotelarskich 
-rodzaju ,,hotel''}.
-
 W pierwszym spojrzeniu na hotel, jego organizację, świadczone usługi i 
 hotelowych gości można go zaklasyfikować do jednej z dwóch grup:
 
@@ -744,10 +732,9 @@ weekendu. Odwrotna sytuacja występuje w klasie biznesowej.
 
 \section{Pomieszczenia hotelowe}
 Hotel posiada liczne pomieszczenia. Tylko część z nich jest ogólnodostępna 
-dla gości. Są to np. jednostki mieszkalne. Pomieszczenia można także 
-podzielić na te, które dostępne są w określonych godzinach dostępne całodobowo.
+dla gości. Są to np. jednostki mieszkalne. Niektóre z pomieszczeń dostępne są całodobowo np. recepcja, a niektóre tylko w określonych godzinach np. sale restauracyjne.
 
-Niektóre pomieszczenia:
+Niektóre pomieszczenia to m.in.:
 \begin{itemize}
 \item hol,
 \item recepcja,
@@ -762,8 +749,7 @@ Niektóre pomieszczenia:
 \item korytarze.
 \end{itemize}
 
-Pomieszczeń hotelowych jest o wiele więcej, ale nie ma sensu ich wszystkich 
-wymieniać. Przyjrzyjmy się bliżej jednemu pomieszczeniu.
+Przyjrzymy się bliżej jednym z pomieszczeń.
 
 \section{Pokoje}
 Najbardziej znanym pomieszczeniem hotelowym są jednostki mieszkalne, czyli 
@@ -792,7 +778,7 @@ gastronomii. Może także zawierać szkic miasta z zaznaczonym hotelem.
 Karta pobytu spełnia dwie funkcje:
 \begin{itemize}
   \item{informacyjną}, przypomina gościom o podstawowych informacjach,
-  \item{zabezpieczającą} służy do identyfikacji gościa pobierającego klucz 
+  \item{zabezpieczającą}, służy do identyfikacji gościa pobierającego klucz 
   lub podpisującego rachunek.
 \end{itemize}
 
@@ -807,16 +793,12 @@ stanowić źródło wielu dodatkowych informacji przydatnych przy organizacji
 usług hotelarskich i działań marketingowych.
 
 W następnych podrozdziałach przyjrzymy się bliżej rezerwacji, gdyż jest to 
-kluczowy element. Zapoznamy się w jaki sposób można jej dokonać, jakie są 
+kluczowy element w działalności hotelu. Zapoznamy się w jaki sposób można jej dokonać, jakie są 
 typy rezerwacji, jakie informacje zawiera i wiele dowiemy się o wielu innych 
 rzeczach związanych z rezerwacją.
 
 \subsection{Co oznacza rezerwacja?}
-Rezerwacja, która jest niepotwierdzona od strony prawnej nie wiele znaczy. 
-Między przyjęciem rezerwacji, a jej potwierdzeniem istnieje wiele wariantów, 
-które mogą się wydarzyć w zależności od hotelu, ale z tym zapoznamy się 
-później. 
-
+Rezerwacja, która jest niepotwierdzona od strony prawnej niewiele znaczy. 
 Przyjęcie i potwierdzenie rezerwacji jest natomiast formą zawarcia umowy 
 między gościem, a hotelem do realizacji podstawowej usługi hotelarskiej, 
 czyli gościnności za odpłatnością. Aby zatem przyjąć rezerwację trzeba 
@@ -836,7 +818,7 @@ Sposobów dokonania rezerwacji jest kilka. Oto one:
      \item bezpośrednio na stronie hotelu - uzupełniając formularz na 
      stronie hotelu
      \item pośrednio poprzez system klasy CRS \footnote{przykładowo 
-     www.booking.com/index.pl.html} \ref{system-crs}
+     www.booking.com/index.pl.html} (\ref{system-crs})
   \end{itemize}
   \item dokonanie rezerwacji poprzez rozmowę telefoniczną - podając dane 
   pracownikowi recepcji. Przez całą procedurę przeprowadzi nas pracownik w 
@@ -844,8 +826,8 @@ Sposobów dokonania rezerwacji jest kilka. Oto one:
   dwa razy w celu sprawdzenia ich poprawności przez obie strony},
   \item dokonanie rezerwacji poprzez biuro usług pośredniczących - które  
   może korzystać z wcześniej wymienionych sposobów lub poprzez system klasy 
-  CRS \ref{system-crs}. Istnieje jeszcze jedna możliwość, którą poznamy przy 
-  okazji rezerwacji grupowych w \ref{rezerwacja-grupowa}
+  CRS (\ref{system-crs}). Istnieje jeszcze jedna możliwość, którą poznamy przy 
+  okazji rezerwacji grupowych (\ref{rezerwacja-grupowa}).
 \end{itemize}
 
 \subsection{Rodzaje rezerwacji}
@@ -915,9 +897,7 @@ typu rezerwacji ceny za pokój będą najwyższe.
 Rezerwacja indywidualna może dotyczyć więcej niż jednego pokoju.
 
 Zamiast samemu dokonywać rezerwacji możemy posłużyć się biurem pośrednictwa 
-rezerwacji. Są to m.in biura turystyczne, biura linii lotniczych. Możliwe, 
-że uda nam się wtedy zapłacić mniej, a dlaczego tak jest dowiemy się w 
-\ref{biuro-turystyczne}
+rezerwacji. Są to m.in biura turystyczne, biura linii lotniczych. Koszt rezerwacji dokonanej przez biuro pośrednictwa może być mniejszy. Powody tej zniżki poznamy w rozdziale \ref{biuro-turystyczne}.
 
 \subsubsection{Rezerwacja grupowa}
 \label{rezerwacja-grupowa}
@@ -1080,7 +1060,7 @@ tym terminie.
 \label{chap1:stany-rezerwacji}
 Najważniejsze stany rezerwacji to:
 \begin{itemize}
-  \item nie potwierdzona - (ang. not confirmed) żądanie rezerwacji zostało 
+  \item niepotwierdzona - (ang. not confirmed) żądanie rezerwacji zostało 
   przyjęte, ale pobyt nie został jeszcze potwierdzony,
   \item potwierdzona - (ang. reserved) pobyt został potwierdzony,
   \item odwołana - (ang. cancelled) rezerwacja została odwołana,
@@ -1122,7 +1102,7 @@ odpowiednio niższa. Wszystkie szczegóły reguluje umowa pomiędzy stronami.
 
 \subsection{Klient stały}
 Istnieją tacy klienci, którzy mają swój własny pokój na stale. Takich 
-klientów określa się jako klientów stałych. Przykładem może być Pan Krauze i 
+klientów określa się jako klientów stałych. Przykładem może być pan Krauze i 
 jego pokój w warszawskim Hotelu Marriott.
 
 Tego typu klienci mogą liczyć na największe udogodnienia ze strony hotelu. 
@@ -1144,7 +1124,7 @@ wielu innych czynników.
 \subsection{Czynniki ceny}
 Na cenę pobytu składa się kilka elementów. Potencjalne składowe to:
 \begin{itemize}
-  \item czy weekend czy dzień roboczy,
+  \item weekend / dzień roboczy,
   \item kategoria pokoju,
   \item dodatkowe usługi wymienione na rezerwacji,
   \item rabaty,
@@ -1193,13 +1173,13 @@ usługi. Pakiet może definiować długość pobytu wraz z usługami lub dotyczy
 samych usług. Przykładowo opisy pakietów mogą zaczynać się następująco:
 
 \begin{itemize}
- \item 5 dniowy pobyt z śniadaniem, obiadem, pobytem w SPA oraz butelką 
- szampana w dniu przyjazdu, dodatkowo (\dots) Tylko 1550zł!
- \item \label{pakiet-walentynki} romantyczny walentynkowy weekend możesz spędzić w naszym hotelu. 
+ \item ,,5 dniowy pobyt z śniadaniem, obiadem, pobytem w SPA oraz butelką 
+ szampana w dniu przyjazdu, dodatkowo (\dots) Tylko 1550zł!'',
+ \item \label{pakiet-walentynki} ,,romantyczny walentynkowy weekend możesz spędzić w naszym hotelu. 
  Bukiet róż dla wybranki w dniu przyjazdu oraz romantyczna kolacja wieczorem 
- w naszej restauracji, dodatkowo (\dots) Tylko 549zł!
- \item weekendowy pakiet, pierwsza noc w normalnej cenie, druga tylko 50\%. 
- Podczas wizyty (\dots)
+ w naszej restauracji, dodatkowo (\dots) Tylko 549zł!'',
+ \item ,,weekendowy pakiet, pierwsza noc w normalnej cenie, druga tylko 50\%. 
+ Podczas wizyty (\dots)''.
 \end{itemize}
 
 Pakiety mogą także agregować usługi, np. ,,Obiad i kolacja każdego dnia 
@@ -1359,7 +1339,7 @@ definiować, ale podaje dwa popularne elementy, które każda definicja zawiera:
 \end{enumerate}
 \subsection{Wstęp do architektury trójwarstwowej}
 Już na początku tytuł tej pracy informuje czytelnika jaka architektura została użyta do zbudowania aplikacji. Jest to 
-architektura trójwarstwowa, która aktualnie jest de facto standardem w tworzeniu aplikacji biznesowych. 
+architektura trójwarstwowa, która aktualnie jest \emph{de facto} standardem w tworzeniu aplikacji biznesowych. 
 
 Niniejszy rozdział przedstawi architekturę warstwową, następnie omówi pokrótce historię architektury trójwarstwowej i 
 wyjaśni jej założenia. Zanim tak się stanie poznajmy nieformalną definicję aplikacji biznesowej. 
@@ -1415,7 +1395,7 @@ Każda architektura ma wady i zalety. Tak prezentuje się architektura warstwowa
     \end{itemize}
   \item Wady
     \begin{itemize}
-      \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach niższych
+      \item zmiana w jednej warstwie, może spowodować kaskadową zmianę w warstwach poniżej
       \item uszczerbek na wydajności - każda warstwa chociażby tylko podawała dane niżej ma pewien wpływ na wydajność -
        z drugiej strony enkapsulacja pozwala na optymalizację jednej warstwy niskiego poziomu i wzrost wydajności w 
        całym systemie
@@ -1578,11 +1558,11 @@ Większość szkieletów aplikacyjnych wspierających aplikacje internetowe real
 \subsection{ObjectLedge}
 ObjectLedge jest szkieletem aplikacyjnym ułatwiającym tworzenie aplikacji internetowych w języku Java. ObjectLedge powstał 10 lat temu i jest rozwijany do dzisiaj przez organizację o tej samej nazwie - ObjectLedge \cite{objectLedgeOrgHome}. W momencie pisania tej pracy inżynierskiej należę do tej organizacji i miałem pewien wpływ na rozwój tego projektu. ObjectLedge jest wolnym oprogramowaniem dostępnym na licencji BSD.
 
-ObjectLedge jest szkieletem, który wpasowuje się w tzw. lekkie JEE, czyli wymaga tylko kontenera serwletów jak Tomcat lub Jetty. ObjectLedge wspiera bardzo popularny wzorzec projektowy MVC \ref{wzorzec-mvc} . Oprócz tego ObjectLedge jest zintegrowany z PicoContainerem, który jest kontenerem odwracającym kontrolę\footnote{ang. IoC - Inversion of Control} wstrzykującym zależności. Czytelników, którzy nie spotkali się z tym określeniem odsyłam do artykułu Martina Fowlera. \cite{fowlerDIIOC} 
+ObjectLedge jest szkieletem, który wpasowuje się w tzw. lekkie JEE, czyli wymaga tylko kontenera serwletów jak Tomcat lub Jetty. ObjectLedge wspiera bardzo popularny wzorzec projektowy MVC (\ref{wzorzec-mvc}). Oprócz tego ObjectLedge jest zintegrowany z PicoContainerem, który jest kontenerem odwracającym kontrolę\footnote{ang. IoC - Inversion of Control} wstrzykującym zależności. Czytelników, którzy nie spotkali się z tym określeniem odsyłam do artykułu Martina Fowlera. \cite{fowlerDIIOC} 
 
 Ciekawym rozwiązaniem w ObjectLedgu jest użycie konwencji ponad konfiguracją w celu rozwiązania problemu łączenia widoków z kontrolerami. Opierając się na konwencji zagnieżdżania szablonów oraz widoków nie trzeba pisać kodu, który będzie łączył jedno z drugim. Aktualnie bardzo popularnym szablonem aplikacyjnym jest Ruby on Rails\cite{rubyOnRailsHome}, który rozpropagował termin ,,konwencji ponad konfiguracją''.\footnote{ang. Convention over Configuration}
 
-ObjectLedge korzysta z Apache Velocity\cite{velocityHome} - procesora szablonów. Szablony Velocity pozwalają na dynamiczne generowanie dowolnych dokumentów tekstowych. ObjectLedge korzysta z silnika Velocity do generowania stron HTML.
+ObjectLedge korzysta z Apache Velocity \cite{velocityHome} - procesora szablonów. Szablony Velocity pozwalają na dynamiczne generowanie dowolnych dokumentów tekstowych. ObjectLedge korzysta z silnika Velocity do generowania stron HTML.
 
 \subsubsection{Jersey}
 \label{jersey}
@@ -1653,12 +1633,12 @@ Dostępne rozwiązania:
 \end{description}
 
 \section{Podsumowanie}
-W tym rozdziale omówiłem architekturę trójwarstwową oraz dostępne rozwiązania technologiczne. Przedstawiłem ich zastosowanie, postarałem się także wytłumaczyć nieznane dla czytelnika akronimy i wskazać dalszą lekturę. W następnym rozdziale przedstawię model funkcjonalny systemu.
+W tym rozdziale omówiłem architekturę trójwarstwową oraz dostępne rozwiązania technologiczne. Przedstawiłem ich zastosowanie oraz postarałem się także wytłumaczyć nieznane dla czytelnika akronimy i wskazać dalszą lekturę. W następnym rozdziale przedstawię model funkcjonalny systemu.
 
 \chapter{Model funkcjonalny}
 \label{wymagania}
 \section{Cel systemu}
-Każdy, kto ukończył kurs inżynierii oprogramowania, bądź pisał biznes plan lub realizował jakikolwiek projekt - nie koniecznie techniczny -  
+Każdy, kto ukończył kurs inżynierii oprogramowania, bądź pisał biznes plan lub realizował jakikolwiek projekt - niekoniecznie techniczny -  
  wie jak ważna jest odpowiedź na pytanie ,,Dlaczego?''. Określenie motywacji, celu, problemu biznesowego, który trzeba 
  rozwiązać na bardzo wstępnym etapie projektu jest kluczem do tego, aby skończony projekt spełniał biznesowe potrzeby.
 
@@ -1675,7 +1655,7 @@ przyszłym obłożeniu hotelu. Wszystkie cele w pewnym stopniu przyczyniają si�
 optymalizacji pracy hotelu jako przedsiębiorstwa.
 
 \subsection{Odbiorca systemu}
-Potencjalnym odbiorcą systemu jest mały lub średni zakład hotelarski, który chce zwiększyć produktywność swoich pracowników oraz podnieść poziom obsługi klienta. Odbiorcy powinno zależeć na łatwym zarządzaniu obłożeniem hotelu i szybkim procesie rezerwacyjnym.
+Potencjalnym odbiorcą projektowanego systemu jest mały lub średni zakład hotelarski, który chce zwiększyć produktywność swoich pracowników oraz podnieść poziom obsługi klienta. Odbiorcy powinno zależeć na łatwym zarządzaniu obłożeniem hotelu i szybkim procesie rezerwacyjnym.
 
 \section{Wymagania}
 Mając określony cel oraz potencjalnego odbiorcę możemy przystąpić do zdefiniowania wymagań funkcjonalnych i niefunkcjonalnych, których realizacja spełni postawiony cel.
@@ -1713,7 +1693,7 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
       \item rezerwacja powinna zawierać co najmniej informacje podstawowe zdefiniowane w \ref{chap1:info-na-rezerwacji},
       \item rezerwacji, której właścicielem jest agent biura turystycznego,
       \item rezerwacji korporacyjnej,
-      \item nie pojawienie się gościa w dniu przyjazdu powinno być sygnalizowane pracownikom recepcji dnia następnego,
+      \item niepojawienie się gościa w dniu przyjazdu powinno być sygnalizowane pracownikom recepcji dnia następnego,
       \item obliczania kosztów rezerwacji,
       \item dodawania, usuwania, modyfikacji dodatkowych usług do rezerwacji,
       \item unikalnego identyfikowania rezerwacji poprzez numer rezerwacji,
@@ -1790,14 +1770,14 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
   \item Recepcja\footnote{ang. Front office} - system powinien:
     \begin{itemize}
       \item wyświetlać grafik z obłożeniem hotelu - grafik powinien być dostępny w różnych okresach czasowych: dany dzień, tydzień, dwa tygodnie, miesiąc,
-      \item wyświetlać statystyki:
+      \item wyświetlać statystyki jako liczby:
         \begin{itemize}
-          \item ilu gości w hotelu,
-          \item ilu gości dzisiaj przyjeżdża,
-          \item ilu gości dzisiaj wyjeżdża,
-          \item ile pokoi jest wolnych,
-          \item ile pokoi jest zajętych,
-          \item ile pokoi jest do sprzątnięcia.
+          \item gości w hotelu,
+          \item gości dzisiaj przyjeżdżających,
+          \item gości dzisiaj wyjeżdżających,
+          \item pokoi wolnych,
+          \item pokoi zajętych,
+          \item pokoi do sprzątnięcia.
         \end{itemize}
       \item umożliwiać recepcjoniście wgląd w historie gościa:
         \begin{itemize}
@@ -1806,8 +1786,8 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
           \item preferencje,
           \item uwagi.
         \end{itemize}
-      \item wyświetlać przyjeżdżających gości w danym dniu,
-      \item wyświetlać wyjeżdżających gości w danym dniu,
+      \item wyświetlać gości przyjeżdżających w danym dniu,
+      \item wyświetlać gości wyjeżdżających w danym dniu,
       \item wyświetlać gości aktualnie odbywających pobyt,
       \item umożliwiać wyszukiwanie gościa,
       \item umożliwiać zakwaterowania gościa\footnote{ang. Check-in},
@@ -1834,9 +1814,9 @@ Poniżej przedstawione zostały wymagania funkcjonalne opracowane na podstawie a
       \item umożliwiać płatność poprzez wpłatę na rachunek bankowy,
       \item umożliwiać płatność poprzez kartę kredytową.
     \end{itemize}
-  \item Część publiczna systemu:
+  \item Część publiczna systemu powinna:
     \begin{itemize}
-      \item powinna wyświetlać aktualnie promowane pakiety i stawki w podziale na:
+      \item wyświetlać aktualnie promowane pakiety i stawki w podziale na:
         \begin{itemize}
           \item najtańszą stawkę,
           \item najbardziej luksusowy pakiet,
@@ -2089,8 +2069,8 @@ Utworzenie modelu danych jest kolejnym etapem projektu po dokonaniu analizy wyma
 Model związków-encji przedstawia encje, czyli pewne byty, elementy świata rzeczywistego powiązane z innymi encjami. Powiązania te nazywane są związkami. To tylko krótkie przypomnienie, ponieważ czytelnik powinien być zaznajomiony z modelowaniem encji. 
 Model powstał dzięki analizie domeny dziedziny przedstawionej w rozdziale \ref{analiza-dziedziny}, analizie wymagań z rozdziału \ref{wymagania} i makiet z tego samego rozdziału. Diagramy przedstawione zostały przy użyciu notacji Barkera\footnote{nazywaną także notacją Oracle}.
 
-\section{Proces modelarski}
-Proces modelarski przebiegał iteracyjnie. W każdej iteracji zachodziły pewne modyfikacje modelu. W idealizowanym świecie wystarczyłoby tylko raz utworzyć model, który później można by zaimplementować. Praktyka pokazuje jednak, że zmiany zachodzą w modelu nawet w późnym etapie projektu. Wraz z większą wiedzą o domenie problemu, wymaganiach klienta wizja systemu zmienia się. Niektóre z tych zmian wymagają modyfikacji modelu. 
+\section{Proces modelowania}
+Proces modelowania przebiegał iteracyjnie. W każdej iteracji zachodziły pewne modyfikacje modelu. W idealizowanym świecie wystarczyłoby tylko raz utworzyć model, który później można by zaimplementować. Praktyka pokazuje jednak, że zmiany zachodzą w modelu nawet w późnym etapie projektu. Wraz z większą wiedzą o domenie problemu, wymaganiach klienta wizja systemu zmienia się. Niektóre z tych zmian wymagają modyfikacji modelu. 
 
 Modele przedstawione w niniejszym rozdziale są ostatnimi, najbardziej dopracowanymi wersjami modeli. Cały model jest zbyt duży, aby pokazać go na jednym diagramie, dlatego też przedstawię model w osobnych częściach.
 
@@ -2108,7 +2088,7 @@ Diagram \ref{fig:db-logical-model-reservation} przedstawia część modelu zwią
 \end{figure}
 
 \subsection{Rezerwacja}
-Encja Rezerwacja zawiera informacje dotyczące rezerwacji. Bardzo istotny jest związek rezerwacji z encją Noc. Dzięki temu związkowi, można określić dzień przyjazdu i wyjazdu. Pozwala to także, na przedłużenie pobytu oraz praktycznie wszystkie operacje na rezerwacji, takie jak przesunięcie rezerwacji, operacji rozdzielenia rezerwacji, zmiany pokoju na ostatnią noc. 
+Encja Rezerwacja zawiera informacje dotyczące rezerwacji. Bardzo istotny jest związek rezerwacji z encją Doba. Dzięki temu związkowi, można określić dzień przyjazdu i wyjazdu. Pozwala to także, na przedłużenie pobytu oraz praktycznie wszystkie operacje na rezerwacji, takie jak przesunięcie rezerwacji, operacji rozdzielenia rezerwacji, zmiany pokoju na ostatnią dobę. 
 
 \subsubsection{Problem rezerwacji grupowej i pojedynczej}
 
@@ -2190,11 +2170,11 @@ Encja usługa pozwala na realizację usługi typu budzenie na życzenie oraz inn
 \subsection{Typ usługi}
 Encja typ usługi jest encją słownikową. Określa dziedzinę możliwych w realizacji usług wraz ze standardową cenę za usługę. Jednym z typów usługi, może być ,,usługa inna'', która pozwoli na realizację nietypowej usługi żądanej przez klienta.
 
-\subsection{Noc}
-Encja noc jest istotna, ponieważ pozwala na dużą dowolność w przebiegu pobytu gościa w hotelu. Rezerwacja na 10 dni, składać się będzie z 10 nocy, gdzie każda noc mogłaby być spędzona w innym pokoju. Jest to oczywiście ekstremalny przypadek, ale zmiana pokoju na ostatnią noc jest dość często spotykana w hotelarstwie.
+\subsection{Doba}
+Encja doba jest istotna, ponieważ pozwala na dużą dowolność w przebiegu pobytu gościa w hotelu. Rezerwacja na 10 dni, składać się będzie z 10 dób, gdzie każda doba mogłaby być spędzona w innym pokoju. Jest to oczywiście ekstremalny przypadek, ale zmiana pokoju na ostatnią dobę jest dość często spotykana w hotelarstwie.
 
-\subsection{Status nocy}
-Encja status nocy jest encją słownikową. Może zawierać takie wartości jak: użyta noc, nieużyta noc, noc ekstra lub inne. To czy ta encja jest potrzebna jest kwestią dyskusyjną, tak jak każda decyzja podczas modelowania.
+\subsection{Status doby}
+Encja status doby jest encją słownikową. Może zawierać takie wartości jak: użyta doba, nieużyta doba, doba ekstra lub inne. To czy ta encja jest potrzebna jest kwestią dyskusyjną, tak jak każda decyzja podczas modelowania.
 
 \subsection{Status rezerwacji}
 Encja status rezerwacji jest encją słownikową i określa możliwe statusy rezerwacji takie jakie poznaliśmy podczas analizy dziedziny. Dodatkowo te statusy mogą być rozszerzone o parę technicznych statusów.
@@ -2239,7 +2219,7 @@ Encja stawka określa stawki na pokoje. Encja posiada sztuczny identyfikator. En
 \end{itemize}
 
 \subsubsection{Stawka pakietowa}
-Stawka pakietowa jest związana z nocą pakietową \ref{noc-pakietowa}, która dalej jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu. Model pakietu został jest przedstawiony w osobnej części modelu \ref{model-pakietu-i-dodatkow}.
+Stawka pakietowa jest związana z dobą pakietową \ref{noc-pakietowa}, która dalej jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu. Model pakietu został jest przedstawiony w osobnej części modelu \ref{model-pakietu-i-dodatkow}.
 
 Encja stawka daje ogromne możliwości w określaniu stawek i spełnia wszystkie wymagania dotyczące określania stawek na pokoje. 
 
@@ -2283,17 +2263,17 @@ W tej części modelu przedstawione zostaną encje, które częściowo były wid
 \end{figure}
 
 \subsection{Pakiet}
-Encja pakiet umożliwia definiowanie pakietów na grupę dodatków np. obiad i kolacja jak również na definiowanie pakietów definiujących cały pobyt i cenę każdej nocy z osobna. Pakiet nie ma naturalnego identyfikatora, dlatego też został użyty sztuczny identyfikator.
+Encja pakiet umożliwia definiowanie pakietów na grupę dodatków np. obiad i kolacja jak również na definiowanie pakietów definiujących cały pobyt i cenę każdej doby z osobna. Pakiet nie ma naturalnego identyfikatora, dlatego też został użyty sztuczny identyfikator.
 
-To czy pakiet jest pakietem na pobyt czy tylko zgrupowanymi dodatkami wynika z istnienia związków w jakie wchodzi konkretny pakiet. Jeśli pakiet wchodzi w związek z nocą pakietową to jest to pakiet na pobyt. Skorzystanie z takiego pakietu będzie możliwe jedynie poprzez zdefiniowanie stawek dla tego pakietu. Możliwe jest precyzyjne definiowanie stawek na każdą noc w pakiecie.
+To czy pakiet jest pakietem na pobyt czy tylko zgrupowanymi dodatkami wynika z istnienia związków w jakie wchodzi konkretny pakiet. Jeśli pakiet wchodzi w związek z dobą pakietową to jest to pakiet na pobyt. Skorzystanie z takiego pakietu będzie możliwe jedynie poprzez zdefiniowanie stawek dla tego pakietu. Możliwe jest precyzyjne definiowanie stawek na każdą dobę w pakiecie.
 
 Warto zauważyć, że pakiet dodatków będzie miał taką samą cenę, dla każdego gościa niezależnie od jego typu. W przypadku pakietu z pobytem korzystamy z bogactwa encji stawka, która pozwala określać stawki na typy osób oraz konkretne osoby.
 
 Pakiet może być dostępny tylko w określonym czasie. Tą funkcjonalność realizuje związek z okresami czasu.
 
-\subsection{Noc pakietowa}
+\subsection{Doba pakietowa}
 \label{noc-pakietowa}
-Encja noc pakietowa pozwala na określenie ceny dla każdej nocy z osobna na każdy pokój w ofercie pakietu z pobytem. Taka precyzja pozwala na budowanie wyrafinowanych ofert. Encja jest encją słabą identyfikowaną poprzez związek z pakietem oraz sekwencję.
+Encja doba pakietowa pozwala na określenie ceny dla każdej doby z osobna na każdy pokój w ofercie pakietu z pobytem. Taka precyzja pozwala na budowanie wyrafinowanych ofert. Encja jest encją słabą identyfikowaną poprzez związek z pakietem oraz sekwencję.
 
 \subsection{Dodatek}
 Encja dodatek określa cenę, nazwę i maksymalną zniżkę na dany produkt \ref{model-produkt}. Każdy dodatek ma określony sposób realizacji oraz sposób kalkulacji opłaty za dodatek. Encja dodatek posiada sztuczny identyfikator.
@@ -2318,10 +2298,10 @@ Encja kupiony dodatek ma sens analogiczny do encji kupiony pakiet.
 Model pakietów oraz dodatków pozwala na budowanie wyrafinowanych ofert pobytowych z precyzyjnie określonymi stawkami oraz sprzedaż usług dodatkowych z określonymi sposobami dostarczania i kalkulacji ceny dodatków do pobytu. Model ten umożliwia spełnienie wymagań dotyczących dodatków oraz pakietów.
 
 \section{Podsumowanie modelu logicznego}
-W tym rozdziale przedstawiłem model logiczny aplikacji. Przedstawiłem także przykładowy proces myślowy i rozważania nad modelowaniem konkretnego problemu, który pokazuje, że odpowiednie modelowanie encji nie jest prostym zadaniem. Pozostała część modelu powstała w oparciu o podobne rozważania i szukanie coraz lepszego, prostszego, bardziej ekspresywnego modelu, który spełni wymagania. Całość modelu logicznego została dołączona do dodatku \ref{dodatek-model-logiczny}. W rezultacie modelowania powstał przejrzysty model mogący spełnić wszystkie wymagania.
+W tym rozdziale przedstawiłem model logiczny aplikacji. Przedstawiłem także przykładowy proces myślowy i rozważania nad modelowaniem konkretnego problemu. Pozostała część modelu powstała w oparciu o podobne rozważania i szukanie coraz lepszego, prostszego, bardziej ekspresywnego modelu, który spełni wymagania. Całość modelu logicznego została dołączona do dodatku \ref{dodatek-model-logiczny}. W rezultacie modelowania powstał przejrzysty model mogący spełnić wszystkie wymagania.
 
 \chapter{Implementacja}
-W niniejszym rozdziale przedstawione zostały wybrane elementy implementacji systemu. Zacznę od omówienia modelu fizycznego, a następnie omówię parę elementów z wyższych warstw aplikacji. 
+W niniejszym rozdziale przedstawione zostały wybrane elementy implementacji systemu. Zacząłem od omówienia modelu fizycznego, a następnie omówiłem parę elementów z wyższych warstw aplikacji. 
 
 \section{Fizyczny model danych}
 Fizyczny model danych, w tym przypadku tabelaryczny model danych powstał poprzez przekształcenie modelu związków encji do postaci tabelarycznej. Model ten został przedstawiony na rysunku \ref{fig:db-physical-model}.
@@ -2342,7 +2322,14 @@ Indeks unikalny został zastosowany, aby w tabeli rezerwacji nie było dwóch re
 W większość tabel zostały użyte sztuczne identyfikatory generowane z sekwencji. Jedynie tabela pokoje zawiera naturalny klucz główny. Tabele powstałe z encji słownikowych posiadają klucze główne zbudowane ze swoich atrybutów.
 
 \subsection{Złączenie klucza}
-Wartym odnotowania jest złączenie klucza obcego w tabeli stawki. Tabela stawki posiada klucz obcy z numerem pokoju oraz klucz obcy do tabeli racks, który składa się z numeru pokoju oraz kodu rack. Złączenie numeru pokoju w jedną kolumnę i użycie go w obu tych kluczach wymusza integralność danych, zatem nie jest możliwe zdefiniowanie stawki rack dla pokoju innego niż ten sam pokój. Gdyby istniały dwie kolumny z numerem pokoju to byłoby to możliwe. Można by temu zapobiec wymagając równości wartości w tych kolumnach poprzez dodatkowy warunek. Złączenie kolumn jest jednak najbardziej eleganckim rozwiązaniem.
+Wartym odnotowania jest złączenie klucza obcego w tabeli stawki. Tabela stawki posiada klucz obcy z numerem pokoju oraz klucz obcy do tabeli racks, który składa się z numeru pokoju oraz kodu rack. Gdyby nie złączenie klucza to tabela stawki posiadała by trzy kolumny\footnote{pomijam konieczność dodania prefiksu, aby nazwy były różne}:
+\begin{itemize}
+  \item numer pokoju - klucz obcy do tabeli pokoje,
+  \item numer pokoju - część klucza obcego do tabeli racks,
+  \item kod - część klucza obcego do tabeli racks.
+\end{itemize}
+
+Złączenie numeru pokoju w jedną kolumnę i użycie jej w obu kluczach obcych uniemożliwia zdefiniowanie stawki rack dla pokoju innego niż ten sam pokój. Gdyby istniały dwie kolumny z numerem pokoju to byłoby to możliwe. Można by temu zapobiec wymagając równości wartości w tych kolumnach poprzez dodatkowy warunek lub poprzez logikę aplikacji. Złączenie kolumn jest jednak najbardziej eleganckim rozwiązaniem.
 
 \begin{figure}[H]
   \begin{center}
