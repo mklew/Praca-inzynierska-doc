@@ -2036,17 +2036,7 @@ będzie przydatna w późniejszym etapie projektu. Teraz jednak najważniejsza j
 potencjalnych błędów oraz nieporozumień. Ujrzenie nawet bardzo prostego szkicu daje bardzo wiele informacji zarówno 
 dla projektantów jak i klienta.
 
-Przed implementacją systemu utworzyłem makiety\footnote{do utworzenia makiet skorzystałem z narzędzia dostępnego pod adresem \url{http://www.balsamiq.com/ }} najważniejszych części systemu. Jedną z nich przedstawiam poniżej. Makieta formularza nowej rezerwacji jest w wersji językowej określonej przez wymagania.
-
-\begin{figure}[H]
-  \begin{center}
-  \fbox{
-    \includegraphics[width=\textwidth]{../img/book-new-reservation.png}
-  }
-  \end{center}
-  \caption{Formularz nowej rezerwacji w języku angielskim.}
-  \label{fig:mockup-new-resveration-horizontal}
-\end{figure}
+Przed implementacją systemu utworzyłem makiety\footnote{do utworzenia makiet skorzystałem z narzędzia dostępnego pod adresem \url{http://www.balsamiq.com/ }} najważniejszych części systemu. Stworzone makiety dołączone zostały do dodatku \ref{dodatek-makiety}.
 
 Zainteresowanych tematem prototypowania odsyłam do książki o inżynierii oprogramowania autorstwa Krzysztofa Sachy \cite{sacha2010inzynieria} oraz do artykułu na ten temat \cite{wireframes2012infoq}.
 
@@ -2353,11 +2343,15 @@ Złączenie numeru pokoju w jedną kolumnę i użycie jej w obu kluczach obcych 
 
 
 \section{Dostęp do danych}
-Tradycyjną metodą dostępu do danych jest mapowanie na obiekty typu POJO\footnote{ang. Plain Old Java Object}, czyli proste obiekty javowe, zawierające tylko atrybuty oraz metody ,,getXXX'' oraz ,,setXXX''. Następnie, aby zaimplementować typową funkcjonalność zapisywania, odczytów, aktualizacji oraz usuwania obiektów stosuje się wzorzec DAO\footnote{ang. Data Access Object}, który zapewnia tę podstawową funkcjonalność.
+Tradycyjną metodą dostępu do danych jest mapowanie na obiekty typu POJO\footnote{ang. Plain Old Java Object}, czyli proste obiekty javowe, pozbawione zależności od inwazyjnych szkieletów aplikacyjncych. Obiekty POJO zawierają pola oraz metody, które w większości są metodami typu ,,getXXX'' oraz ,,setXXX''. Następnie, aby zaimplementować typową funkcjonalność zapisywania, odczytów, aktualizacji oraz usuwania obiektów stosuje się wzorzec DAO\footnote{ang. Data Access Object}, który zapewnia tę podstawową funkcjonalność.
 
-Niestety, takie podejście prowadzi do tzw. anemicznego modelu. Oznacza, \mbox{to że} obiekty są tylko kontenerami na dane, a logika z nimi związana jest rozproszona \mbox{w wielu} innych miejscach. Zainspirowany podejściem budowy bogatego modelu \cite{evans2004domain} postanowiłem wzbogacić POJO o logikę biznesową oraz zwiększyć ich obiektowość poprzez użycie tzw. obiektów-wartości\footnote{ang. value objects}. Różnicę przedstawiają niniejsze wydruki fragmentu klasy reprezentującej pokój. 
+Niestety, takie podejście prowadzi do tzw. anemicznego modelu. Oznacza, \mbox{to że} obiekty są tylko kontenerami na dane, a logika z nimi związana jest rozproszona \mbox{w wielu} innych miejscach. Zainspirowany podejściem budowy bogatego modelu \cite{evans2004domain} postanowiłem wzbogacić POJO o logikę biznesową oraz zwiększyć ich obiektowość poprzez użycie tzw. obiektów-wartości\footnote{ang. value objects}. Różnicę przedstawiają niniejsze wydruki fragmentu klasy reprezentującej pokój. Aby uniknąć anemicznego modelu domeny warto jest pozbyć się wszystkich metod typu ,,setXXX'' i zastąpić je metodami, które mają znaczenie biznesowe. Przykładowo zamiast ustawiać status rezerwacji metodą ,,setReservationStatus(status)'' lepiej jest utworzyć kilka metod, których efektem ubocznym będzie zmiana statusu rezerwacji. Takimi metodami mogą być np. ,,checkin()'', ,,checkout()''. Wówczas obiekt ma szansę zadbać o to, aby wszystkie jego inwarianty pozostały spełnione. W tym przypadku może to być prawidłowa zmiana statusu. W momencie, gdy enkapsulacja jest utracona poprzez publicznie dostępne metody ,,setXXX'' obiekt może być wprowadzony w niepoprawny stan.
 
-\begin{lstlisting}[language=Java,style=outcode,caption=POJO]
+Podobne zagrożenie występuje ze strony metod ,,getXXX'' zwracających mutowalne\footnote{mogące zmienić swój stan} obiekty. Metodą obrony przed tym jest albo defensywne programowanie poprzez tworzenie kopii obiektów, albo używanie niemutowalnych obiektów\footnote{ang. immutable objects.}. Każda zmiana w niemutowalnym obiekcie powoduje utworzenie nowego obiektu. Taki obiekt może być zatem swobodnie udostępniany bez potrzeby kopiowania.
+
+Posiadając bogaty model można posługiwać się terminami DDD. Obiekty posiadające tożsamość w nomenklaturze DDD nazywa się encjami. Obiekty, które posiadają inne encje oraz obiekty-wartości nazywa się agregatami. Agregatem jest np. rezerwacja, pokój i gość.
+
+\begin{lstlisting}[language=Java,style=outcode,caption=anemiczne POJO]
 public class Room
 {
     private String prefix; 
@@ -2374,7 +2368,7 @@ public class Room
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java,style=outcode,caption=Agregat zawierający obiekty wartości]
+\begin{lstlisting}[language=Java,style=outcode,caption=Agregat]
 public class Room
 {
     private String prefix; 
