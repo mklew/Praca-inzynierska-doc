@@ -579,7 +579,7 @@ będzie ją przedstawić w prosty sposób.
 
 \subsubsection{Przykład struktury organizacyjnej hotelu}
 Przykładową strukturę organizacyjną przedstawia poniższy rysunek 
-\ref{fig:struktura-hotelu}.
+(\ref{fig:struktura-hotelu}).
 
 \begin{figure}[H]
   \begin{center}
@@ -897,7 +897,7 @@ typu rezerwacji ceny za pokój będą najwyższe.
 Rezerwacja indywidualna może dotyczyć więcej niż jednego pokoju.
 
 Zamiast samemu dokonywać rezerwacji możemy posłużyć się biurem pośrednictwa 
-rezerwacji. Są to m.in biura turystyczne, biura linii lotniczych. Koszt rezerwacji dokonanej przez biuro pośrednictwa może być mniejszy. Powody tej zniżki poznamy w rozdziale \ref{biuro-turystyczne}.
+rezerwacji. Są to m.in biura turystyczne, biura linii lotniczych. Koszt rezerwacji dokonanej przez biuro pośrednictwa może być mniejszy. Powody tej zniżki poznamy w rozdziale omawiającym biuro turystyczne (\ref{biuro-turystyczne}).
 
 \subsubsection{Rezerwacja grupowa}
 \label{rezerwacja-grupowa}
@@ -1971,7 +1971,7 @@ Choć sam diagram jest przydatny to pełni on jednak rolę drugorzędną. Najwa�
 Przypadki użycia same w sobie nie stanowią specyfikacji wymagań, ale są doskonałym narzędziem do ich ilustracji i weryfikacji przez analityków i projektantów systemu.
 
 \subsection{Przykładowy przypadek użycia}
-Pora na prezentację jednego przykładowego przypadku użycia, który jest kluczowym przypadkiem użycia w systemie. Opis przypadku użycia jest na wysokim poziomie. Zacznijmy od diagramu \ref{fig:uc-rezerwacja}, który pokazuje zgrupowane przypadki użycia wokół funkcjonalności dotyczących rezerwacji.
+Pora na prezentację jednego przykładowego przypadku użycia, który jest kluczowym przypadkiem użycia w systemie. Opis przypadku użycia jest na wysokim poziomie. Zacznijmy od diagramu (\ref{fig:uc-rezerwacja}), który pokazuje zgrupowane przypadki użycia wokół funkcjonalności dotyczących rezerwacji.
 
 \begin{figure}[H]
   \begin{center}
@@ -2075,12 +2075,12 @@ Proces modelowania przebiegał iteracyjnie. W każdej iteracji zachodziły pewne
 Modele przedstawione w niniejszym rozdziale są ostatnimi, najbardziej dopracowanymi wersjami modeli. Cały model jest zbyt duży, aby pokazać go na jednym diagramie, dlatego też przedstawię model w osobnych częściach.
 
 \section{Model rezerwacji}
-Diagram \ref{fig:db-logical-model-reservation} przedstawia część modelu związaną z rezerwacją. Najważniejszą encją jest encja rezerwacji. Część encji została uproszczonych. Ich pełne postacie będą przedstawione w kolejnych częściach modelu.
+Diagram (\ref{fig:db-logical-model-reservation}) przedstawia część modelu związaną z rezerwacją. Najważniejszą encją jest encja rezerwacji. Część encji została uproszczonych. Ich pełne postacie będą przedstawione w kolejnych częściach modelu.
 
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[width=\textwidth]{../img/rezerwacja-logiczny-v8.pdf}
+    \includegraphics[width=\textwidth]{../img/rezerwacja-logiczny-v9.pdf}
   }
   \end{center}
   \caption{Model rezerwacji}
@@ -2102,7 +2102,7 @@ Podczas modelowania sporym problemem było rozwiązanie kwestii rezerwacji pojed
 
 Przedstawię kolejne podejścia do tego problemu. Podczas rozważań poruszam kwestie modelu fizycznego opartego o relacyjną bazę danych. Mam świadomość tego, że w modelu logicznym nie istnieje pojęcie klucza, indeksu i innych terminów z baz danych. 
 
-Pierwsze podejście przedstawione na rysunku \ref{fig:db-logical-model-group-reservation-first-try} pokazuje, że problem został rozwiązany poprzez założenie, że rezerwacja pojedyncza i grupowa to dwa różne podtypy. Można jednak zauważyć, że rezerwacja grupowa oprócz złożonego identyfikatora składającego się z sekwencji oraz związku z grupą nie posiada żadnych atrybutów. Obserwacja ta wzbudziła moją wątpliwość. Oprócz tego, taki model wydaje się być trudny w implementacji. Jeśli przyjmiemy realizację tego modelu przy użyciu relacyjnej bazy danych\footnote{postać tabelaryczna to tylko jedna możliwość realizacji modelu fizycznego} to prawdopodobnie każdy podtyp miałby osobną tabele - musiałoby tak być, aby móc stworzyć klucz główny dla rezerwacji grupowej. Powodowałoby to dużo złączeń przy najczęstszej operacji, czyli wyświetlania rezerwacji.
+Pierwsze podejście przedstawione na rysunku poniżej (\ref{fig:db-logical-model-group-reservation-first-try}) pokazuje, że problem został rozwiązany poprzez założenie, że rezerwacja pojedyncza i grupowa to dwa różne podtypy. Można jednak zauważyć, że rezerwacja grupowa oprócz złożonego identyfikatora składającego się z sekwencji oraz związku z grupą nie posiada żadnych atrybutów. Obserwacja ta wzbudziła moją wątpliwość. Oprócz tego, taki model wydaje się być trudny w implementacji. Jeśli przyjmiemy realizację tego modelu przy użyciu relacyjnej bazy danych\footnote{postać tabelaryczna to tylko jedna możliwość realizacji modelu fizycznego} to prawdopodobnie każdy podtyp miałby osobną tabele - musiałoby tak być, aby móc stworzyć klucz główny dla rezerwacji grupowej. Powodowałoby to dużo złączeń przy najczęstszej operacji, czyli wyświetlania rezerwacji.
 
 \begin{figure}[H]
   \begin{center}
@@ -2199,7 +2199,7 @@ Model stawek zawiera encje, które pozwalają na dokładne określenie stawek na
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[width=\textwidth]{../img/stawki-logiczny-v6.pdf}
+    \includegraphics[width=\textwidth]{../img/stawki-logiczny-v7.pdf}
   }
   \end{center}
   \caption{Model stawek}
@@ -2219,7 +2219,7 @@ Encja stawka określa stawki na pokoje. Encja posiada sztuczny identyfikator. En
 \end{itemize}
 
 \subsubsection{Stawka pakietowa}
-Stawka pakietowa jest związana z dobą pakietową \ref{noc-pakietowa}, która dalej jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny \ref{pakiet-walentynki}. Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu. Model pakietu został jest przedstawiony w osobnej części modelu \ref{model-pakietu-i-dodatkow}.
+Stawka pakietowa jest związana z dobą pakietową (\ref{noc-pakietowa}), która dalej jest związana z pakietem, który sam w sobie stanowi całą ofertę dla pobytu. Przykład takiego pakietu poznaliśmy podczas analizy dziedziny (\ref{pakiet-walentynki}). Stawka pakietowa stanowi konkretną cenę na pokój dla danego pakietu. Model pakietu został jest przedstawiony w osobnej części modelu (\ref{model-pakietu-i-dodatkow}).
 
 Encja stawka daje ogromne możliwości w określaniu stawek i spełnia wszystkie wymagania dotyczące określania stawek na pokoje. 
 
@@ -2255,7 +2255,7 @@ W tej części modelu przedstawione zostaną encje, które częściowo były wid
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[width=\textwidth]{../img/pakiet-logiczny-v5.pdf}
+    \includegraphics[width=\textwidth]{../img/pakiet-logiczny-v6.pdf}
   }
   \end{center}
   \caption{Model pakietu i dodatków}
@@ -2276,13 +2276,13 @@ Pakiet może być dostępny tylko w określonym czasie. Tą funkcjonalność rea
 Encja doba pakietowa pozwala na określenie ceny dla każdej doby z osobna na każdy pokój w ofercie pakietu z pobytem. Taka precyzja pozwala na budowanie wyrafinowanych ofert. Encja jest encją słabą identyfikowaną poprzez związek z pakietem oraz sekwencję.
 
 \subsection{Dodatek}
-Encja dodatek określa cenę, nazwę i maksymalną zniżkę na dany produkt \ref{model-produkt}. Każdy dodatek ma określony sposób realizacji oraz sposób kalkulacji opłaty za dodatek. Encja dodatek posiada sztuczny identyfikator.
+Encja dodatek określa cenę, nazwę i maksymalną zniżkę na dany produkt (\ref{model-produkt}). Każdy dodatek ma określony sposób realizacji oraz sposób kalkulacji opłaty za dodatek. Encja dodatek posiada sztuczny identyfikator.
 
 \subsection{Sposób kalkulacji}
 Encja sposób kalkulacji pozwala na określenie w jaki sposób powinna być kalkulowana opłaca za dodatek. Możliwe sposoby kalkulacji to m.in. na osobę, na pokój, na dorosłego. Encja ta jest encją słownikową.
 
 \subsection{Sposób realizacji}
-Encja sposób realizacji umożliwia określenie tego kiedy dodatek ma zostać zrealizowany. Możliwe sposoby realizacji zostały zdefiniowane w punkcie \ref{sposob-realizacji} w wymaganiach funkcjonalnych \ref{wymagania-funkcjonalne}.
+Encja sposób realizacji umożliwia określenie tego kiedy dodatek ma zostać zrealizowany. Możliwe sposoby realizacji zostały zdefiniowane w punkcie \ref{sposob-realizacji} w wymaganiach funkcjonalnych (\ref{wymagania-funkcjonalne}).
 
 \subsection{Produkt}
 \label{model-produkt}
@@ -2334,7 +2334,7 @@ Złączenie numeru pokoju w jedną kolumnę i użycie jej w obu kluczach obcych 
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[scale=0.25, angle=270]{../img/model-fizyczny-v3.pdf}
+    \includegraphics[scale=0.25, angle=270]{../img/model-fizyczny-v4.pdf}
   }
   \end{center}
   \caption{Model fizyczny bazy danych}
@@ -2433,7 +2433,7 @@ Dalszy rozwój systemu powinien obejmować implementację rezerwacji grupowych, 
 \begin{figure}[H]
   \begin{center}
   \fbox{
-    \includegraphics[scale=0.25, angle=270]{../img/model-logiczny-calosc-v2-1.pdf}
+    \includegraphics[scale=0.25, angle=270]{../img/model-logiczny-calosc-v3.pdf}
   }
   \end{center}
   \caption{Model logiczny}
