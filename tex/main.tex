@@ -18,6 +18,7 @@
 \usepackage{bookman}
 
 \usepackage{geometry}
+\usepackage{capt-of}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 % \usepackage{t1enc}
@@ -2326,15 +2327,30 @@ Wartym odnotowania jest złączenie klucza obcego w tabeli stawki. Tabela stawki
 
 Złączenie numeru pokoju w jedną kolumnę i użycie jej w obu kluczach obcych uniemożliwia zdefiniowanie stawki rack dla pokoju innego niż ten sam pokój. Gdyby istniały dwie kolumny z numerem pokoju, to byłoby to możliwe. Można by temu zapobiec wymagając równości wartości w tych kolumnach poprzez dodatkowy warunek lub poprzez logikę aplikacji. Złączenie kolumn jest jednak najbardziej eleganckim rozwiązaniem.
 
-\begin{figure}[H]
-  \begin{center}
-  \fbox{
-    \includegraphics[scale=0.25, angle=270]{../img/model-fizyczny-v4.pdf}
-  }
-  \end{center}
-  \caption{Model fizyczny bazy danych}
-  \label{fig:db-physical-model}
-\end{figure}
+
+% \begin{figure}[H]
+%   \begin{center}
+%   \fbox{
+%     \includegraphics[scale=0.25, angle=270]{../img/model-fizyczny-v4.pdf}
+%   }
+%   \end{center}
+%   \caption{Model fizyczny bazy danych}
+  
+% \end{figure}
+
+\clearpage
+ {\pdfpagewidth=2\pdfpagewidth
+    \vspace*{1cm}
+    \noindent\kern.5\pdfpagewidth\rlap{\parbox{\textwidth}{%
+    \noindent\kern.25\pdfpagewidth
+        \llap{\includegraphics[width=308mm,height=209mm,page=1]{../img/model-fizyczny-v4.pdf}\label{fig:db-physical-model}}\endgraf
+    \vspace{2ex}%
+    \captionof{figure}{Model fizyczny bazy danych}}}\kern-.5\pdfpagewidth
+     \par
+     \vspace*{-5cm}
+\clearpage
+}
+
 
 \section{Dostęp do danych}
 Tradycyjną metodą dostępu do danych jest mapowanie na obiekty typu POJO\footnote{ang. Plain Old Java Object}, czyli proste obiekty javowe, zawierające tylko atrybuty oraz metody ,,getXXX'' oraz ,,setXXX''. Następnie, aby zaimplementować typową funkcjonalność zapisywania, odczytów, aktualizacji oraz usuwania obiektów stosuje się wzorzec DAO\footnote{ang. Data Access Object}, który zapewnia tę podstawową funkcjonalność.
@@ -2425,15 +2441,29 @@ Dalszy rozwój systemu powinien obejmować implementację rezerwacji grupowych, 
 
 \chapter{Pełny model logiczny}
 \label{dodatek-model-logiczny}
-\begin{figure}[H]
-  \begin{center}
-  \fbox{
-    \includegraphics[scale=0.25, angle=270]{../img/model-logiczny-calosc-v3.pdf}
-  }
-  \end{center}
-  \caption{Model logiczny}
-  \label{fig:db-logical-model-full}
-\end{figure}
+% \begin{figure}[H]
+%   \begin{center}
+%   \fbox{
+%     \includegraphics[scale=0.25, angle=270]{../img/model-logiczny-calosc-v3.pdf}
+%   }
+%   \end{center}
+%   \caption{Model logiczny}
+%   \label{fig:db-logical-model-full}
+% \end{figure}
+
+%\clearpage
+ {\pdfpagewidth=2\pdfpagewidth
+    \vspace*{1cm}
+    \noindent\kern.5\pdfpagewidth\rlap{\parbox{\textwidth}{%
+    \noindent\kern.25\pdfpagewidth
+        \llap{\includegraphics[width=308mm,height=189mm,page=1]{../img/model-logiczny-calosc-v3.pdf}\label{fig:db-logical-model-full}}\endgraf
+    \vspace{2ex}%
+    \captionof{figure}{Model logiczny}}}\kern-.5\pdfpagewidth
+     \par
+     \vspace*{-5cm}
+\clearpage
+}
+
 
 \chapter{Wygląd aplikacji}
 TODO
