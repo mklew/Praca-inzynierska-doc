@@ -183,12 +183,19 @@ framerule=0.1pt,
 % \input {chap1}
 %%%% ROZDZIAŁ PIERWSZY %%%%%%%
 
-\chapter{Wprowadzenie}
+\chapter{Wstęp}
 \section{Motywacja}
-Z usług hotelowych korzystał prawdopodobnie każdy z nas. Nie każdy natomiast wie jak wygląda sytuacja po drugiej stronie. Hotelarz musi poradzić sobie z dużym wolumenem danych, które zmieniają się dość dynamicznie. Goście przyjeżdżają i wyjeżdżają, napływają kolejne rezerwacje, inne są odwoływane, pokoje muszą być czyste na czas, zamówione usługi przez gości muszą być wykonane na ich życzenie. Kontrola tych wszystkich informacji i synchronizacja pracy w czasie wymaga wsparcia ze strony systemu informatycznego.
+Z usług hotelowych korzystał niemal każdy z nas. Jednak mało kto wie jak wygląda sytuacja po drugiej stronie. Hotelarz musi poradzić sobie z dużym wolumenem danych, które zmieniają się dość dynamicznie. Goście przyjeżdżają i wyjeżdżają, napływają kolejne rezerwacje, inne są odwoływane, pokoje muszą być czyste na czas, zamówione usługi przez gości muszą być wykonane na ich życzenie. Kontrola tych wszystkich informacji i synchronizacja pracy w czasie wymaga wsparcia ze strony systemu informatycznego.
 
 \section{Cel pracy}
-Celem pracy było stworzenie prototypu aplikacji zarządzającej obłożeniem hotelu. Założeniem pracy było wykorzystanie architektury trójwarstwowej przy budowie aplikacji. Kolejnym założeniem był wybór języka Java, który jest obiektowym językiem wysokiego poziomu. Wybrana architektura pozwoliła na zbudowanie prototypu aplikacji o niskim koszcie utrzymania oraz wysokim potencjale rozwoju.
+Celem pracy jest stworzenie prototypu aplikacji wspomagającej zarządzanie obłożeniem hotelu. 
+Przy budowie aplikacji założono wykorzystanie architektury trójwarstwowej oraz użycie języka Java, który jest obiektowym językiem wysokiego poziomu. 
+Projektowany system ma ułatwić codzienną pracę hotelarza poprzez wsparcie w zakresie kontroli obłożenia hotelu, obsługi gości podczas pobytu i zarządzaniu rezerwacją od momentu jej złożenia, aż do końca pobytu i opuszczenia hotelu przez gości.
+
+% Zaprojektowany system powinien znacząco odciążyć hotelarza w jego pracy poprzez wsparcie w zarządzaniu rezerwacją, pobytem gości oraz ułatwieniem kontroli obłożenia hotelu w czasie.
+
+
+%Wybrana architektura pozwoliła na zbudowanie prototypu aplikacji o niskim koszcie utrzymania oraz wysokim potencjale rozwoju.
 
 \chapter{Analiza dziedziny} 
 \label{analiza-dziedziny}
@@ -2353,7 +2360,7 @@ Niestety, takie podejście prowadzi do tzw. anemicznego modelu. Oznacza, \mbox{t
 Podobne zagrożenie występuje ze strony metod ,,getXXX'' zwracających mutowalne\footnote{mogące zmienić swój stan} obiekty. Metodą obrony przed tym jest albo defensywne programowanie poprzez tworzenie kopii obiektów, albo używanie niemutowalnych obiektów\footnote{ang. immutable objects.}. Każda zmiana w niemutowalnym obiekcie powoduje utworzenie nowego obiektu. Taki obiekt może być zatem swobodnie udostępniany bez potrzeby kopiowania.
 
 Posiadając bogaty model można posługiwać się terminami DDD. Obiekty posiadające tożsamość w nomenklaturze DDD nazywa się encjami. Obiekty, które posiadają inne encje oraz obiekty-wartości nazywa się agregatami. Agregatem jest np. rezerwacja, pokój i gość.
-
+\clearpage
 \begin{lstlisting}[language=Java,style=outcode,caption=anemiczne POJO]
 public class Room
 {
@@ -2422,14 +2429,14 @@ Oprócz testów jednostkowych tworzyłem testy integracyjne. Testy integracyjne 
 \chapter{Podsumowanie}
 
 \section{Wnioski}
-Wynikiem tej pracy jest kompletny projekt modelu systemu oraz jego częściowa implementacja w postaci działającego i funkcjonalnego prototypu aplikacji. Zaprojektowany system spełnia wszystkie postawione mu wymagania. System pozwala na tworzenie rezerwacji pojedynczej i grupowej, zarządzanie informacjami gości, tworzenie stawek rack, sezonowych i pakietowych dla określonych osób lub/i typów osób, zarządzanie pokojami oraz sprzedaż usług dodatkowych.
+% Wynikiem tej pracy jest kompletny projekt modelu systemu oraz jego częściowa implementacja w postaci działającego i funkcjonalnego prototypu aplikacji. Zaprojektowany system spełnia wszystkie postawione mu wymagania. System pozwala na tworzenie rezerwacji pojedynczej i grupowej, zarządzanie informacjami gości, tworzenie stawek rack, sezonowych i pakietowych dla określonych osób lub/i typów osób, zarządzanie pokojami oraz sprzedaż usług dodatkowych.
+Wynikiem tej pracy jest prototyp systemu do zarządzania obłożeniem hotelu.
+System ten pozwala na dokonywanie rezerwacji pojedynczych według stawek rack i stawek sezonowych, przeprowadzenie prostego audytu nocnego, zarządzanie informacjami gości, łatwy podgląd obłożenia hotelu, przyjazdów, wyjazdów i statystyk hotelu. Prototyp aplikacji nadaje się do użytku dla małego zakładu hotelarskiego.
 
-Prototyp aplikacji pozwala na dokonywanie rezerwacji pojedynczej według stawek rack i stawek sezonowych, przeprowadzenie prostego audytu nocnego, zarządzanie informacjami gości, łatwy podgląd obłożenia hotelu, przyjazdów, wyjazdów i statystyk hotelu. Prototyp aplikacji nadaje się do użytku dla małego zakładu hotelarskiego. W przypadku pełnej implementacji powstałby zaawansowany produkt użyteczny dla średniej wielkości hotelu.
-
-Decyzje dotyczące wyboru konkretnych technologii okazały się bardzo trafne. Wybrane technologie pozwoliły na stworzenie nowoczesnej, przyjaznej dla użytkownika, całkowicie dynamicznej, zapewniającej bogate doświadczenia podczas użytkowania, funkcjonalnej i łatwo rozwijalnej aplikacji. Cel pracy został osiągnięty.
+W ramach pracy wykonana została analiza dziedziny, porównanie dostępnych technologii, projekt systemu oraz implementacja prototypu. Na podstawie analizy dziedziny utworzone zostały wymagania funkcjonalne i niefunkcjonalne. Na podstawie tych wymagań oraz wiedzy domenowej zrealizowany został projekt systemu. W ramach projektu wybrane zostały odpowiednie rozwiązania technologiczne oraz utworzono makiety systemu. Następnie utworzony został model domeny. Końcowym etapem pracy była implementacja modelu w oparciu o relacyjną bazę danych oraz utworzenie kodu aplikacji. Technologie wybrane do realizacji systemu pozwoliły na stworzenie nowoczesnej, przyjaznej dla użytkownika, całkowicie dynamicznej, zapewniającej bogate doświadczenia podczas użytkowania, funkcjonalnej i łatwo rozwijalnej aplikacji. Podsumowując, należy stwierdzić iż, cel pracy został osiągnięty.
 
 \section{Dalszy rozwój}
-Dalszy rozwój systemu powinien obejmować implementację rezerwacji grupowych, obsługę wszystkich typów klientów, generowanie raportów, zarządzanie pakietami i dodatkami, obsługę stawki pakietowej oraz wsparcie dla służby pięter. Należałoby także zrealizować publiczną część systemu i umożliwić wystawianie ofert pakietowych w internecie oraz dokonywanie rezerwacji on-line. Ważnym elementem przy rezerwacji on-line byłaby integracja z zewnętrznymi systemami płatności. \mbox{W celu} udostępnienia oferty hotelu dla biur turystycznych należałoby także zintegrować system z systemami typu CRS.
+Zaimplementowany system posiada tylko podstawową funkcjonalność potrzebną do obsługi hotelu. Wprowadzenie produktu na rynek wymagałoby dostarczenia szerszej funkcjonalności. Dalszy rozwój systemu powinien obejmować implementację rezerwacji grupowych, obsługę wszystkich typów klientów w tym klienta korporacyjnego i agenta turystycznego, generowanie raportów, zarządzanie pakietami i dodatkami, obsługę stawki pakietowej oraz wsparcie dla służby pięter. Należałoby także zrealizować publiczną część systemu i umożliwić wystawianie ofert pakietowych w internecie oraz dokonywanie rezerwacji on-line. Ważnym elementem przy rezerwacji on-line będzie integracja z zewnętrznymi systemami płatności. \mbox{W celu} udostępnienia oferty hotelu dla biur turystycznych należy także zintegrować system z systemami typu CRS.
 
 %% koniec %%
 
